@@ -40,6 +40,10 @@ public class MonsterSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+         if (!GameManager.instance.isStart || GameManager.instance.isGameover)
+        {
+             return; // 게임이 시작되지 않았거나 게임오버 상태인 경우 아무 작업도 하지 않음
+        }
         // 1. Win Process ==> 웨이브가 끝나고, 몬스터가 모두 사망했을 시 게임 종료
         if(wave > monsterList.monsterPrefabs.Count && Monsters.Count == 0) {   
             GameManager.instance.EndGame();
@@ -48,22 +52,26 @@ public class MonsterSpawner : MonoBehaviour
         // if(GameManager.instance.life <= 0) {
         //     GameManager.instance.EndGame();
         // }
-
-        if(GameManager.instance.isStart == true && GameManager.instance.isGameover == false) {
-            UpdateUI();
-            if(Time.time >= spawnTime + nextWave) {
-                spawnTime += nextWave;
-                SpawnWave();
-                UIManager.instance.UpdateWave(wave);
-            }   
-        }
-
+        UpdateUI();
+     
+        if(Time.time >= spawnTime) {
+            spawnTime = Time.time + nextWave;
+            SpawnWave();
+            UIManager.instance.UpdateWave(wave);
+        }   
+        
         
         //  if (GameManager.instance != null && GameManager.instance.isGameover)
         // {
         //     return;
         // }
 
+    }
+
+    public void StartSpawning()
+    {   
+        spawnTime = Time.time;
+        SpawnWave();
     }
 
      private void UpdateUI() {
@@ -90,11 +98,12 @@ public class MonsterSpawner : MonoBehaviour
                 Destroy(monster.gameObject);
                 // 플레이어 공격
             };
-
+            
             monster.OnDeath += () => {
                 Monsters.Remove(monster);
                 Destroy(monster.gameObject);
                 GameManager.instance.GainGold(monster.gold);
+                
             };
 
             Debug.Log("적군 생성 => " + monsterData.monsterName + " 체력 :" + monsterData.health);

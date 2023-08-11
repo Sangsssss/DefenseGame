@@ -19,7 +19,7 @@ public class Monster : MonoBehaviour, IDamageable
     
     private int roopCount;
     public bool isDied = false;
-    public int limitedRoop;
+    private int limitedRoop = 1;
 
     public event Action OnDeath;
     public event Action OnAttack;
@@ -48,7 +48,7 @@ public class Monster : MonoBehaviour, IDamageable
             // 몬스터 => Player Attack 시행
             Attack();  
         }
-        if(isDied && agent.remainingDistance <= agent.stoppingDistance) {
+        if(!isDied && agent.remainingDistance <= agent.stoppingDistance) {
             MoveToNextWayPoint();
         }
     }

@@ -32,6 +32,7 @@ public class UnitSpawner : MonoBehaviour
         if(GameManager.instance.goldCount < 2) {
             UIManager.instance.LackOfGold();
             return;
+            
         }
 
         // 2. 골드 충분 ==> 유닛 생성 후 골드 감소
@@ -40,6 +41,7 @@ public class UnitSpawner : MonoBehaviour
         GameObject newUnit = Instantiate(unitPrefab, position, Quaternion.identity);
 
         GameManager.instance.UseGold();
+        
 
         if(newUnit != null) {
             rtsUnitController.AddUnitToList(newUnit);

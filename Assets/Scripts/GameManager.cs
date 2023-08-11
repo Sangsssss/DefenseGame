@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public bool isGameover = false;
     public float startTime = 5f;
     
+    
+    
 
     public int goldCount;
 
@@ -68,4 +70,5 @@ public class GameManager : MonoBehaviour
         isGameover = true;
         UIManager.instance.EndGame();
     }
+
 }

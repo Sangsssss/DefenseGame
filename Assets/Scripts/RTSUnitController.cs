@@ -37,6 +37,7 @@ public class RTSUnitController : MonoBehaviour
         UnitStats unitStats = newUnit.GetComponent<UnitStats>();
 
         AllUnits.Add(unitMovement);
+ 
         switch (unitStats.Attribute)
         {
             case "fire":
@@ -66,6 +67,7 @@ public class RTSUnitController : MonoBehaviour
         for(int i = 0; i < selectedUnitList.Count; i++) {
             selectedUnitList[i].Move(Destination);
         }
+        
 
         bool allUnitsMove = true;
         // 모든 유닛이 멈출 때까지 반복
