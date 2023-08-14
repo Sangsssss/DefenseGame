@@ -20,8 +20,11 @@ public class MonsterSpawner : MonoBehaviour
     
     private int wave = 1;
     private float spawnTime = 0;
+    private int spawnCount = 0;
 
-    public int spawnCount = 5;
+    public int normalSpawnCount = 5;
+    public int bossSpawnCount = 1;
+    
     [Range(0f, 20f)]
     public float nextWave;
     [Range(0f, 2f)]
@@ -45,22 +48,22 @@ public class MonsterSpawner : MonoBehaviour
              return; // 게임이 시작되지 않았거나 게임오버 상태인 경우 아무 작업도 하지 않음
         }
         // 1. Win Process ==> 웨이브가 끝나고, 몬스터가 모두 사망했을 시 게임 종료
-        if(wave > monsterList.monsterPrefabs.Count && Monsters.Count == 0) {   
-            GameManager.instance.EndGame();
-        }
         // 2. Lose Process ==> Player의 life가 모두 소멸 될 시.. 
-        // if(GameManager.instance.life <= 0) {
-        //     GameManager.instance.EndGame();
-        // }
+
+        // ===> required Detail Process 
+        if(wave > monsterList.monsterPrefabs.Count || GameManager.instance.life <= 0) {   
+            GameManager.instance.EndGame();
+            Debug.Log("게임 종료");
+        } 
+
         UpdateUI();
-     
         if(Time.time >= spawnTime) {
-            spawnTime = Time.time + nextWave;
-            SpawnWave();
-            UIManager.instance.UpdateWave(wave);
-        }   
-        
-        
+                spawnTime = Time.time + nextWave;
+                SpawnWave();
+                UIManager.instance.UpdateWave(wave);
+                Debug.Log("wave : " + wave);
+            }   
+       
         //  if (GameManager.instance != null && GameManager.instance.isGameover)
         // {
         //     return;
@@ -87,14 +90,21 @@ public class MonsterSpawner : MonoBehaviour
 
 
      public IEnumerator CreateEnemy() {
+        if(wave % 3 == 0 ) {
+            spawnCount = bossSpawnCount;
+        } else {
+            spawnCount = normalSpawnCount;
+        }
+
         for(int i = 0; i < spawnCount; i++) {
             MonsterData monsterData = monsterList.monsters[wave-1];
             Monster monster = Instantiate(monsterData.monsterPrefab, spawnPoint.position, spawnPoint.rotation);
-            monster.SetUp(monsterData.health, monsterData.gold, wayPoints);
+            monster.SetUp(monsterData.health, monsterData.damage ,monsterData.gold, wayPoints);
             Monsters.Add(monster);
 
             monster.OnAttack += () => {
                 Monsters.Remove(monster);
+                GameManager.instance.LoseLife(monster.damage);
                 Destroy(monster.gameObject);
                 // 플레이어 공격
             };

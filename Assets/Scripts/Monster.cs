@@ -15,6 +15,7 @@ public class Monster : MonoBehaviour, IDamageable
 
     // Delete After
     private float health;
+    public int damage;
     public int gold;
     
     private int roopCount;
@@ -53,9 +54,10 @@ public class Monster : MonoBehaviour, IDamageable
         }
     }
 
-    public void SetUp(float health, int gold, Transform[] wayPoints) {
+    public void SetUp(float health, int damage, int gold, Transform[] wayPoints) {
         this.wayPoints = wayPoints; 
         this.health = health;
+        this.damage = damage;
         this.gold = gold;
     }
 

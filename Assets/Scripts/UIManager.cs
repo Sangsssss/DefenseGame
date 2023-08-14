@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     public Text informationText;
     public Text unitStatus;
     public Text gold;
+    public Text life;
     
     // Start is called before the first frame update
 
@@ -56,6 +57,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdateGold(int goldCount) {
         gold.text = goldCount.ToString();
+    }
+
+    public void UpdateLife(int lifeCount) {
+        life.text = lifeCount.ToString();
     }
 
     public void UnitSpawn() {

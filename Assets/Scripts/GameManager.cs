@@ -13,11 +13,12 @@ public class GameManager : MonoBehaviour
     public bool isGameover = false;
     public float startTime = 5f;
     
-    
-    
-
     public int goldCount;
+    public int life;
 
+    public int drawGold = 2;
+
+    // 싱글톤 구성
     public static GameManager instance {
         get {
             if(m_instance == null) {
@@ -40,8 +41,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {   
         goldCount = 6;
+        life = 20;
         UIManager.instance.StartGame(); 
         UIManager.instance.UpdateGold(goldCount);  
+        UIManager.instance.UpdateLife(life);  
         backgroundMusic.Play();    
     }
 
@@ -60,10 +63,18 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateGold(goldCount);
     }
 
+
+    //
     public void UseGold() {
-        goldCount -= 2;
+        goldCount -= drawGold;
         UIManager.instance.UpdateGold(goldCount);
     }
+
+    public void LoseLife(int damage) {
+        life -= damage;
+        UIManager.instance.UpdateLife(life);
+    }
+
 
     public void EndGame()
     {   

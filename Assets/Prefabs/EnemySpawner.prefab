@@ -137,7 +137,8 @@ MonoBehaviour:
   - {fileID: 2375218047566732597, guid: 797cfe18c2d44b140b4ce4ac13d59000, type: 3}
   - {fileID: 7283432121701246629, guid: b32fe6b845aee20409079105d7fd14f9, type: 3}
   - {fileID: 708717626519586846, guid: 0ee934713760d1440b2c1f144529f09b, type: 3}
-  spawnCount: 3
+  normalSpawnCount: 5
+  bossSpawnCount: 1
   nextWave: 5.6
   nextSpawn: 0.51
 --- !u!114 &1625701119
@@ -155,6 +156,7 @@ MonoBehaviour:
   monsterPrefabs:
   - {fileID: 374059879, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
   - {fileID: -5713598156147584131, guid: c52f0be789dfd8f449671f1a039e08d3, type: 3}
+  - {fileID: -8531890948334798204, guid: c961c992e3ea64846a0ecc33378c2599, type: 3}
 --- !u!1 &4180904490602118413
 GameObject:
   m_ObjectHideFlags: 0
