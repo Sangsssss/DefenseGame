@@ -31,6 +31,14 @@ public class UIManager : MonoBehaviour
     public Text unitStatus;
     public Text gold;
     public Text life;
+    [SerializeField]
+    private Image card1;
+    [SerializeField]
+    private Image card2;
+    [SerializeField]
+    private Image card3;
+    [SerializeField]
+    private Image card4;
     
     // Start is called before the first frame update
 
@@ -111,6 +119,10 @@ public class UIManager : MonoBehaviour
         + "Light : " + light  + "\n"
         + "Darkness :" + darkness;
   
+    }
+
+    public void ChangeRandomCard() {
+        // 카드 4장을 각각 변경
     }
     
 }
