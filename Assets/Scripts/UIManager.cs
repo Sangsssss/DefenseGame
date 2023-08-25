@@ -121,8 +121,5 @@ public class UIManager : MonoBehaviour
   
     }
 
-    public void ChangeRandomCard() {
-        // 카드 4장을 각각 변경
-    }
     
 }
