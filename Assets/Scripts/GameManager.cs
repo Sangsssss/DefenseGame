@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
             }
             return m_instance;
         }
+        
     }
 
     // Start is called before the first frame update
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.StartGame(); 
         UIManager.instance.UpdateGold(goldCount);  
         UIManager.instance.UpdateLife(life);  
-        backgroundMusic.Play();    
+        backgroundMusic.Play();  
     }
 
     // Update is called once per frame
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         if(Time.time >= startTime && !isStart) {
             UIManager.instance.StartSpawn();
             isStart = true;
+            
         }
     }
 

@@ -35,10 +35,12 @@ public class UnitMovement : MonoBehaviour
 
     void Start()
     {   
+
         // originalContraints = rigidbody.constraints;
         // line.startWidth = 0.3f;
         // line.endWidth = 0.3f;
         // line.enabled = false;
+        
     }
 
     void Update() {

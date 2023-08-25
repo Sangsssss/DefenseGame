@@ -32,13 +32,6 @@ public class UIManager : MonoBehaviour
     public Text gold;
     public Text life;
     [SerializeField]
-    private Image card1;
-    [SerializeField]
-    private Image card2;
-    [SerializeField]
-    private Image card3;
-    [SerializeField]
-    private Image card4;
     
     // Start is called before the first frame update
 
