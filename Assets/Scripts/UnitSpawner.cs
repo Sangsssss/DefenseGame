@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.MPE;
 using UnityEngine;
+using static CardAttribute;
 
 public class UnitSpawner : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class UnitSpawner : MonoBehaviour
 
     // Gold 2 소비하며, 유닛 생성
 
-    public void CreateUnit() {
+    public void CreateUnit(CardType cardType) {
         // 1. 골드가 없을 시
         if(GameManager.instance.goldCount < 2) {
             UIManager.instance.LackOfGold();
@@ -37,7 +38,7 @@ public class UnitSpawner : MonoBehaviour
 
         // 2. 골드 충분 ==> 유닛 생성 후 골드 감소
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
-        GameObject unitPrefab = RandomUnit();
+        GameObject unitPrefab = LinkedUnit(cardType);
         GameObject newUnit = Instantiate(unitPrefab, position, Quaternion.identity);
 
         GameManager.instance.UseGold();
@@ -52,19 +53,18 @@ public class UnitSpawner : MonoBehaviour
 
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 
     // => Prefab마다 stat을 가짐 = SetUp 불필요, 
-    private GameObject RandomUnit() {
-        int randomInt = Random.Range(0, 101);
-        if(randomInt > 0 && randomInt <= 25) {
-            return unitPrefab[0]; // => fire ======. fire1, fire2, fire3, fire4, fire5 
+    private GameObject LinkedUnit(CardType cardType) {
+        if(cardType == CardType.Fire) {
+            return unitPrefab[0];
         }
-        else if(randomInt > 25 && randomInt <= 50) {
-            return unitPrefab[1]; // => ice
-        } 
-          else if(randomInt > 50 && randomInt <= 75) {
-            return unitPrefab[2]; // => light
+        else if(cardType == CardType.Ice) {
+            return unitPrefab[1];
+        }
+        else if(cardType == CardType.Light) {
+            return unitPrefab[2];
         } 
         else {
-            return unitPrefab[3]; // => darkness
-        }
+            return unitPrefab[3];
+        }  
     }
 }

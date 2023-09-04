@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     public Text gold;
     public Text life;
     [SerializeField]
+    private CardManager cardPanel;
     
     // Start is called before the first frame update
 

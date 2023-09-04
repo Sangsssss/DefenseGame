@@ -1050,6 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19384951a15cdc44b3b3da6db48e722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitSpawner: {fileID: 5328182569377628142}
   cardPrefabs:
   - {fileID: 7457048814805718764, guid: 334ec89b4ff2db545ae15cac5fa4aa51, type: 3}
   - {fileID: 3841477733142227872, guid: fe93dd4ce3e9bb645822dd073321df3c, type: 3}
@@ -1459,6 +1460,7 @@ MonoBehaviour:
   unitStatus: {fileID: 81443739}
   gold: {fileID: 160882332}
   life: {fileID: 2118831749}
+  cardPanel: {fileID: 590711977}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,7 +1627,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1023770180}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1023770180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2470,7 +2484,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1775012459}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1775012459
 MonoBehaviour:
   m_ObjectHideFlags: 0
