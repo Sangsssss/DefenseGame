@@ -10,7 +10,7 @@ public class IceUnitStats : UnitStats
         Damage = 1f;
         AttackRange = 5f;
         AttackSpeed = 1.2f;
-        Attribute = "ice";
+        Type = UnitType.Ice;
     }
 
     // Update is called once per frame

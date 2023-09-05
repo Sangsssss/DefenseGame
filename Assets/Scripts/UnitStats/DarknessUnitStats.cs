@@ -10,7 +10,7 @@ public class DarknessUnitStats : UnitStats
         Damage = 1f;
         AttackRange = 5f;
         AttackSpeed = 1.2f;
-        Attribute = "darkness";
+        Type = UnitType.Darkness;
     }
 
     // Update is called once per frame

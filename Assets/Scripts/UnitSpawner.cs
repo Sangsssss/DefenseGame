@@ -13,10 +13,12 @@ public class UnitSpawner : MonoBehaviour
     public List<GameObject> unitPrefab; //fire, ice, light, darkness
     private RTSUnitController rtsUnitController;
 
+
     // Start is called before the first frame update
     void Awake()
     {
         rtsUnitController = this.GetComponent<RTSUnitController>();
+        
     }
 
     // Update is called once per frame
@@ -40,9 +42,27 @@ public class UnitSpawner : MonoBehaviour
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
         GameObject unitPrefab = LinkedUnit(cardType);
         GameObject newUnit = Instantiate(unitPrefab, position, Quaternion.identity);
+        UnitStats unitStats = newUnit.GetComponent<UnitStats>();
+
+        if(unitStats != null) {
+            switch(unitStats.Type) {
+                case UnitStats.UnitType.Fire: 
+                    unitStats.Damage = GameManager.instance.GetComponent<FireUnitStats>().Damage;
+                    break;
+                case UnitStats.UnitType.Ice: 
+                    unitStats.Damage = GameManager.instance.GetComponent<IceUnitStats>().Damage;
+                    break;
+                case UnitStats.UnitType.Light:  
+                    unitStats.Damage = GameManager.instance.GetComponent<LightUnitStats>().Damage;
+                    break;
+                case UnitStats.UnitType.Darkness: 
+                    unitStats.Damage = GameManager.instance.GetComponent<DarknessUnitStats>().Damage;
+                    break;
+                
+            }    
+        }
 
         GameManager.instance.UseGold();
-        
 
         if(newUnit != null) {
             rtsUnitController.AddUnitToList(newUnit);

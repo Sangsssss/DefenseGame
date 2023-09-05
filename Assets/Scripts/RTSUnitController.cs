@@ -8,11 +8,14 @@ public class RTSUnitController : MonoBehaviour
     // Start is called before the first frame update
     public UnitSpawner unitSpanwer;
     public GameObject spot;
+
+    [SerializeField]
     public List<UnitMovement> AllUnits { private set; get;}
     public List<UnitMovement> FireUnits { private set; get;}
     public List<UnitMovement> IceUnits { private set; get;}
     public List<UnitMovement> LightUnits { private set; get;}
     public List<UnitMovement> DarknessUnits { private set; get;}
+
 
     private List<UnitMovement> selectedUnitList;
     void Awake()
@@ -25,11 +28,17 @@ public class RTSUnitController : MonoBehaviour
         DarknessUnits = new List<UnitMovement>();
     }
 
+    void Start() {
+        
+    }
+ 
     // Update is called once per frame
     void Update()
     {
         
     }
+
+
 
     public void AddUnitToList(GameObject newUnit)
     {   
@@ -38,18 +47,18 @@ public class RTSUnitController : MonoBehaviour
 
         AllUnits.Add(unitMovement);
  
-        switch (unitStats.Attribute)
+        switch(unitStats.Type)
         {
-            case "fire":
+            case UnitStats.UnitType.Fire:
                 FireUnits.Add(unitMovement);
                 break;
-            case "ice":
+            case UnitStats.UnitType.Ice:
                 IceUnits.Add(unitMovement);
                 break;
-            case "light":
+            case UnitStats.UnitType.Light:
                 LightUnits.Add(unitMovement);
                 break;
-            case "darkness":
+            case UnitStats.UnitType.Darkness:
                 DarknessUnits.Add(unitMovement);
                 break;
         }
