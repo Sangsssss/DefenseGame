@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement; // 씬 관리자 관련 코드
 using System.Transactions;
+using UnityEditor.UIElements;
+using System;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -33,6 +36,9 @@ public class UIManager : MonoBehaviour
     public Text life;
     [SerializeField]
     private CardManager cardPanel;
+
+    [SerializeField]
+    private Text[] upgradeStep;
     
     // Start is called before the first frame update
 
@@ -113,6 +119,10 @@ public class UIManager : MonoBehaviour
         + "Light : " + light  + "\n"
         + "Darkness :" + darkness;
   
+    }
+
+    public void UpdateUpgrade(int index, int newStep) {
+        upgradeStep[index].text = newStep.ToString();
     }
 
     

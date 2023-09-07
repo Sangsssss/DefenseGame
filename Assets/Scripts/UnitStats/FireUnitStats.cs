@@ -16,7 +16,7 @@ public class FireUnitStats : UnitStats
 
     // Update is called once per frame
     public override void UpgradeDamage()
-    {
+    {   
         base.UpgradeDamage();
     }
 

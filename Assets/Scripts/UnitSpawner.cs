@@ -30,12 +30,11 @@ public class UnitSpawner : MonoBehaviour
 
     // Gold 2 소비하며, 유닛 생성
 
-    public void CreateUnit(CardType cardType) {
+    public bool CreateUnit(CardType cardType) {
         // 1. 골드가 없을 시
         if(GameManager.instance.goldCount < 2) {
             UIManager.instance.LackOfGold();
-            return;
-            
+            return false;  
         }
 
         // 2. 골드 충분 ==> 유닛 생성 후 골드 감소
@@ -69,6 +68,7 @@ public class UnitSpawner : MonoBehaviour
         }
 
         Debug.Log("유닛생성!");
+        return true;
     }
 
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 

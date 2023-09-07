@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     private AudioSource backgroundMusic;
 
     public bool isStart = false;
@@ -18,6 +17,10 @@ public class GameManager : MonoBehaviour
 
     public int drawGold = 2;
 
+    // 총 4가지 타입의 강화
+    private int[] steps = new int[4];
+
+
     // 싱글톤 구성
     public static GameManager instance {
         get {
@@ -26,7 +29,6 @@ public class GameManager : MonoBehaviour
             }
             return m_instance;
         }
-        
     }
 
     // Start is called before the first frame update
@@ -36,18 +38,20 @@ public class GameManager : MonoBehaviour
         if(instance != this) {
             Destroy(gameObject);
         }
-        
         backgroundMusic = this.GetComponent<AudioSource>();
     }
 
     void Start()
     {   
+        for(int i = 0; i<steps.Length; i++) {
+            steps[i] = 1;
+        }
         goldCount = 6;
         life = 20;
         UIManager.instance.StartGame(); 
         UIManager.instance.UpdateGold(goldCount);  
         UIManager.instance.UpdateLife(life);  
-        backgroundMusic.Play();  
+        backgroundMusic.Play();    
     }
 
     // Update is called once per frame
@@ -57,7 +61,6 @@ public class GameManager : MonoBehaviour
         if(Time.time >= startTime && !isStart) {
             UIManager.instance.StartSpawn();
             isStart = true;
-            
         }
     }
 
@@ -83,6 +86,12 @@ public class GameManager : MonoBehaviour
     {   
         isGameover = true;
         UIManager.instance.EndGame();
+    }
+
+    public void UpdateUpgrade(int index) {
+        steps[index] += 1;
+        Debug.Log(steps[index]);
+        UIManager.instance.UpdateUpgrade(index, steps[index]);
     }
 
 }

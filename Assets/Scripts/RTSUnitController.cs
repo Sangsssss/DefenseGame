@@ -11,10 +11,10 @@ public class RTSUnitController : MonoBehaviour
 
     [SerializeField]
     public List<UnitMovement> AllUnits { private set; get;}
-    public List<UnitMovement> FireUnits { private set; get;}
-    public List<UnitMovement> IceUnits { private set; get;}
-    public List<UnitMovement> LightUnits { private set; get;}
-    public List<UnitMovement> DarknessUnits { private set; get;}
+    public List<UnitStats> FireUnits { private set; get;}
+    public List<UnitStats> IceUnits { private set; get;}
+    public List<UnitStats> LightUnits { private set; get;}
+    public List<UnitStats> DarknessUnits { private set; get;}
 
 
     private List<UnitMovement> selectedUnitList;
@@ -22,22 +22,39 @@ public class RTSUnitController : MonoBehaviour
     {
         selectedUnitList = new List<UnitMovement>();
         AllUnits = new List<UnitMovement>();
-        FireUnits = new List<UnitMovement>();
-        IceUnits = new List<UnitMovement>();
-        LightUnits = new List<UnitMovement>();
-        DarknessUnits = new List<UnitMovement>();
+        FireUnits = new List<UnitStats>();
+        IceUnits = new List<UnitStats>();
+        LightUnits = new List<UnitStats>();
+        DarknessUnits = new List<UnitStats>();
     }
 
     void Start() {
         
     }
- 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+    // linked each type buttons by index
+    public void UpgradeUnits(int index, float upgradeDamage) {  
+        // Upgrade Fire Units 
+        if(index == 0) {
+            for(int i = 0; i<FireUnits.Count; i++) {
+                FireUnits[i].GetComponent<UnitStats>().Damage = upgradeDamage;
+            }
+        }
+        // Upgrade Ice Units 
+        else if (index == 1) {
+             for(int i = 0; i<IceUnits.Count; i++) {
+                IceUnits[i].GetComponent<UnitStats>().Damage = upgradeDamage;
+            }
+        }
+        // Upgrade Light Units
+        else if (index == 2) {
+
+        }
+        // Upgrade Darkness Units 
+        else {
+
+        }
+    }
 
 
     public void AddUnitToList(GameObject newUnit)
@@ -50,16 +67,16 @@ public class RTSUnitController : MonoBehaviour
         switch(unitStats.Type)
         {
             case UnitStats.UnitType.Fire:
-                FireUnits.Add(unitMovement);
+                FireUnits.Add(unitStats);
                 break;
             case UnitStats.UnitType.Ice:
-                IceUnits.Add(unitMovement);
+                IceUnits.Add(unitStats);
                 break;
             case UnitStats.UnitType.Light:
-                LightUnits.Add(unitMovement);
+                LightUnits.Add(unitStats);
                 break;
             case UnitStats.UnitType.Darkness:
-                DarknessUnits.Add(unitMovement);
+                DarknessUnits.Add(unitStats);
                 break;
         }
         UIManager.instance.UpdateUnitStatus(AllUnits.Count, FireUnits.Count, IceUnits.Count, LightUnits.Count, DarknessUnits.Count);

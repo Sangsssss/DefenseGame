@@ -104,6 +104,7 @@ public class UnitAttack : MonoBehaviour
         Transform projectileInstance = Instantiate(projectilePrefab, handPosition.position, targetRotation);
 
         Projectile projectile = projectileInstance.GetComponent<Projectile>();
+        Debug.Log(unitStats.Damage);
         projectile.SetUp(targetMonster, unitStats.Damage);
 
         isAttacking = false;

@@ -10,6 +10,7 @@ public class CardManager : MonoBehaviour
     private UnitSpawner unitSpawner;
     // Start is called before the first frame update
     public List<GameObject> cardPrefabs; // 카드 이미지들을 저장할 리스트 = Ex. 4
+    public Sprite cardShirt;
     public Image[] cardImages; // 카드 이미지를 표시할 UI 이미지들
     public Button drawButton; // 카드를 뽑는 버튼   
     private List<GameObject> selectedCards = new List<GameObject>(); // 선택된 카드들을 저장할 리스트
@@ -39,9 +40,9 @@ public class CardManager : MonoBehaviour
         {
             if (i < selectedCards.Count)
             {   
-
                 cardImages[i].sprite = selectedCards[i].GetComponent<Image>().sprite;
                 cardImages[i].gameObject.SetActive(true);
+                cardImages[i].GetComponent<Button>().interactable = true;
             }
             else
             {
@@ -53,6 +54,13 @@ public class CardManager : MonoBehaviour
 
     // unitSpawner를 참조해서 유닛을 스폰하는게 옳은 방법일까??
     public void SpawnUnit(int index) {
-         unitSpawner.CreateUnit(selectedCards[index].GetComponent<CardAttribute>().cardType);
+
+         if(unitSpawner.CreateUnit(selectedCards[index].GetComponent<CardAttribute>().cardType)) {
+            // 카드 뒤집기 
+            cardImages[index].sprite = cardShirt;
+         // 버튼 못 누르게 하기...
+            cardImages[index].GetComponent<Button>().interactable = false;
+         }
+         
     }
 }
