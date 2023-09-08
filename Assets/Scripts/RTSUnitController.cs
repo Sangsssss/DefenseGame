@@ -57,6 +57,7 @@ public class RTSUnitController : MonoBehaviour
     }
 
 
+
     public void AddUnitToList(GameObject newUnit)
     {   
         UnitMovement unitMovement = newUnit.GetComponent<UnitMovement>();
@@ -152,4 +153,8 @@ public class RTSUnitController : MonoBehaviour
         selectedUnitList.Remove(newUnit);
     }
 
+    public void SellUnit() {
+        
+        // 마우스 커서를 클릭했을 때, 커서에 위치한 유닛을 판매 
+    }
 }

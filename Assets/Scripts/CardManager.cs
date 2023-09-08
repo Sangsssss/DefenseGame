@@ -27,7 +27,7 @@ public class CardManager : MonoBehaviour
     
 
     // 카드 리셋
-    private void DrawCards() {
+    public void DrawCards() {
         selectedCards.Clear();
         for (int i = 0; i < 4; i++)
         {   
