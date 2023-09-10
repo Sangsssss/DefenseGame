@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RTSUnitController : MonoBehaviour
@@ -80,6 +81,13 @@ public class RTSUnitController : MonoBehaviour
                 DarknessUnits.Add(unitStats);
                 break;
         }
+        unitMovement.OnSell += () => {
+                SellUnit(unitMovement);
+                // AllUnits.Remove(unitMovement);
+                // Destroy(unitMovement.gameObject);
+                //GameManager.instance.GainGold(monster.gold);
+            };
+
         UIManager.instance.UpdateUnitStatus(AllUnits.Count, FireUnits.Count, IceUnits.Count, LightUnits.Count, DarknessUnits.Count);
     }
 
@@ -153,8 +161,9 @@ public class RTSUnitController : MonoBehaviour
         selectedUnitList.Remove(newUnit);
     }
 
-    public void SellUnit() {
-        
+    public void SellUnit(UnitMovement targetUnit) {
         // 마우스 커서를 클릭했을 때, 커서에 위치한 유닛을 판매 
+        AllUnits.Remove(targetUnit);
+        Destroy(targetUnit.gameObject);
     }
 }
