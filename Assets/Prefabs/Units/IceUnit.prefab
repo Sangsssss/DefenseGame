@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 4051462067846731678}
   - component: {fileID: 1457735182872762180}
   - component: {fileID: -8953169587849517717}
+  - component: {fileID: -2703453153377801756}
   m_Layer: 6
   m_Name: IceUnit
   m_TagString: Player
@@ -186,6 +187,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 450acde3041861a459ddacf9057e87fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2703453153377801756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280893241393091054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1262cc67ce5176f4bba93b94b1d3b46d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8280893239651316983

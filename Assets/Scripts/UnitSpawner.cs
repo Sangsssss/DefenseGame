@@ -10,7 +10,7 @@ public class UnitSpawner : MonoBehaviour
     private Vector2 spawnPostionMin = new Vector2(-2, -2);
     private Vector2 spawnPostionMax = new Vector2(2, 2);
 
-    public List<GameObject> unitPrefab; //fire, ice, light, darkness
+    public List<Unit> unitPrefab; //fire, ice, light, darkness
     private RTSUnitController rtsUnitController;
 
 
@@ -18,7 +18,6 @@ public class UnitSpawner : MonoBehaviour
     void Awake()
     {
         rtsUnitController = this.GetComponent<RTSUnitController>();
-        
     }
 
     // Update is called once per frame
@@ -39,8 +38,11 @@ public class UnitSpawner : MonoBehaviour
 
         // 2. 골드 충분 ==> 유닛 생성 후 골드 감소
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
-        GameObject unitPrefab = LinkedUnit(cardType);
-        GameObject newUnit = Instantiate(unitPrefab, position, Quaternion.identity);
+        
+        Unit unitPrefab = LinkedUnit(cardType);
+        Unit newUnit = Instantiate(unitPrefab, position, Quaternion.identity);
+
+        // 유닛 스탯 스크립트에서 타입을 확인하기 위함
         UnitStats unitStats = newUnit.GetComponent<UnitStats>();
 
         if(unitStats != null) {
@@ -60,8 +62,12 @@ public class UnitSpawner : MonoBehaviour
                 
             }    
         }
+        GameManager.instance.DrawCard();
 
-        GameManager.instance.UseGold();
+        newUnit.OnSell += () => {
+            Destroy(newUnit.gameObject);
+            GameManager.instance.GainGold(2);
+        };
 
         if(newUnit != null) {
             rtsUnitController.AddUnitToList(newUnit);
@@ -73,7 +79,7 @@ public class UnitSpawner : MonoBehaviour
 
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 
     // => Prefab마다 stat을 가짐 = SetUp 불필요, 
-    private GameObject LinkedUnit(CardType cardType) {
+    private Unit LinkedUnit(CardType cardType) {
         if(cardType == CardType.Fire) {
             return unitPrefab[0];
         }
@@ -86,5 +92,6 @@ public class UnitSpawner : MonoBehaviour
         else {
             return unitPrefab[3];
         }  
+
     }
 }

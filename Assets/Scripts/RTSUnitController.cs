@@ -59,13 +59,13 @@ public class RTSUnitController : MonoBehaviour
 
 
 
-    public void AddUnitToList(GameObject newUnit)
+    public void AddUnitToList(Unit newUnit)
     {   
         UnitMovement unitMovement = newUnit.GetComponent<UnitMovement>();
         UnitStats unitStats = newUnit.GetComponent<UnitStats>();
 
         AllUnits.Add(unitMovement);
- 
+        
         switch(unitStats.Type)
         {
             case UnitStats.UnitType.Fire:
@@ -81,12 +81,6 @@ public class RTSUnitController : MonoBehaviour
                 DarknessUnits.Add(unitStats);
                 break;
         }
-        unitMovement.OnSell += () => {
-                SellUnit(unitMovement);
-                // AllUnits.Remove(unitMovement);
-                // Destroy(unitMovement.gameObject);
-                //GameManager.instance.GainGold(monster.gold);
-            };
 
         UIManager.instance.UpdateUnitStatus(AllUnits.Count, FireUnits.Count, IceUnits.Count, LightUnits.Count, DarknessUnits.Count);
     }
@@ -103,7 +97,6 @@ public class RTSUnitController : MonoBehaviour
             selectedUnitList[i].Move(Destination);
         }
         
-
         bool allUnitsMove = true;
         // 모든 유닛이 멈출 때까지 반복
         while(allUnitsMove) {
@@ -163,7 +156,12 @@ public class RTSUnitController : MonoBehaviour
 
     public void SellUnit(UnitMovement targetUnit) {
         // 마우스 커서를 클릭했을 때, 커서에 위치한 유닛을 판매 
+        // if(targetUnit != null) {
+        //     targetUnit.Sell();
+        // }
+        // targetUnit.Destroy();
         AllUnits.Remove(targetUnit);
-        Destroy(targetUnit.gameObject);
+        selectedUnitList.Remove(targetUnit);
+        targetUnit.GetComponent<Unit>().Sell();
     }
 }

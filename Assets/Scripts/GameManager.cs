@@ -6,16 +6,29 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private AudioSource backgroundMusic;
+    [SerializeField] private AudioClip shuffleCardSound;
+    [SerializeField] private AudioClip drawCardSound;
 
+    public enum GameStatus {
+        Start, Spawn, Ready, GameOver
+    }
+    public GameStatus gameStatus;
+
+ 
     public bool isStart = false;
-
     public bool isGameover = false;
+
     public float startTime = 5f;
     
     public int goldCount;
     public int life;
 
-    public int drawGold = 2;
+    public enum SpendType
+    {
+        Draw = 2,   // Draw에 대한 가격은 1
+        Shuffle = 2 // Shuffle에 대한 가격은 2
+    }
+
 
     // 총 4가지 타입의 강화
     private int[] steps = new int[4];
@@ -39,6 +52,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         backgroundMusic = this.GetComponent<AudioSource>();
+        gameStatus = GameStatus.Start;
     }
 
     void Start()
@@ -71,8 +85,9 @@ public class GameManager : MonoBehaviour
 
 
     //
-    public void UseGold() {
-        goldCount -= drawGold;
+    public void UseGold(SpendType type) {
+        int cost = (int) type;
+        goldCount -= cost;
         UIManager.instance.UpdateGold(goldCount);
     }
 
@@ -92,6 +107,16 @@ public class GameManager : MonoBehaviour
         steps[index] += 1;
         Debug.Log(steps[index]);
         UIManager.instance.UpdateUpgrade(index, steps[index]);
+    }
+
+    public void ShuffleCard() {
+        backgroundMusic.PlayOneShot(shuffleCardSound);
+        UseGold(SpendType.Shuffle);
+    }  
+
+    public void DrawCard() {
+        backgroundMusic.PlayOneShot(drawCardSound);
+        UseGold(SpendType.Draw);
     }
 
 }

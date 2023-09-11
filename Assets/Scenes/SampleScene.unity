@@ -3631,17 +3631,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 155730625}
     - target: {fileID: 5328182570878816153, guid: 9cd99bb1e8007ad44a7be03c4617fceb, type: 3}
+      propertyPath: unitPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: -5678364906741042147, guid: 1a2f71ff78dfd4647b870852859340c8, type: 3}
+    - target: {fileID: 5328182570878816153, guid: 9cd99bb1e8007ad44a7be03c4617fceb, type: 3}
       propertyPath: unitPrefab.Array.data[1]
       value: 
-      objectReference: {fileID: 8280893241393091054, guid: 0b7b995439aa01d4eac979e96cf82704, type: 3}
+      objectReference: {fileID: -2703453153377801756, guid: 0b7b995439aa01d4eac979e96cf82704, type: 3}
     - target: {fileID: 5328182570878816153, guid: 9cd99bb1e8007ad44a7be03c4617fceb, type: 3}
       propertyPath: unitPrefab.Array.data[2]
       value: 
-      objectReference: {fileID: 8280893241393091054, guid: 32db0b053e92d2e49b2324581bc09d55, type: 3}
+      objectReference: {fileID: 9138676620269212072, guid: 32db0b053e92d2e49b2324581bc09d55, type: 3}
     - target: {fileID: 5328182570878816153, guid: 9cd99bb1e8007ad44a7be03c4617fceb, type: 3}
       propertyPath: unitPrefab.Array.data[3]
       value: 
-      objectReference: {fileID: 8280893241393091054, guid: 97a8e934f43fe8a40b4cd044b54a9a92, type: 3}
+      objectReference: {fileID: -7900274446024819898, guid: 97a8e934f43fe8a40b4cd044b54a9a92, type: 3}
     - target: {fileID: 5328182570878816154, guid: 9cd99bb1e8007ad44a7be03c4617fceb, type: 3}
       propertyPath: dragRectangle
       value: 

@@ -15,6 +15,10 @@ public class CardManager : MonoBehaviour
     public Button drawButton; // 카드를 뽑는 버튼   
     private List<GameObject> selectedCards = new List<GameObject>(); // 선택된 카드들을 저장할 리스트
 
+    void Awake() {
+       
+    }
+
     void Start()
     {   
         // 버튼에 이벤트 추가 ( == 카드 드로우)
@@ -23,11 +27,14 @@ public class CardManager : MonoBehaviour
             int cardIndex = i; // Closer 이슈 ==> i 값을 고정
             cardImages[i].GetComponent<Button>().onClick.AddListener(() => SpawnUnit(cardIndex));
         }
+        DrawCards();
     }
     
 
     // 카드 리셋
     public void DrawCards() {
+        // 카드 섞는 소리 재생
+        GameManager.instance.ShuffleCard();
         selectedCards.Clear();
         for (int i = 0; i < 4; i++)
         {   
