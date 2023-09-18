@@ -38,6 +38,9 @@ public class UIManager : MonoBehaviour
     private CardManager cardPanel;
 
     [SerializeField]
+    private Image rewardPanel;
+
+    [SerializeField]
     private Text[] upgradeStep;
     
     // Start is called before the first frame update
@@ -125,5 +128,8 @@ public class UIManager : MonoBehaviour
         upgradeStep[index].text = newStep.ToString();
     }
 
-    
+    public void drawRewardPanel()
+    {   
+        rewardPanel.gameObject.SetActive(true);
+    }
 }

@@ -12,14 +12,15 @@ public class MonsterList : MonoBehaviour
         monsters = new List<MonsterData>();
 
         // Adding a Slime monster to the list
-        AddMonster("OneEyeSlime", monsterPrefabs[0], 10, 1 ,1);
+        AddMonster(1, "OneEyeSlime", monsterPrefabs[0], 10, 1 ,1);
         // Adding a Goblin monster to the list
-        AddMonster("Slime", monsterPrefabs[1], 15, 2 , 2);
-        AddMonster("KingSlime", monsterPrefabs[2], 30, 20, 4);
+        AddMonster(2, "Slime", monsterPrefabs[1], 15, 2 , 2);
+        AddMonster(3, "KingSlime", monsterPrefabs[2], 30, 20, 4);
     }
 
-    void AddMonster(string monsterName, Monster monsterPrefab, int health, int damage, int gold) {
+    void AddMonster(int wave, string monsterName, Monster monsterPrefab, int health, int damage, int gold) {
         monsters.Add(new MonsterData {
+            wave = wave,
             monsterName = monsterName,
             monsterPrefab = monsterPrefab,
             health = health,
@@ -31,7 +32,8 @@ public class MonsterList : MonoBehaviour
 }
 
 public class MonsterData
-{
+{   
+    public int wave;
     public string monsterName;
     public Monster monsterPrefab;
     public int health;

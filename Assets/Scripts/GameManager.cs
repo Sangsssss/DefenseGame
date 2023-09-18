@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void GainGold(int gold) {
+        // 웨이브마다 골드 획득
         goldCount += gold;
         UIManager.instance.UpdateGold(goldCount);
     }
