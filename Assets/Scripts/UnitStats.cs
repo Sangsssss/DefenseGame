@@ -19,7 +19,5 @@ public class UnitStats : MonoBehaviour
     
     public virtual void UpgradeDamage() {
         Damage = (float)(Damage * 1.2);
-        
-        Debug.Log("Completed Upgrade : " + Damage);
     }
 }

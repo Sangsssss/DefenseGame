@@ -30,7 +30,7 @@ public class UnitUpgrade : MonoBehaviour
                 unitStats[index].UpgradeDamage(); // 해당 인덱스의 유닛 스탯 업그레이드 => 앞으로 생성될 유닛에도 영향
                 float upgradedDamage = unitStats[index].Damage; // 업그레이드된 데미지 가져오기
                 rtsUnitController.UpgradeUnits(index, upgradedDamage); // 업그레이드 정보를 컨트롤러에 전달
-                GameManager.instance.UpdateUpgrade(index);
+                GameManager.instance.UpdateUpgrade(index); // 업그레이드 단계를 최신화
                 Debug.Log("Completed Upgrade : " + upgradedDamage);
             }  
         }

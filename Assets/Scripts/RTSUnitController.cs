@@ -70,19 +70,21 @@ public class RTSUnitController : MonoBehaviour
         {
             case UnitStats.UnitType.Fire:
                 FireUnits.Add(unitStats);
+                UIManager.instance.UpdateUnitStatus(unitStats.Type, FireUnits.Count);
                 break;
             case UnitStats.UnitType.Ice:
                 IceUnits.Add(unitStats);
+                UIManager.instance.UpdateUnitStatus(unitStats.Type, IceUnits.Count);
                 break;
             case UnitStats.UnitType.Light:
                 LightUnits.Add(unitStats);
+                UIManager.instance.UpdateUnitStatus(unitStats.Type, LightUnits.Count);
                 break;
             case UnitStats.UnitType.Darkness:
                 DarknessUnits.Add(unitStats);
+                UIManager.instance.UpdateUnitStatus(unitStats.Type, DarknessUnits.Count);
                 break;
         }
-
-        UIManager.instance.UpdateUnitStatus(AllUnits.Count, FireUnits.Count, IceUnits.Count, LightUnits.Count, DarknessUnits.Count);
     }
 
     public void MoveSelected(Vector3 Destination) {

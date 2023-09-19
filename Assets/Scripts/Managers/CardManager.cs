@@ -20,7 +20,8 @@ public class CardManager : MonoBehaviour
     public Image[] rewardImages;
 
     public Button drawButton; // 카드를 뽑는 버튼   
-    private List<GameObject> selectedCards = new List<GameObject>(); // 선택된 카드들을 저장할 리스트
+    private List<GameObject> selectedSpawnCards = new List<GameObject>(); // 선택된 카드들을 저장할 리스트
+    private List<GameObject> selectedRewardCards = new List<GameObject>();
 
 
     public static CardManager Instance {
@@ -63,21 +64,20 @@ public class CardManager : MonoBehaviour
     // 카드 리셋
     public void DrawCards() {
         // 카드 섞는 소리 재생
-        
         GameManager.instance.ShuffleCard();
-        selectedCards.Clear();
+        selectedSpawnCards.Clear();
         for (int i = 0; i < 4; i++)
         {   
             // 랜덤하게 카드 선택
             GameObject randomCard = cardPrefabs[Random.Range(0, cardPrefabs.Count)];
-            selectedCards.Add(randomCard);
+            selectedSpawnCards.Add(randomCard);
         }
         // 선택된 카드 이미지를 UI에 표시
         for (int i = 0; i < cardImages.Length; i++)
         {
-            if (i < selectedCards.Count)
+            if (i < selectedSpawnCards.Count)
             {   
-                cardImages[i].sprite = selectedCards[i].GetComponent<Image>().sprite;
+                cardImages[i].sprite = selectedSpawnCards[i].GetComponent<Image>().sprite;
                 cardImages[i].gameObject.SetActive(true);
                 cardImages[i].GetComponent<Button>().interactable = true;
             }
@@ -89,19 +89,37 @@ public class CardManager : MonoBehaviour
     }
 
     public void SelectRewards(int rewardIndex) {
-        //rewardImages[rewardIndex].GetComponent<CardAttribute>().cardType
+        switch(selectedRewardCards[rewardIndex].GetComponent<RewardAttribute>().rewardType) {
+            case RewardAttribute.RewardType.Gold :
+                Debug.Log("Rewards selected : Gold");
+                break;
+            case RewardAttribute.RewardType.Stat :
+                Debug.Log("Rewards selected : Gold");
+                break;
+            case RewardAttribute.RewardType.Unit :
+                Debug.Log("Rewards selected : Gold");
+                break;
+        }
+        UIManager.instance.RemoveRewardPanel();
     }
 
     public void DrawRewards() {
-        UIManager.instance.drawRewardPanel();
         // 프리팹 중 카드 3장을 랜덤으로 배치한다.
+        selectedRewardCards.Clear();
+        for (int i = 0; i < 3; i++)
+        {   
+            // 랜덤하게 카드 선택
+            GameObject randomReward= rewardPrefabs[Random.Range(0, rewardPrefabs.Count)];
+            selectedRewardCards.Add(randomReward);
+        }
+        UIManager.instance.DrawRewardPanel();
     }
 
 
     // unitSpawner를 참조해서 유닛을 스폰하는게 옳은 방법일까??
     public void SpawnUnit(int index) {
 
-         if(unitSpawner.CreateUnit(selectedCards[index].GetComponent<CardAttribute>().cardType)) {
+         if(unitSpawner.CreateUnit(selectedSpawnCards[index].GetComponent<CardAttribute>().cardType)) {
             // 카드 뒤집기 
             cardImages[index].sprite = cardShirt;
          // 버튼 못 누르게 하기...

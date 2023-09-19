@@ -8,10 +8,6 @@ using UnityEngine.Assertions.Must;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    // public Enemy enemyPrefab;s
-    // public Enemy enemyPrefab2;
-
     private MonsterList monsterList;
 
     public Transform spawnPoint;
@@ -24,9 +20,6 @@ public class MonsterSpawner : MonoBehaviour
     private int endWave = 20;
     private float spawnTime = 0;
     private int spawnCount = 0;
-
-    public int normalSpawnCount = 5;
-    public int bossSpawnCount = 1;
 
     private List<int> aliveCount;
     
@@ -51,6 +44,7 @@ public class MonsterSpawner : MonoBehaviour
     void Start()
     {   
         Monsters = new List<Monster>();
+        // 리스트를 만들고, 웨이브 수만큼 메모리 할당
         aliveCount = new List<int>();
         for(int i = 0; i<endWave; i++) {
             aliveCount.Add(0);
@@ -78,7 +72,7 @@ public class MonsterSpawner : MonoBehaviour
         if(Time.time >= spawnTime) {
                 spawnTime = Time.time + nextWave;
                 SpawnWave();
-                UIManager.instance.UpdateWave(wave);
+                UIManager.instance.UpdateWave(wave); // 여기서 변경해야 할듯?
                 Debug.Log("wave : " + wave);
             }   
        
@@ -99,6 +93,7 @@ public class MonsterSpawner : MonoBehaviour
         // 현재 웨이브와 남은 적의 수 표시
         int count = (Monsters != null) ? Monsters.Count : 0;
         UIManager.instance.UpdateEnemyCount(count);
+        // 웨이븜다 
     }
 
 
@@ -134,6 +129,9 @@ public class MonsterSpawner : MonoBehaviour
         }
         wave++;
     }
+
+
+    // extract Method 
 
     // 몬스터가 플레이거 공격 시
     private void OnMonsterAttack(Monster monster)

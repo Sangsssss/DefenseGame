@@ -7,6 +7,7 @@ public class DarknessUnitStats : UnitStats
     // Start is called before the first frame update
     void Awake()
     {   
+        Grade = 1;
         Damage = 1f;
         AttackRange = 5f;
         AttackSpeed = 1.2f;
@@ -15,4 +16,8 @@ public class DarknessUnitStats : UnitStats
 
     // Update is called once per frame
 
+       public override void UpgradeDamage()
+    {
+        base.UpgradeDamage();
+    }
 }

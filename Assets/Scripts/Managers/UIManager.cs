@@ -26,34 +26,39 @@ public class UIManager : MonoBehaviour
 
     private static UIManager m_instance; // 싱글톤이 할당될 변수
 
-    public Button unitSpawnButton;  
-    public Text waveText;
-    public Text timeText;
-    public Text enemyCntText;
+
+    [Header ("Player Status")]
+    [SerializeField] private Text waveText;
+    [SerializeField] private Text timeText;
+    [SerializeField] private Text enemyCntText;
+
+
+    [Header ("Unit Count")]
+    [SerializeField] private Text fireUnitCount;
+    [SerializeField] private Text IceUnitCount;
+    [SerializeField] private Text LightUnitCount;
+    [SerializeField] private Text DarknessUnitCount;
+
+    [Header ("Wave Status")]
+    [SerializeField] private Image[] waveStatus; 
+    [SerializeField] private Sprite checkWave;
+
+    [Header ("Reward")]
+    [SerializeField] private Image rewardPanel;
+
+    [Header ("Upgrade")]
+    [SerializeField] private Text[] upgradeStep;
+
+    [Header ("Ohter")]
     public Text informationText;
-    public Text unitStatus;
     public Text gold;
     public Text life;
-    [SerializeField]
-    private CardManager cardPanel;
+    
+   // [SerializeField] private CardManager cardPanel;
+   
 
-    [SerializeField]
-    private Image rewardPanel;
-
-    [SerializeField]
-    private Text[] upgradeStep;
     
     // Start is called before the first frame update
-
-    void Awake() {
-
-    }
-
-
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -79,6 +84,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateWave(int wave) {
+        waveStatus[(wave%4)-1].sprite = checkWave;
         waveText.text = "WAVE : " + wave;
     }
     
@@ -115,21 +121,35 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void UpdateUnitStatus(int unitsCount, int fire, int ice, int light, int darkness) {
-        unitStatus.text = "Units : " + unitsCount + "\n" 
-        + "Fire : " + fire + "\n"
-        + "Ice : " + ice  + "\n"
-        + "Light : " + light  + "\n"
-        + "Darkness :" + darkness;
-  
+    public void UpdateUnitStatus(UnitStats.UnitType type, int unitCount) {
+        if(type == UnitStats.UnitType.Fire) {
+            fireUnitCount.text = unitCount.ToString();
+        } else if(type == UnitStats.UnitType.Ice) {
+            IceUnitCount.text = unitCount.ToString();
+        } else if(type == UnitStats.UnitType.Light) {
+            LightUnitCount.text = unitCount.ToString();
+        } else {
+            DarknessUnitCount.text = unitCount.ToString();
+        }
+       
     }
 
     public void UpdateUpgrade(int index, int newStep) {
         upgradeStep[index].text = newStep.ToString();
     }
 
-    public void drawRewardPanel()
+    public void DrawRewardPanel()
     {   
         rewardPanel.gameObject.SetActive(true);
+    }
+
+    public void RemoveRewardPanel()
+    {   
+        rewardPanel.gameObject.SetActive(false);
+    }
+
+    internal void UpdateUnitStatus(UnitStats.UnitType type)
+    {
+        throw new NotImplementedException();
     }
 }

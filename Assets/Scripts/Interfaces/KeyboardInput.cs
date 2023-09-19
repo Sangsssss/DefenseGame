@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyboardInput : MonoBehaviour
-{
+{   
+
     private RTSUnitController rtsUnitController;
-    [SerializeField]
-    private CardManager cardManager;
+    private UnitUpgrade unitUpgrade;
+    [SerializeField] private CardManager cardManager;
 
     private bool sellMode;
     private bool multiSelectMode;
@@ -14,21 +15,25 @@ public class KeyboardInput : MonoBehaviour
     // Start is called before the first frame update
     private void Awake() {
          rtsUnitController = this.GetComponent<RTSUnitController>();
+         unitUpgrade = this.GetComponent<UnitUpgrade>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if(Input.GetKey(KeyCode.H)) {
-            rtsUnitController.FreezeSelected();
-        }
-        if(Input.GetKey(KeyCode.A)) {
-            //rtsUnitController.AttackMonster();
-        }
+    {   
+        if(Input.GetKeyDown(KeyCode.Alpha1)) { unitUpgrade.UpgradeUnitsStat(0);}
+        if(Input.GetKeyDown(KeyCode.Alpha2)) { unitUpgrade.UpgradeUnitsStat(1);}
+        if(Input.GetKeyDown(KeyCode.Alpha3)) { unitUpgrade.UpgradeUnitsStat(2);}
+        if(Input.GetKeyDown(KeyCode.Alpha4)) { unitUpgrade.UpgradeUnitsStat(3);}
+
+
+        if(Input.GetKey(KeyCode.H)) { rtsUnitController.FreezeSelected(); }
+
+        // if(Input.GetKey(KeyCode.A)) { rtsUnitController.AttackMonster();}
+
         // R키를 누르면 카드 드로우
-        if(Input.GetKeyDown(KeyCode.R)) {
-            cardManager.DrawCards();
-        }
+        if(Input.GetKeyDown(KeyCode.R)) { cardManager.DrawCards(); }
+
         // S키를 누르고 있을 때 Sell 모드로 변화
         if(Input.GetKey(KeyCode.S)) {
             sellMode = true;

@@ -23,6 +23,7 @@ public class UnitMovement : MonoBehaviour
 
     private RigidbodyConstraints originalContraints;
     public bool isMoving;
+    public Action OnSell;
     
 
     void Awake() {
@@ -113,6 +114,10 @@ public class UnitMovement : MonoBehaviour
 
     public void Stop(bool stop) {
 
+    }
+
+    public void Sell() {
+        OnSell?.Invoke();
     }
 
 
