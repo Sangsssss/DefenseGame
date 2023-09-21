@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca646f6c22ae5b4bb51148e43d4ddb7, type: 3}
+  m_Name: Monster Common Data
+  m_EditorClassIdentifier: 
+  wayPoints:
+  - {fileID: 6895682610902021015, guid: daee9e80e00c9384fab774e88f5aa8ff, type: 3}
+  - {fileID: 2375218047566732597, guid: 797cfe18c2d44b140b4ce4ac13d59000, type: 3}
+  - {fileID: 7283432121701246629, guid: b32fe6b845aee20409079105d7fd14f9, type: 3}
+  - {fileID: 708717626519586846, guid: 0ee934713760d1440b2c1f144529f09b, type: 3}

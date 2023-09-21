@@ -5,7 +5,10 @@ using UnityEngine.AI;
 public class Monster : MonoBehaviour, IDamageable
 {
     // Start is called before the first frame update
-    
+    [SerializeField]
+    private MonsterData monsterData;
+    public MonsterData MonsterData { get; set; }
+
     //private Rigidbody rigidbody;
     private Animator anim;
     private NavMeshAgent agent;
@@ -14,9 +17,6 @@ public class Monster : MonoBehaviour, IDamageable
     private int currentWayPoint = 0;
 
     // Delete After
-    private float health;
-    public int damage;
-    public int gold;
     
     private int roopCount;
     public bool isDied = false;
@@ -24,6 +24,7 @@ public class Monster : MonoBehaviour, IDamageable
 
     public event Action OnDeath;
     public event Action OnAttack;
+
 
     private void Awake() {
         //rigidbody = this.GetComponent<Rigidbody>();
@@ -33,7 +34,8 @@ public class Monster : MonoBehaviour, IDamageable
     }
 
     void Start()
-    {   
+    {  
+       wayPoints = monsterData.CommonData.WayPoints;
          if(wayPoints.Length == 0) {
             Debug.LogWarning("No waypoint");
          } else {
@@ -54,12 +56,15 @@ public class Monster : MonoBehaviour, IDamageable
         }
     }
 
-    public void SetUp(float health, int damage, int gold, Transform[] wayPoints) {
-        this.wayPoints = wayPoints; 
-        this.health = health;
-        this.damage = damage;
-        this.gold = gold;
+    
+    public void WatchMonsterInfo()
+    {   
+        Debug.Log("몬스터 이름 :: " + monsterData.MonsterName);
+        Debug.Log("몬스터 wave :: " + monsterData.Wave);
+        Debug.Log("몬스터 체력 :: " + monsterData.Health);
+        Debug.Log("몬스터 획득골드 :: " + monsterData.Gold);
     }
+    
 
     private void MoveToNextWayPoint() {
         agent.isStopped = false;
@@ -75,10 +80,10 @@ public class Monster : MonoBehaviour, IDamageable
 
         public void onDamage(float damage, RaycastHit hit)
     {
-            health -= damage;
-            if(health <= 0 && !isDied) {
-                Die();
-            }
+            // health -= damage;
+            // if(health <= 0 && !isDied) {
+            //     Die();
+            // }
     }
 
         private void Die() {

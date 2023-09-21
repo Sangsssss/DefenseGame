@@ -84,9 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f508da5d9988c7445a6a97a2507051c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 0
+  monsterData: {fileID: 11400000, guid: 949ee813a8fe06a4c92af7b649be5645, type: 2}
   isDied: 0
-  limitedRoop: 1
 --- !u!95 &-5852618796746696033
 Animator:
   serializedVersion: 5

@@ -8,14 +8,14 @@ using UnityEngine.Assertions.Must;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    private MonsterList monsterList;
+    //private MonsterList monsterList;
+
+    [SerializeField] private List<MonsterData> monsterDatas;
+    [SerializeField] private List<Monster> monsterPrefabs;
 
     public Transform spawnPoint;
-    public Transform[] wayPoints;
 
     private List<Monster> Monsters = new List<Monster>();
-   
-    
     private int wave = 1;
     private int endWave = 20;
     private float spawnTime = 0;
@@ -38,12 +38,12 @@ public class MonsterSpawner : MonoBehaviour
 
     
     void Awake() {
-         monsterList = this.GetComponent<MonsterList>();
+       //  monsterList = this.GetComponent<MonsterList>();
     }
 
     void Start()
     {   
-        Monsters = new List<Monster>();
+       // Monsters = new List<Monster>();
         // 리스트를 만들고, 웨이브 수만큼 메모리 할당
         aliveCount = new List<int>();
         for(int i = 0; i<endWave; i++) {
@@ -63,17 +63,16 @@ public class MonsterSpawner : MonoBehaviour
         // 2. Lose Process ==> Player의 life가 모두 소멸 될 시.. 
 
         // ===> required Detail Process 
-        if(wave > monsterList.monsterPrefabs.Count && Monsters.Count <= 0) {   
-            GameManager.instance.EndGame();
-            Debug.Log("게임 종료");
-        } 
+        // if(wave > monsters.Count && Monsters.Count <= 0) {   
+        //     GameManager.instance.EndGame();
+        //     Debug.Log("게임 종료");
+        // } 
 
         UpdateUI();
         if(Time.time >= spawnTime) {
                 spawnTime = Time.time + nextWave;
                 SpawnWave();
                 UIManager.instance.UpdateWave(wave); // 여기서 변경해야 할듯?
-                Debug.Log("wave : " + wave);
             }   
        
         //  if (GameManager.instance != null && GameManager.instance.isGameover)
@@ -98,7 +97,7 @@ public class MonsterSpawner : MonoBehaviour
 
 
      private void SpawnWave() {
-            StartCoroutine(CreateEnemy());          
+        StartCoroutine(CreateEnemy());          
     }
 
 
@@ -109,9 +108,26 @@ public class MonsterSpawner : MonoBehaviour
         
         // BOSS-R 종료 후, 플레이어에게 Card 선택권 부여
         for(int i = 0; i < spawnCount; i++) {
-            MonsterData monsterData = monsterList.monsters[wave-1];
-            Monster monster = Instantiate(monsterData.monsterPrefab, spawnPoint.position, spawnPoint.rotation);
-            monster.SetUp(monsterData.health, monsterData.damage ,monsterData.gold, wayPoints);
+            Debug.Log(wave-1);
+            // 1. 프리팹 객체화
+
+            // 2. 데이터 입력
+            Monster monster = Instantiate(monsterPrefabs[wave-1], spawnPoint.position, spawnPoint.rotation);
+            monster.MonsterData = monsterDatas[wave-1];
+            if(monster != null) {
+                monster.WatchMonsterInfo();
+            } else {
+                Debug.Log("error");
+            }
+            
+        
+            //monster.MonsterData = monsterDatas[wave-1];
+            //MonsterData monsterData = monsters[wave-1].GetComponent<MonsterData>();
+            // Monster monster = Instantiate(monsters[wave-1], spawnPoint.position, spawnPoint.rotation);
+
+            //MonsterData monsterData = monsterList.monsters[wave-1];
+            //Monster monster = Instantiate(monsterData.monsterPrefab, spawnPoint.position, spawnPoint.rotation);
+            // monster.SetUp(wayPoints);
             Monsters.Add(monster);
 
             monster.OnAttack += () =>
@@ -120,11 +136,12 @@ public class MonsterSpawner : MonoBehaviour
             };
             
             monster.OnDeath += () =>
-            {
-                OnMonsterDeath(monsterData, monster);
+            {   
+                int cWave = wave;
+                OnMonsterDeath(cWave, monster);
             };
             
-            Debug.Log("적군 생성 => " + monsterData.monsterName + " 체력 :" + monsterData.health);
+            //Debug.Log("적군 생성 => " + monsterData.monsterName + " 체력 :" + monsterData.health);
             yield return new WaitForSeconds(nextSpawn);
         }
         wave++;
@@ -137,23 +154,23 @@ public class MonsterSpawner : MonoBehaviour
     private void OnMonsterAttack(Monster monster)
     {
         Monsters.Remove(monster);
-        GameManager.instance.LoseLife(monster.damage);
         Destroy(monster.gameObject);
+        GameManager.instance.LoseLife(monster.MonsterData.Damage);
     }
     // 몬스터가 플레이어에게 사망 시
-    private void OnMonsterDeath(MonsterData monsterData, Monster monster)
+    private void OnMonsterDeath(int wave, Monster monster)
     {
         Monsters.Remove(monster);
         Destroy(monster.gameObject);
-        aliveCount[monsterData.wave - 1]--;
-        if (aliveCount[monsterData.wave - 1] == 0)
+        aliveCount[wave - 1]--;
+        if (aliveCount[wave - 1] == 0)
         {
-            if (monsterData.wave % 3 == 0)
+            if (wave % 3 == 0)
             {
                 // 카드 뽑기
                 CardManager.Instance.DrawRewards();
             }
-            GameManager.instance.GainGold(monster.gold);
+            GameManager.instance.GainGold(monster.MonsterData.Gold);
         }
     }
 
