@@ -8,10 +8,9 @@ using UnityEngine.Assertions.Must;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    //private MonsterList monsterList;
 
     [SerializeField] private List<MonsterData> monsterDatas;
-    [SerializeField] private List<Monster> monsterPrefabs;
+    [SerializeField] private List<GameObject> monsterPrefabs;
 
     public Transform spawnPoint;
 
@@ -38,12 +37,11 @@ public class MonsterSpawner : MonoBehaviour
 
     
     void Awake() {
-       //  monsterList = this.GetComponent<MonsterList>();
     }
 
     void Start()
     {   
-       // Monsters = new List<Monster>();
+        Monsters = new List<Monster>();
         // 리스트를 만들고, 웨이브 수만큼 메모리 할당
         aliveCount = new List<int>();
         for(int i = 0; i<endWave; i++) {
@@ -73,13 +71,7 @@ public class MonsterSpawner : MonoBehaviour
                 spawnTime = Time.time + nextWave;
                 SpawnWave();
                 UIManager.instance.UpdateWave(wave); // 여기서 변경해야 할듯?
-            }   
-       
-        //  if (GameManager.instance != null && GameManager.instance.isGameover)
-        // {
-        //     return;
-        // }
-
+            }     
     }
 
     public void StartSpawning()
@@ -105,29 +97,17 @@ public class MonsterSpawner : MonoBehaviour
         //1. CheckRoundType() => wave를 통해 일반 라운드인지, 보스라운드인지 확인 => setRoundType()
         //2. spawnCount = RoundType.Boss
         CheckRoundType();
-        
         // BOSS-R 종료 후, 플레이어에게 Card 선택권 부여
         for(int i = 0; i < spawnCount; i++) {
-            Debug.Log(wave-1);
-            // 1. 프리팹 객체화
-
-            // 2. 데이터 입력
-            Monster monster = Instantiate(monsterPrefabs[wave-1], spawnPoint.position, spawnPoint.rotation);
+            // 데이터 입력
+            Monster monster = Instantiate(monsterPrefabs[wave-1], spawnPoint.position, spawnPoint.rotation).GetComponent<Monster>();
             monster.MonsterData = monsterDatas[wave-1];
             if(monster != null) {
                 monster.WatchMonsterInfo();
             } else {
                 Debug.Log("error");
             }
-            
-        
-            //monster.MonsterData = monsterDatas[wave-1];
-            //MonsterData monsterData = monsters[wave-1].GetComponent<MonsterData>();
-            // Monster monster = Instantiate(monsters[wave-1], spawnPoint.position, spawnPoint.rotation);
 
-            //MonsterData monsterData = monsterList.monsters[wave-1];
-            //Monster monster = Instantiate(monsterData.monsterPrefab, spawnPoint.position, spawnPoint.rotation);
-            // monster.SetUp(wayPoints);
             Monsters.Add(monster);
 
             monster.OnAttack += () =>
@@ -137,7 +117,7 @@ public class MonsterSpawner : MonoBehaviour
             
             monster.OnDeath += () =>
             {   
-                int cWave = wave;
+                int cWave = wave-1;
                 OnMonsterDeath(cWave, monster);
             };
             
@@ -155,22 +135,23 @@ public class MonsterSpawner : MonoBehaviour
     {
         Monsters.Remove(monster);
         Destroy(monster.gameObject);
-        GameManager.instance.LoseLife(monster.MonsterData.Damage);
     }
     // 몬스터가 플레이어에게 사망 시
     private void OnMonsterDeath(int wave, Monster monster)
     {
         Monsters.Remove(monster);
         Destroy(monster.gameObject);
-        aliveCount[wave - 1]--;
-        if (aliveCount[wave - 1] == 0)
+        aliveCount[wave]--;
+        Debug.Log(wave + "의 남은 마릿 수 : " + aliveCount[wave]);
+        if (aliveCount[wave] == 0)
         {
-            if (wave % 3 == 0)
+            if ((wave+1) % 3 == 0)
             {
                 // 카드 뽑기
                 CardManager.Instance.DrawRewards();
             }
-            GameManager.instance.GainGold(monster.MonsterData.Gold);
+            // 마지막 몬스터에게 돈을 주라고??
+            monster.IsLast();
         }
     }
 

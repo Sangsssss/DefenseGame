@@ -5665,7 +5665,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: testData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7225d5e369a825541b99a8285de1c518, type: 2}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 949ee813a8fe06a4c92af7b649be5645, type: 2}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterPrefab
+      value: 
+      objectReference: {fileID: 7153141402127884706, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterDatas.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterDatas.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 949ee813a8fe06a4c92af7b649be5645, type: 2}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 7153141402127884706, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
+    m_RemovedComponents:
+    - {fileID: 1625701119, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
 --- !u!1001 &5328182569377628141
 PrefabInstance:

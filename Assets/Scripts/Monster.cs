@@ -7,7 +7,8 @@ public class Monster : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     [SerializeField]
     private MonsterData monsterData;
-    public MonsterData MonsterData { get; set; }
+    public MonsterData MonsterData { set {monsterData = value;} }
+
 
     //private Rigidbody rigidbody;
     private Animator anim;
@@ -25,17 +26,20 @@ public class Monster : MonoBehaviour, IDamageable
     public event Action OnDeath;
     public event Action OnAttack;
 
+    private bool last;
+
 
     private void Awake() {
         //rigidbody = this.GetComponent<Rigidbody>();
         anim = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent>();
         roopCount = 0;
+        last = false;
     }
 
     void Start()
     {  
-       wayPoints = monsterData.CommonData.WayPoints;
+        wayPoints = monsterData.CommonData.WayPoints;
          if(wayPoints.Length == 0) {
             Debug.LogWarning("No waypoint");
          } else {
@@ -79,20 +83,28 @@ public class Monster : MonoBehaviour, IDamageable
     }
 
         public void onDamage(float damage, RaycastHit hit)
-    {
-            // health -= damage;
-            // if(health <= 0 && !isDied) {
-            //     Die();
-            // }
-    }
+        {
+            monsterData.Health -= damage;
+            if(monsterData.Health <= 0 && !isDied) {
+                Die();
+            }
+        }
 
         private void Die() {
             OnDeath?.Invoke();
             isDied = true;
+            if(last == true) {
+                GameManager.instance.GainGold(monsterData.Gold);
+            }
         }
 
         private void Attack() {
             OnAttack?.Invoke();
+            GameManager.instance.LoseLife(monsterData.Damage);
             isDied = true;
+        }
+
+        public void IsLast() {
+            last = true;
         }
 }

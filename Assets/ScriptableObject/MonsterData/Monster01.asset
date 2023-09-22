@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4c432a7bf9f3d439ce88f66849d6c4, type: 3}
   m_Name: Monster01
   m_EditorClassIdentifier: 
-  monsterName: Slime_01
+  monsterName: Slime
   wave: 1
   health: 10
   damage: 1
   gold: 2
-  monsterPrefab: {fileID: 7153141402127884706, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
   commonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}

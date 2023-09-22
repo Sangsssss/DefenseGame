@@ -6,5 +6,5 @@ using UnityEngine;
 public class MonsterCommonData : ScriptableObject
 {
     [SerializeField] private Transform[] wayPoints;
-    public Transform[] WayPoints {  get; set; }
+    public Transform[] WayPoints { get {return wayPoints;} }
 }

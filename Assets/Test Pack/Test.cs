@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public TestData testData;
+
+    [SerializeField] private TestData testData;
+    public TestData TestData { set {testData = value;} }
 
 
          public void WatchMonsterInfo()

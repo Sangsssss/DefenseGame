@@ -7,7 +7,6 @@ using UnityEngine;
 public class RTSUnitController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public UnitSpawner unitSpanwer;
     public GameObject spot;
 
     [SerializeField]

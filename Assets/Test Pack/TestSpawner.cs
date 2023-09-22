@@ -9,14 +9,17 @@ public class TestSpawner : MonoBehaviour
     [SerializeField] private TestData testData;
     void Start()
     {
-        var test = Spawn();
-        test.WatchMonsterInfo();
+        Test newTest = Instantiate(testPrefab).GetComponent<Test>();
+        newTest.TestData = testData;
+        
+        //Test test = Spawn();
+        newTest.WatchMonsterInfo();
     }
 
     public Test Spawn() {
-        var newTest = Instantiate(testPrefab).GetComponent<Test>();
-        newTest.testData = testData;
-        newTest.name = newTest.testData.name;
+        Test newTest = Instantiate(testPrefab).GetComponent<Test>();
+        newTest.TestData = testData;
+        // newTest.name = newTest.testData.name;
         return newTest;
     }
 
