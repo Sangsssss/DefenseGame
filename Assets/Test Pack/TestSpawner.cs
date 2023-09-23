@@ -13,7 +13,7 @@ public class TestSpawner : MonoBehaviour
         newTest.TestData = testData;
         
         //Test test = Spawn();
-        newTest.WatchMonsterInfo();
+        newTest.WatchMonsterInfo(); 
     }
 
     public Test Spawn() {

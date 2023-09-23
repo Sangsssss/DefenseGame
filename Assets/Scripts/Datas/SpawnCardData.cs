@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "SpawnCard Data", menuName = "Scriptable Object/SpawnCard Data", order = int.MaxValue)]
 public class SpawnCardData : ScriptableObject
 {
     public enum AttributeType {

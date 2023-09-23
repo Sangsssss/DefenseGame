@@ -10,6 +10,13 @@ public class UnitSpawner : MonoBehaviour
     private Vector2 spawnPostionMin = new Vector2(-2, -2);
     private Vector2 spawnPostionMax = new Vector2(2, 2);
 
+
+    [Header ("Unit Category")]
+    [SerializeField] private List<Unit> FireUnitPrefab;
+    [SerializeField] private List<Unit> IceUnitPrefab;
+    [SerializeField] private List<Unit> LightUnitPrefab;
+    [SerializeField] private List<Unit> DarknessUnitPrefab;
+
     public List<Unit> unitPrefab; //fire, ice, light, darkness
     private RTSUnitController rtsUnitController;
 
@@ -75,6 +82,12 @@ public class UnitSpawner : MonoBehaviour
 
         Debug.Log("유닛생성!");
         return true;
+    }
+
+    public void SpawnUnit(int grade) {
+        // 1 or 2 or 3
+
+
     }
 
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 

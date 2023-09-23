@@ -8,6 +8,8 @@ public class CardManager : MonoBehaviour
 
     [SerializeField]
     private UnitSpawner unitSpawner;
+    [SerializeField]
+    private UnitUpgrade unitUpgrade;
     // Start is called before the first frame update
 
     //Spawn Card 
@@ -36,9 +38,6 @@ public class CardManager : MonoBehaviour
     // Start is called before the first frame update
     private static CardManager c_instance;
 
-    void Awake() {
-       
-    }
 
     void Start()
     {   
@@ -50,7 +49,7 @@ public class CardManager : MonoBehaviour
             int cardIndex = i; // Closer 이슈 ==> i 값을 고정
             cardImages[i].GetComponent<Button>().onClick.AddListener(() => SpawnUnit(cardIndex));
         }
-        // 카드를 누르면 보상을 획득할 수 있게 버튼 연동
+        //카드를 누르면 보상을 획득할 수 있게 버튼 연동
         for(int i = 0; i < rewardImages.Length; i++) {
             int rewardIndex = i; // Closer 이슈 ==> i 값을 고정
             rewardImages[i].GetComponent<Button>().onClick.AddListener(() => SelectRewards(rewardIndex));
@@ -89,16 +88,20 @@ public class CardManager : MonoBehaviour
     }
 
     public void SelectRewards(int rewardIndex) {
-        switch(selectedRewardCards[rewardIndex].GetComponent<RewardAttribute>().rewardType) {
-            case RewardAttribute.RewardType.Gold :
-                Debug.Log("Rewards selected : Gold");
+        RewardCardData selectedReward = selectedRewardCards[rewardIndex].GetComponent<RewardCard>().RewardCardData;
+        switch(selectedReward.Type) {
+            case RewardCardData.RewardType.GOLD :
+                // 카드에 해당하는 만큼으 골드 제공
+                GameManager.instance.GainGold(selectedReward.Reward);
                 break;
-            case RewardAttribute.RewardType.Stat :
-                Debug.Log("Rewards selected : Gold");
+            case RewardCardData.RewardType.UNIT :
+                // 카드에 해당하는 등급의 유닛을 제공
+                unitSpawner.SpawnUnit(selectedReward.Reward);
                 break;
-            case RewardAttribute.RewardType.Unit :
-                Debug.Log("Rewards selected : Gold");
-                break;
+            case RewardCardData.RewardType.UPGRADE :
+                // 카드에 해당하는 만큼 강화
+                unitUpgrade.UpgradeUnit();
+                break;    
         }
         UIManager.instance.RemoveRewardPanel();
     }

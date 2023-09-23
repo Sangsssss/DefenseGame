@@ -134,4 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56341ae839f6b04e9f74423eb7148aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardType: 2
+  rewardCardData: {fileID: 11400000, guid: 1f0e06e78c95d0048967158086b41a5c, type: 2}

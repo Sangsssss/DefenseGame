@@ -27,6 +27,9 @@ public class MonsterData : ScriptableObject
     public MonsterCommonData CommonData { get {return commonData;} }
 
 
+    public void ReduceHP(float damage) {
+        health -= damage;
+    }
     // [SerializeField]
     // private float moveSpeed;
     // public float MoveSpeed { get { return moveSpeed; } }
