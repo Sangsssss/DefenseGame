@@ -8,8 +8,6 @@ public class RewardCardData : ScriptableObject
 {
     
 
-
-
     public enum RewardType {
         GOLD, UPGRADE, UNIT
     }

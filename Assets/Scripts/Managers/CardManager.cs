@@ -12,10 +12,16 @@ public class CardManager : MonoBehaviour
     private UnitUpgrade unitUpgrade;
     // Start is called before the first frame update
 
+    [SerializeField] private SpawnCardSO spawnCardSO;
+    [SerializeField] private List<SpawnCard> spawnCards;
+    private List<SpawnCardData> spawnCardBuffer; 
+
     //Spawn Card 
     public List<GameObject> cardPrefabs; // 카드 이미지들을 저장할 리스트 = Ex. 4
     public Sprite cardShirt;
     public Image[] cardImages; // 카드 이미지를 표시할 UI 이미지들
+
+    
 
     //Reward Card
     public List<GameObject> rewardPrefabs;
@@ -24,6 +30,8 @@ public class CardManager : MonoBehaviour
     public Button drawButton; // 카드를 뽑는 버튼   
     private List<GameObject> selectedSpawnCards = new List<GameObject>(); // 선택된 카드들을 저장할 리스트
     private List<GameObject> selectedRewardCards = new List<GameObject>();
+
+    private int spanwCardNum = 4;
 
 
     public static CardManager Instance {
@@ -38,6 +46,10 @@ public class CardManager : MonoBehaviour
     // Start is called before the first frame update
     private static CardManager c_instance;
 
+
+    void Awake() {
+
+    }
 
     void Start()
     {   
@@ -60,10 +72,31 @@ public class CardManager : MonoBehaviour
     }
     
 
-    // 카드 리셋
-    public void DrawCards() {
+    private void RandomSpawnCards() {
         // 카드 섞는 소리 재생
         GameManager.instance.ShuffleCard();
+        spawnCardBuffer = new List<SpawnCardData>();
+        // 0~100사이 랜덤 난수 생성
+        for(int i = 0; i<spawnCards.Count; i++) {
+            float randomNum = Random.Range(0, 100);
+            if(randomNum >= 0) {
+            spawnCardBuffer.Add(spawnCardSO.SpawnCardData[0]);
+        }
+        }
+        // 알고리즘 만들어야함.
+    }
+
+    // 카드 리셋
+    public void DrawCards() {
+        // 1. 카드를 섞는다
+        RandomSpawnCards();
+        // 2. 카드를 UI에 배치한다.
+         for (int i = 0; i < spawnCards.Count; i++)
+        {
+                spawnCards[i].SetUpCard(spawnCardBuffer[i]);
+            
+        }
+
         selectedSpawnCards.Clear();
         for (int i = 0; i < 4; i++)
         {   
@@ -88,19 +121,20 @@ public class CardManager : MonoBehaviour
     }
 
     public void SelectRewards(int rewardIndex) {
-        RewardCardData selectedReward = selectedRewardCards[rewardIndex].GetComponent<RewardCard>().RewardCardData;
-        switch(selectedReward.Type) {
+        RewardCard selectedReward = selectedRewardCards[rewardIndex].GetComponent<RewardCard>();
+        int reward = selectedReward.RewardCardData.Reward;
+        switch(selectedReward.RewardCardData.Type) {
             case RewardCardData.RewardType.GOLD :
                 // 카드에 해당하는 만큼으 골드 제공
-                GameManager.instance.GainGold(selectedReward.Reward);
+                GameManager.instance.GainGold(reward);
                 break;
             case RewardCardData.RewardType.UNIT :
                 // 카드에 해당하는 등급의 유닛을 제공
-                unitSpawner.SpawnUnit(selectedReward.Reward);
+               // unitSpawner.SpawnUnit(selectedReward.Attribute, reward);
                 break;
             case RewardCardData.RewardType.UPGRADE :
                 // 카드에 해당하는 만큼 강화
-                unitUpgrade.UpgradeUnit();
+               // unitUpgrade.UpgradeUnit(selectedReward.Attribute, reward);
                 break;    
         }
         UIManager.instance.RemoveRewardPanel();

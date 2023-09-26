@@ -36,47 +36,58 @@ public class UnitSpawner : MonoBehaviour
 
     // Gold 2 소비하며, 유닛 생성
 
-    public bool CreateUnit(CardType cardType) {
+    public bool CreateUnit(CardType cardType)
+    {
         // 1. 골드가 없을 시
-        if(GameManager.instance.goldCount < 2) {
+        if (GameManager.instance.goldCount < 2)
+        {
             UIManager.instance.LackOfGold();
-            return false;  
+            return false;
         }
 
         // 2. 골드 충분 ==> 유닛 생성 후 골드 감소
+        return NewMethod(cardType);
+    }
+
+    private bool NewMethod(CardType cardType)
+    {
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
-        
+
         Unit unitPrefab = LinkedUnit(cardType);
         Unit newUnit = Instantiate(unitPrefab, position, Quaternion.identity);
 
         // 유닛 스탯 스크립트에서 타입을 확인하기 위함
         UnitStats unitStats = newUnit.GetComponent<UnitStats>();
 
-        if(unitStats != null) {
-            switch(unitStats.Type) {
-                case UnitStats.UnitType.Fire: 
+        if (unitStats != null)
+        {
+            switch (unitStats.Type)
+            {
+                case UnitStats.UnitType.Fire:
                     unitStats.Damage = GameManager.instance.GetComponent<FireUnitStats>().Damage;
                     break;
-                case UnitStats.UnitType.Ice: 
+                case UnitStats.UnitType.Ice:
                     unitStats.Damage = GameManager.instance.GetComponent<IceUnitStats>().Damage;
                     break;
-                case UnitStats.UnitType.Light:  
+                case UnitStats.UnitType.Light:
                     unitStats.Damage = GameManager.instance.GetComponent<LightUnitStats>().Damage;
                     break;
-                case UnitStats.UnitType.Darkness: 
+                case UnitStats.UnitType.Darkness:
                     unitStats.Damage = GameManager.instance.GetComponent<DarknessUnitStats>().Damage;
                     break;
-                
-            }    
+
+            }
         }
         GameManager.instance.DrawCard();
 
-        newUnit.OnSell += () => {
+        newUnit.OnSell += () =>
+        {
             Destroy(newUnit.gameObject);
             GameManager.instance.GainGold(2);
         };
 
-        if(newUnit != null) {
+        if (newUnit != null)
+        {
             rtsUnitController.AddUnitToList(newUnit);
         }
 
@@ -84,9 +95,9 @@ public class UnitSpawner : MonoBehaviour
         return true;
     }
 
-    public void SpawnUnit(int grade) {
+    public void SpawnUnit(RewardCard.UnitAttribute attribute, int grade) {
         // 1 or 2 or 3
-
+        
 
     }
 
@@ -94,7 +105,7 @@ public class UnitSpawner : MonoBehaviour
     // => Prefab마다 stat을 가짐 = SetUp 불필요, 
     private Unit LinkedUnit(CardType cardType) {
         if(cardType == CardType.Fire) {
-            return unitPrefab[0];
+            return FireUnitPrefab[0];
         }
         else if(cardType == CardType.Ice) {
             return unitPrefab[1];

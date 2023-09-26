@@ -48,6 +48,9 @@ public class UnitUpgrade : MonoBehaviour
         }
 
     }
+    public void UpgradeUnit() {
+        
+    }
 
 
 }
