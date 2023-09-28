@@ -27,16 +27,8 @@ public class UnitSpawner : MonoBehaviour
         rtsUnitController = this.GetComponent<RTSUnitController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     // Gold 2 소비하며, 유닛 생성
-
-    public bool CreateUnit(CardType cardType)
+    public bool CreateUnit(Enums.EUnitAttribute attributeType)
     {
         // 1. 골드가 없을 시
         if (GameManager.instance.goldCount < 2)
@@ -46,14 +38,14 @@ public class UnitSpawner : MonoBehaviour
         }
 
         // 2. 골드 충분 ==> 유닛 생성 후 골드 감소
-        return NewMethod(cardType);
+        return NewMethod(attributeType);
     }
 
-    private bool NewMethod(CardType cardType)
+    private bool NewMethod(Enums.EUnitAttribute attributeType)
     {
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
 
-        Unit unitPrefab = LinkedUnit(cardType);
+        Unit unitPrefab = LinkedUnit(attributeType);
         Unit newUnit = Instantiate(unitPrefab, position, Quaternion.identity);
 
         // 유닛 스탯 스크립트에서 타입을 확인하기 위함
@@ -75,7 +67,6 @@ public class UnitSpawner : MonoBehaviour
                 case UnitStats.UnitType.Darkness:
                     unitStats.Damage = GameManager.instance.GetComponent<DarknessUnitStats>().Damage;
                     break;
-
             }
         }
         GameManager.instance.DrawCard();
@@ -103,14 +94,14 @@ public class UnitSpawner : MonoBehaviour
 
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 
     // => Prefab마다 stat을 가짐 = SetUp 불필요, 
-    private Unit LinkedUnit(CardType cardType) {
-        if(cardType == CardType.Fire) {
+    private Unit LinkedUnit(Enums.EUnitAttribute attributeType) {
+        if(attributeType == Enums.EUnitAttribute.FIRE) {
             return FireUnitPrefab[0];
         }
-        else if(cardType == CardType.Ice) {
+        else if(attributeType == Enums.EUnitAttribute.ICE) {
             return unitPrefab[1];
         }
-        else if(cardType == CardType.Light) {
+        else if(attributeType == Enums.EUnitAttribute.LIGHT) {
             return unitPrefab[2];
         } 
         else {

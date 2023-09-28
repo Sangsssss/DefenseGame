@@ -50,3 +50,9 @@ TagManager:
   - name: Panel
     uniqueID: 4212981681
     locked: 0
+  - name: Entity
+    uniqueID: 2192239573
+    locked: 0
+  - name: Card
+    uniqueID: 1544143623
+    locked: 0
