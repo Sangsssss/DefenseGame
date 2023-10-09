@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateWave(int wave) {
-        waveStatus[(wave%4)-1].sprite = checkWave;
+        waveStatus[(wave%6)-1].sprite = checkWave;
         waveText.text = "WAVE : " + wave;
     }
     

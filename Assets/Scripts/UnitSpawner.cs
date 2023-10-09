@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.MPE;
 using UnityEngine;
-using static CardAttribute;
 
 public class UnitSpawner : MonoBehaviour
 {
@@ -17,8 +14,8 @@ public class UnitSpawner : MonoBehaviour
     [SerializeField] private List<Unit> LightUnitPrefab;
     [SerializeField] private List<Unit> DarknessUnitPrefab;
 
-    public List<Unit> unitPrefab; //fire, ice, light, darkness
     private RTSUnitController rtsUnitController;
+    private Enums.EUnitAttribute atttributeType;
 
 
     // Start is called before the first frame update
@@ -28,7 +25,7 @@ public class UnitSpawner : MonoBehaviour
     }
 
     // Gold 2 소비하며, 유닛 생성
-    public bool CreateUnit(Enums.EUnitAttribute attributeType)
+    public bool CreateUnit(Enums.EUnitAttribute attributeType, int grade)
     {
         // 1. 골드가 없을 시
         if (GameManager.instance.goldCount < 2)
@@ -36,16 +33,29 @@ public class UnitSpawner : MonoBehaviour
             UIManager.instance.LackOfGold();
             return false;
         }
-
         // 2. 골드 충분 ==> 유닛 생성 후 골드 감소
-        return NewMethod(attributeType);
+        return SpawnUnit(attributeType, grade);
     }
 
-    private bool NewMethod(Enums.EUnitAttribute attributeType)
+    public void RewardUnit(int grade) {
+        float randNum = Random.Range(0, 100);
+        if(randNum >= 75) {
+            atttributeType = Enums.EUnitAttribute.FIRE;
+        } else if(randNum >= 50) {
+            atttributeType = Enums.EUnitAttribute.ICE;
+        } else if(randNum >= 25) {
+            atttributeType = Enums.EUnitAttribute.LIGHT;
+        } else {
+            atttributeType = Enums.EUnitAttribute.DARKNESS;
+        }
+        SpawnUnit(atttributeType, grade);
+    }
+
+    private bool SpawnUnit(Enums.EUnitAttribute attributeType, int grade)
     {
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
 
-        Unit unitPrefab = LinkedUnit(attributeType);
+        Unit unitPrefab = LinkedUnit(attributeType, grade);
         Unit newUnit = Instantiate(unitPrefab, position, Quaternion.identity);
 
         // 유닛 스탯 스크립트에서 타입을 확인하기 위함
@@ -86,26 +96,20 @@ public class UnitSpawner : MonoBehaviour
         return true;
     }
 
-    public void SpawnUnit(RewardCard.UnitAttribute attribute, int grade) {
-        // 1 or 2 or 3
-        
-
-    }
-
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 
     // => Prefab마다 stat을 가짐 = SetUp 불필요, 
-    private Unit LinkedUnit(Enums.EUnitAttribute attributeType) {
+    private Unit LinkedUnit(Enums.EUnitAttribute attributeType, int grade) {
         if(attributeType == Enums.EUnitAttribute.FIRE) {
-            return FireUnitPrefab[0];
+            return FireUnitPrefab[grade-1];
         }
         else if(attributeType == Enums.EUnitAttribute.ICE) {
-            return unitPrefab[1];
+            return IceUnitPrefab[grade-1];
         }
         else if(attributeType == Enums.EUnitAttribute.LIGHT) {
-            return unitPrefab[2];
+            return LightUnitPrefab[grade-1];
         } 
         else {
-            return unitPrefab[3];
+            return DarknessUnitPrefab[grade-1];
         }  
 
     }

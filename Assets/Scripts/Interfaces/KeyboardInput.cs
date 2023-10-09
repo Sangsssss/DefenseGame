@@ -32,7 +32,7 @@ public class KeyboardInput : MonoBehaviour
         // if(Input.GetKey(KeyCode.A)) { rtsUnitController.AttackMonster();}
 
         // R키를 누르면 카드 드로우
-        if(Input.GetKeyDown(KeyCode.R)) { cardManager.DrawCards(); }
+        if(Input.GetKeyDown(KeyCode.R)) { cardManager.DrawSpawnCards(); }
 
         // S키를 누르고 있을 때 Sell 모드로 변화
         if(Input.GetKey(KeyCode.S)) {

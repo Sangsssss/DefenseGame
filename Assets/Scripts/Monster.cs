@@ -5,16 +5,20 @@ using UnityEngine.AI;
 public class Monster : MonoBehaviour, IDamageable
 {
     // Start is called before the first frame update
-    [SerializeField]
-    private MonsterData monsterData;
-    public MonsterData MonsterData { set {monsterData = value;} }
+    private string monsterName;
+    private int wave;
+    public int Wave {get {return wave;}}
+    private float health;
+    private int damage;
+    private int gold;
+    private Transform[] wayPoints;
+    public MonsterData monsterData;
 
 
     //private Rigidbody rigidbody;
     private Animator anim;
     private NavMeshAgent agent;
 
-    private Transform[] wayPoints;
     private int currentWayPoint = 0;
 
     // Delete After
@@ -39,7 +43,6 @@ public class Monster : MonoBehaviour, IDamageable
 
     void Start()
     {  
-        wayPoints = monsterData.CommonData.WayPoints;
          if(wayPoints.Length == 0) {
             Debug.LogWarning("No waypoint");
          } else {
@@ -60,13 +63,14 @@ public class Monster : MonoBehaviour, IDamageable
         }
     }
 
-    
-    public void WatchMonsterInfo()
-    {   
-        Debug.Log("몬스터 이름 :: " + monsterData.MonsterName);
-        Debug.Log("몬스터 wave :: " + monsterData.Wave);
-        Debug.Log("몬스터 체력 :: " + monsterData.Health);
-        Debug.Log("몬스터 획득골드 :: " + monsterData.Gold);
+
+    public void SetUpMonster(MonsterData monsterData) {
+        this.monsterName = monsterData.monsterName;
+        this.wave = monsterData.wave;
+        this.health = monsterData.health;
+        this.damage = monsterData.damage;
+        this.gold = monsterData.gold;
+        this.wayPoints = monsterData.monsterCommonData.WayPoints;
     }
     
 
@@ -84,8 +88,8 @@ public class Monster : MonoBehaviour, IDamageable
 
         public void onDamage(float damage, RaycastHit hit)
         {
-            monsterData.Health -= damage;
-            if(monsterData.Health <= 0 && !isDied) {
+            this.health -= damage;
+            if(this.health <= 0 && !isDied) {
                 Die();
             }
         }
@@ -94,13 +98,13 @@ public class Monster : MonoBehaviour, IDamageable
             OnDeath?.Invoke();
             isDied = true;
             if(last == true) {
-                GameManager.instance.GainGold(monsterData.Gold);
+                GameManager.instance.GainGold(this.gold);
             }
         }
 
         private void Attack() {
             OnAttack?.Invoke();
-            GameManager.instance.LoseLife(monsterData.Damage);
+            GameManager.instance.LoseLife(this.damage);
             isDied = true;
         }
 

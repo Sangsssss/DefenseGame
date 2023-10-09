@@ -9,7 +9,7 @@ using UnityEngine.Assertions.Must;
 public class MonsterSpawner : MonoBehaviour
 {
 
-    [SerializeField] private List<MonsterData> monsterDatas;
+    [SerializeField] private MonsterSO monsterSO;
     [SerializeField] private List<GameObject> monsterPrefabs;
 
     public Transform spawnPoint;
@@ -27,13 +27,12 @@ public class MonsterSpawner : MonoBehaviour
     [Range(0f, 2f)]
     public float nextSpawn;
 
-
     private enum RoundType {
         Normal = 5,
         Boss = 1
     }
 
-    private RoundType roundType;
+    // private RoundType roundType;
 
     
     void Awake() {
@@ -101,12 +100,7 @@ public class MonsterSpawner : MonoBehaviour
         for(int i = 0; i < spawnCount; i++) {
             // 데이터 입력
             Monster monster = Instantiate(monsterPrefabs[wave-1], spawnPoint.position, spawnPoint.rotation).GetComponent<Monster>();
-            monster.MonsterData = monsterDatas[wave-1];
-            if(monster != null) {
-                monster.WatchMonsterInfo();
-            } else {
-                Debug.Log("error");
-            }
+            monster.SetUpMonster(monsterSO.MonsterData[wave-1]);
 
             Monsters.Add(monster);
 
@@ -114,14 +108,10 @@ public class MonsterSpawner : MonoBehaviour
             {
                 OnMonsterAttack(monster);
             };
-            
             monster.OnDeath += () =>
             {   
-                int cWave = wave-1;
-                OnMonsterDeath(cWave, monster);
+                OnMonsterDeath(monster.Wave-1, monster);
             };
-            
-            //Debug.Log("적군 생성 => " + monsterData.monsterName + " 체력 :" + monsterData.health);
             yield return new WaitForSeconds(nextSpawn);
         }
         wave++;
@@ -145,10 +135,10 @@ public class MonsterSpawner : MonoBehaviour
         Debug.Log(wave + "의 남은 마릿 수 : " + aliveCount[wave]);
         if (aliveCount[wave] == 0)
         {
-            if ((wave+1) % 3 == 0)
+            if ((wave+1) % 1 == 0)
             {
                 // 카드 뽑기
-                CardManager.Instance.DrawRewards();
+                CardManager.Instance.DrawRewardCards();
             }
             // 마지막 몬스터에게 돈을 주라고??
             monster.IsLast();
@@ -157,7 +147,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void CheckRoundType()
     {    
-        if(wave % 3 == 0) {
+        if(wave % 5== 0) {
              spawnCount = (int)RoundType.Boss;
         } else {
              spawnCount = (int)RoundType.Normal;

@@ -13,20 +13,18 @@ public class CardManager : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] private SpawnCardSO spawnCardSO;
+    [SerializeField] private RewardCardSO rewardCardSO;
     [SerializeField] private List<SpawnCard> spawnCards;
+    [SerializeField] private List<RewardCard> rewardCards;
     private List<SpawnCardData> spawnCardBuffer; 
+    private List<RewardCardData> rewardCardBuffer;
 
     public Sprite cardShirt;
 
-    //Reward Card
-    public List<GameObject> rewardPrefabs;
-    public Image[] rewardImages;
-
     public Button drawButton; // 카드를 뽑는 버튼   
-    private List<GameObject> selectedSpawnCards = new List<GameObject>(); // 선택된 카드들을 저장할 리스트
-    private List<GameObject> selectedRewardCards = new List<GameObject>();
 
-    private int spanwCardNum = 4;
+    private bool isStart = true;
+
 
 
     public static CardManager Instance {
@@ -49,7 +47,7 @@ public class CardManager : MonoBehaviour
     void Start()
     {   
         // 버튼에 이벤트 추가 ( == 카드 드로우)
-        drawButton.onClick.AddListener(DrawCards);
+        drawButton.onClick.AddListener(DrawSpawnCards);
         
         // 카드를 누르면 유닛을 스폰할 수 있게 버튼 연동
         for(int i = 0; i < spawnCards.Count; i++) {
@@ -57,19 +55,17 @@ public class CardManager : MonoBehaviour
             spawnCards[i].GetComponent<Button>().onClick.AddListener(() => SpawnUnit(cardIndex));
         }
         //카드를 누르면 보상을 획득할 수 있게 버튼 연동
-        for(int i = 0; i < rewardImages.Length; i++) {
+        for(int i = 0; i < rewardCards.Count; i++) {
             int rewardIndex = i; // Closer 이슈 ==> i 값을 고정
-            rewardImages[i].GetComponent<Button>().onClick.AddListener(() => SelectRewards(rewardIndex));
+            rewardCards[i].GetComponent<Button>().onClick.AddListener(() => SelectRewards(rewardIndex));
         }
 
-        // ?? 
-        DrawCards();
+        DrawSpawnCards();
+        isStart = false;
     }
     
 
     private void RandomSpawnCards() {
-        // 카드 섞는 소리 재생
-        GameManager.instance.ShuffleCard();
         spawnCardBuffer = new List<SpawnCardData>();
         // 0~100사이 랜덤 난수 생성
         // 알고리즘 만들어야함.
@@ -81,10 +77,30 @@ public class CardManager : MonoBehaviour
         }
     }
 
+     private void RandomRewardCards() {
+        // 카드 섞는 소리 재생
+        // GameManager.instance.ShuffleCard();
+        rewardCardBuffer = new List<RewardCardData>();
+        // 0~100사이 랜덤 난수 생성
+        // 알고리즘 만들어야함.
+        for(int i = 0; i < rewardCards.Count; i++) {
+            float randomNum = Random.Range(0, 100);
+            if(randomNum <= 33) {
+                rewardCardBuffer.Add(rewardCardSO.RewardCardData[0]);
+            } else if(randomNum <= 66) {
+                rewardCardBuffer.Add(rewardCardSO.RewardCardData[1]);
+            } else {
+                rewardCardBuffer.Add(rewardCardSO.RewardCardData[2]);
+            }
+        }
+    }
+
     // 카드 리셋
-    public void DrawCards() {
+    public void DrawSpawnCards() {
         // 1. 카드를 섞는다
         RandomSpawnCards();
+        // 카드 섞는 소리 재생 + 돈 소모
+        if(!isStart) GameManager.instance.ShuffleCard();
         // 2. 카드를 UI에 배치한다.
          for (int i = 0; i < spawnCards.Count; i++)
         {   
@@ -94,43 +110,44 @@ public class CardManager : MonoBehaviour
         }
     }
 
+        public void DrawRewardCards() {
+        // 1. 카드를 섞는다
+        RandomRewardCards();
+        // 2. 카드를 UI에 배치한다.
+         for (int i = 0; i < rewardCards.Count; i++)
+        {   
+            rewardCards[i].SetUpCard(rewardCardBuffer[i]);
+            rewardCards[i].gameObject.SetActive(true); // ???
+            rewardCards[i].GetComponent<Button>().interactable = true;
+        }
+         UIManager.instance.DrawRewardPanel();
+    }
+
     public void SelectRewards(int rewardIndex) {
-        RewardCard selectedReward = selectedRewardCards[rewardIndex].GetComponent<RewardCard>();
-        int reward = selectedReward.RewardCardData.Reward;
-        switch(selectedReward.RewardCardData.Type) {
-            case RewardCardData.RewardType.GOLD :
+        RewardCard selectedRewardCard = rewardCards[rewardIndex];
+        switch(selectedRewardCard.RewardType) {
+            case Enums.ERewardType.GOLD :
                 // 카드에 해당하는 만큼으 골드 제공
-                GameManager.instance.GainGold(reward);
+                GameManager.instance.GainGold(selectedRewardCard.Grade * 10);
                 break;
-            case RewardCardData.RewardType.UNIT :
+            case Enums.ERewardType.UNIT :
                 // 카드에 해당하는 등급의 유닛을 제공
-               // unitSpawner.SpawnUnit(selectedReward.Attribute, reward);
+                unitSpawner.RewardUnit(selectedRewardCard.Grade);
                 break;
-            case RewardCardData.RewardType.UPGRADE :
+            case Enums.ERewardType.STAT :
                 // 카드에 해당하는 만큼 강화
-               // unitUpgrade.UpgradeUnit(selectedReward.Attribute, reward);
+                unitUpgrade.RewardUnitsStat(selectedRewardCard.Grade);
                 break;    
         }
         UIManager.instance.RemoveRewardPanel();
     }
-
-    public void DrawRewards() {
-        // 프리팹 중 카드 3장을 랜덤으로 배치한다.
-        selectedRewardCards.Clear();
-        for (int i = 0; i < 3; i++)
-        {   
-            // 랜덤하게 카드 선택
-            GameObject randomReward= rewardPrefabs[Random.Range(0, rewardPrefabs.Count)];
-            selectedRewardCards.Add(randomReward);
-        }
-        UIManager.instance.DrawRewardPanel();
-    }
-
+ 
 
     // unitSpawner를 참조해서 유닛을 스폰하는게 옳은 방법일까??
     public void SpawnUnit(int index) {
 
-         if(unitSpawner.CreateUnit(spawnCards[index].AttributeType)) {
+         if(unitSpawner.CreateUnit(spawnCards[index].AttributeType, spawnCards[index].Grade)) {
+            Debug.Log(spawnCards[index].AttributeType);
             // 카드 뒤집기 
             spawnCards[index].GetComponent<Image>().sprite = cardShirt;
          // 버튼 못 누르게 하기...

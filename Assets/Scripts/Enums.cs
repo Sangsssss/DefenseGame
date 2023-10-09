@@ -9,5 +9,9 @@ public class Enums : MonoBehaviour
      FIRE, ICE, LIGHT, DARKNESS
     }
 
+    public enum ERewardType {
+        GOLD, UNIT, STAT
+    }
+
 
 }
