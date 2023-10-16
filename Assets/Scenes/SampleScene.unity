@@ -1184,17 +1184,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155272491}
   m_CullTransparentMesh: 1
---- !u!114 &155730625 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2808377582126981163, guid: 9501bf35124fbdd4e9ad4e69f079ad84, type: 3}
-  m_PrefabInstance: {fileID: 2808377582239687402}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1453e92c1e75ab468bc80c639abcdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &160882330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,8 +1509,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5328182569377628153}
         m_TargetAssemblyTypeName: UnitUpgrade, Assembly-CSharp
-        m_MethodName: UpgradeUnitsStat
-        m_Mode: 3
+        m_MethodName: UpgradeFire
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1732,8 +1721,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5328182569377628153}
         m_TargetAssemblyTypeName: UnitUpgrade, Assembly-CSharp
-        m_MethodName: UpgradeUnitsStat
-        m_Mode: 3
+        m_MethodName: UpgradeIce
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2855,8 +2844,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5328182569377628153}
         m_TargetAssemblyTypeName: UnitUpgrade, Assembly-CSharp
-        m_MethodName: UpgradeUnitsStat
-        m_Mode: 3
+        m_MethodName: UpgradeLight
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3288,7 +3277,12 @@ MonoBehaviour:
   - {fileID: 1447009078}
   - {fileID: 2004143085}
   - {fileID: 1142644528}
+  unCheckWave: {fileID: 21300000, guid: f50c28706c32ee949930cea42cee651c, type: 3}
   checkWave: {fileID: 21300000, guid: 4aa900dc155bfc944bab15b52b002419, type: 3}
+  unCheckKing: {fileID: 21300000, guid: 6ff716245d95c8c4cb2b637d5f5c7aea, type: 3}
+  checkKing: {fileID: 21300000, guid: 9711bb84aa4407641a2d20cbc0e40492, type: 3}
+  progressWave: {fileID: 21300000, guid: 6fa2ae6a4c011fa408eb4a8f302aedc3, type: 3}
+  progressKing: {fileID: 21300000, guid: 5f3aa9b30e8d47a46b966580a3cb5cc3, type: 3}
   rewardPanel: {fileID: 1721821925}
   upgradeStep:
   - {fileID: 1946022716}
@@ -3753,7 +3747,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e2202fa2daa498d47a59d5ad4d86acba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ff716245d95c8c4cb2b637d5f5c7aea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4061,7 +4055,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6fa2ae6a4c011fa408eb4a8f302aedc3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f50c28706c32ee949930cea42cee651c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4370,7 +4364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6fa2ae6a4c011fa408eb4a8f302aedc3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f50c28706c32ee949930cea42cee651c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4884,7 +4878,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6fa2ae6a4c011fa408eb4a8f302aedc3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f50c28706c32ee949930cea42cee651c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6109,8 +6103,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5328182569377628153}
         m_TargetAssemblyTypeName: UnitUpgrade, Assembly-CSharp
-        m_MethodName: UpgradeUnitsStat
-        m_Mode: 3
+        m_MethodName: UpgradeDarkness
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6447,7 +6441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6fa2ae6a4c011fa408eb4a8f302aedc3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f50c28706c32ee949930cea42cee651c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6871,14 +6865,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2808377582126981204, guid: 9501bf35124fbdd4e9ad4e69f079ad84, type: 3}
-      propertyPath: drawCardSound
-      value: 
-      objectReference: {fileID: 8300000, guid: f87de3b03e264e94db423910b8d75cc4, type: 3}
-    - target: {fileID: 2808377582126981204, guid: 9501bf35124fbdd4e9ad4e69f079ad84, type: 3}
-      propertyPath: shuffleCardSound
-      value: 
-      objectReference: {fileID: 8300000, guid: d35446d5e19bcaa47bd8c99540cc8b05, type: 3}
     - target: {fileID: 2808377582126981205, guid: 9501bf35124fbdd4e9ad4e69f079ad84, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -6985,6 +6971,10 @@ PrefabInstance:
       value: EnemySpawner
       objectReference: {fileID: 0}
     - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: nextWave
+      value: 8.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
       propertyPath: testData
       value: 
       objectReference: {fileID: 11400000, guid: 7225d5e369a825541b99a8285de1c518, type: 2}
@@ -7006,7 +6996,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
       propertyPath: monsterPrefabs.Array.size
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
       propertyPath: monsterDatas.Array.data[0]
@@ -7056,6 +7046,22 @@ PrefabInstance:
       propertyPath: monsterPrefabs.Array.data[5]
       value: 
       objectReference: {fileID: 7153141402127884706, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 7153141402127884706, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 7153141402127884706, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterPrefabs.Array.data[8]
+      value: 
+      objectReference: {fileID: 7153141402127884706, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
+    - target: {fileID: 4180904490595117730, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
+      propertyPath: monsterPrefabs.Array.data[9]
+      value: 
+      objectReference: {fileID: 7153141402127884706, guid: a4ec793513574cd49719c4055b630e2b, type: 3}
     m_RemovedComponents:
     - {fileID: 1625701119, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 976c9339f8a132947bb9cc9261ea341d, type: 3}
@@ -7077,7 +7083,7 @@ PrefabInstance:
     - target: {fileID: 5328182570878816153, guid: 9cd99bb1e8007ad44a7be03c4617fceb, type: 3}
       propertyPath: fireUnitStats
       value: 
-      objectReference: {fileID: 155730625}
+      objectReference: {fileID: 0}
     - target: {fileID: 5328182570878816153, guid: 9cd99bb1e8007ad44a7be03c4617fceb, type: 3}
       propertyPath: IceUnitPrefab.Array.size
       value: 1
@@ -7203,6 +7209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453c691be02152043bbc13d8444d1ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatSO: {fileID: 11400000, guid: dfa6e44d4f8560143a9b451916f5fe51, type: 2}
 --- !u!1001 &8936270292526223619
 PrefabInstance:
   m_ObjectHideFlags: 0

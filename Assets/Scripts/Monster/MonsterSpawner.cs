@@ -134,14 +134,15 @@ public class MonsterSpawner : MonoBehaviour
         aliveCount[wave]--;
         Debug.Log(wave + "의 남은 마릿 수 : " + aliveCount[wave]);
         if (aliveCount[wave] == 0)
-        {
-            if ((wave+1) % 1 == 0)
+        {   
+            if ((wave+1) % 5 == 0)
             {
                 // 카드 뽑기
                 CardManager.Instance.DrawRewardCards();
             }
             // 마지막 몬스터에게 돈을 주라고??
             monster.IsLast();
+            UIManager.instance.CompleteWave(wave);
         }
     }
 

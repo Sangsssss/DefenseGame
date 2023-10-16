@@ -47,8 +47,8 @@ GameObject:
   - component: {fileID: -6103388352456861913}
   - component: {fileID: 4051462067846731678}
   - component: {fileID: 1457735182872762180}
-  - component: {fileID: 3352313654651869132}
   - component: {fileID: -7900274446024819898}
+  - component: {fileID: 2307465967733910167}
   m_Layer: 6
   m_Name: DarknessUnit
   m_TagString: Player
@@ -177,18 +177,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &3352313654651869132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8280893241393091054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7658d37574892b44388202c2bef0cf61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-7900274446024819898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +187,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1262cc67ce5176f4bba93b94b1d3b46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitMovement: {fileID: 0}
+--- !u!114 &2307465967733910167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280893241393091054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482810811aa722a49b61e140025a7a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8280893239651316983

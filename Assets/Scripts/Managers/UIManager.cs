@@ -41,7 +41,12 @@ public class UIManager : MonoBehaviour
 
     [Header ("Wave Status")]
     [SerializeField] private Image[] waveStatus; 
+    [SerializeField] private Sprite unCheckWave;
     [SerializeField] private Sprite checkWave;
+    [SerializeField] private Sprite unCheckKing;
+    [SerializeField] private Sprite checkKing;
+    [SerializeField] private Sprite progressWave;
+    [SerializeField] private Sprite progressKing;
 
     [Header ("Reward")]
     [SerializeField] private Image rewardPanel;
@@ -84,8 +89,31 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateWave(int wave) {
-        waveStatus[(wave%6)-1].sprite = checkWave;
+        // Wave Status 초기화
+        if(wave%5 == 0) {
+            for(int i = 0; i < waveStatus.Length-1; i++) {
+                waveStatus[i].sprite = unCheckWave;
+            }
+            waveStatus[waveStatus.Length-1].sprite = progressWave;
+        } else {
+            if(wave%6-1 == 4) {
+                waveStatus[wave%6-1].sprite = progressKing;
+            } else {
+                waveStatus[(wave%6)-1].sprite = progressWave;
+            }
+        }
         waveText.text = "WAVE : " + wave;
+    }
+
+    public void CompleteWave(int wave) {
+        // 보스 웨이브
+        if((wave%6)-1 == 4) {
+            waveStatus[wave%6-1].sprite = checkKing;
+        }
+        // 노말 웨이브  
+        else {
+             waveStatus[(wave%6)-1].sprite = checkWave;
+        }
     }
     
     //남아있는 몬스터 수 표시
@@ -121,12 +149,12 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void UpdateUnitStatus(UnitStats.UnitType type, int unitCount) {
-        if(type == UnitStats.UnitType.Fire) {
+    public void UpdateUnitStatus(Enums.EUnitAttribute attribute, int unitCount) {
+        if(attribute == Enums.EUnitAttribute.FIRE) {
             fireUnitCount.text = unitCount.ToString();
-        } else if(type == UnitStats.UnitType.Ice) {
+        } else if(attribute == Enums.EUnitAttribute.ICE) {
             IceUnitCount.text = unitCount.ToString();
-        } else if(type == UnitStats.UnitType.Light) {
+        } else if(attribute == Enums.EUnitAttribute.LIGHT) {
             LightUnitCount.text = unitCount.ToString();
         } else {
             DarknessUnitCount.text = unitCount.ToString();
@@ -148,8 +176,4 @@ public class UIManager : MonoBehaviour
         rewardPanel.gameObject.SetActive(false);
     }
 
-    internal void UpdateUnitStatus(UnitStats.UnitType type)
-    {
-        throw new NotImplementedException();
-    }
 }

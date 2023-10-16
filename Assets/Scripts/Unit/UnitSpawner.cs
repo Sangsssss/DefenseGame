@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
-{
+{   
     private Vector2 spawnPostionMin = new Vector2(-2, -2);
     private Vector2 spawnPostionMax = new Vector2(2, 2);
 
@@ -15,6 +16,7 @@ public class UnitSpawner : MonoBehaviour
     [SerializeField] private List<Unit> DarknessUnitPrefab;
 
     private RTSUnitController rtsUnitController;
+    private UnitUpgrade unitUpgrade;
     private Enums.EUnitAttribute atttributeType;
 
 
@@ -22,6 +24,7 @@ public class UnitSpawner : MonoBehaviour
     void Awake()
     {
         rtsUnitController = this.GetComponent<RTSUnitController>();
+        unitUpgrade = this.GetComponent<UnitUpgrade>();
     }
 
     // Gold 2 소비하며, 유닛 생성
@@ -37,6 +40,8 @@ public class UnitSpawner : MonoBehaviour
         return SpawnUnit(attributeType, grade);
     }
 
+
+    // 보상 시
     public void RewardUnit(int grade) {
         float randNum = Random.Range(0, 100);
         if(randNum >= 75) {
@@ -51,6 +56,7 @@ public class UnitSpawner : MonoBehaviour
         SpawnUnit(atttributeType, grade);
     }
 
+    // 스폰 시
     private bool SpawnUnit(Enums.EUnitAttribute attributeType, int grade)
     {
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
@@ -62,23 +68,11 @@ public class UnitSpawner : MonoBehaviour
         UnitStats unitStats = newUnit.GetComponent<UnitStats>();
 
         if (unitStats != null)
-        {
-            switch (unitStats.Type)
-            {
-                case UnitStats.UnitType.Fire:
-                    unitStats.Damage = GameManager.instance.GetComponent<FireUnitStats>().Damage;
-                    break;
-                case UnitStats.UnitType.Ice:
-                    unitStats.Damage = GameManager.instance.GetComponent<IceUnitStats>().Damage;
-                    break;
-                case UnitStats.UnitType.Light:
-                    unitStats.Damage = GameManager.instance.GetComponent<LightUnitStats>().Damage;
-                    break;
-                case UnitStats.UnitType.Darkness:
-                    unitStats.Damage = GameManager.instance.GetComponent<DarknessUnitStats>().Damage;
-                    break;
-            }
+        {   
+            Debug.Log("Type : " + attributeType + ", Grade" + grade);
+            unitStats.SetUpUnitStat(unitUpgrade.GetUnitStats(attributeType, grade));
         }
+
         GameManager.instance.DrawCard();
 
         newUnit.OnSell += () =>
@@ -108,9 +102,10 @@ public class UnitSpawner : MonoBehaviour
         else if(attributeType == Enums.EUnitAttribute.LIGHT) {
             return LightUnitPrefab[grade-1];
         } 
-        else {
+        else if(attributeType == Enums.EUnitAttribute.DARKNESS){
             return DarknessUnitPrefab[grade-1];
-        }  
-
+        } else {
+            return null;
+        }
     }
 }

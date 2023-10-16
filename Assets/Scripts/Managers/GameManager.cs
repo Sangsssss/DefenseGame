@@ -23,15 +23,9 @@ public class GameManager : MonoBehaviour
     public int goldCount;
     public int life;
 
-    public enum SpendType
-    {
-        Draw = 2,   // Draw에 대한 가격은 1
-        Shuffle = 2 // Shuffle에 대한 가격은 2
-    }
-
-
-    // 총 4가지 타입의 강화
-    private int[] steps = new int[4];
+    public Enums.SpendType spendType;
+    
+    Dictionary<Enums.SpendType, int> spendCosts;
 
 
     // 싱글톤 구성
@@ -53,15 +47,21 @@ public class GameManager : MonoBehaviour
         }
         backgroundMusic = this.GetComponent<AudioSource>();
         gameStatus = GameStatus.Start;
+        goldCount = 100;
+        life = 20;
+        spendCosts = new Dictionary<Enums.SpendType, int>()
+        {
+        { Enums.SpendType.DRAW, 2 },
+        { Enums.SpendType.SHUFFLE, 2 },
+        { Enums.SpendType.FIREUPGRADE, 1},
+        { Enums.SpendType.ICEUPGRADE, 1},
+        { Enums.SpendType.LIGHTUPGRADE, 1},
+        { Enums.SpendType.DARKNESSUPGRADE, 1}
+        };
     }
 
     void Start()
     {   
-        for(int i = 0; i<steps.Length; i++) {
-            steps[i] = 1;
-        }
-        goldCount = 6;
-        life = 20;
         UIManager.instance.StartGame(); 
         UIManager.instance.UpdateGold(goldCount);  
         UIManager.instance.UpdateLife(life);  
@@ -86,10 +86,21 @@ public class GameManager : MonoBehaviour
 
 
     //
-    public void UseGold(SpendType type) {
-        int cost = (int) type;
-        goldCount -= cost;
-        UIManager.instance.UpdateGold(goldCount);
+    public bool UseGold(Enums.SpendType type) {
+        int cost = 0;
+        if(type != Enums.SpendType.DRAW && type != Enums.SpendType.SHUFFLE) {
+            cost = spendCosts[type]++;
+        } else {
+            cost = spendCosts[type];
+        }
+        if(goldCount < cost) {
+            UIManager.instance.LackOfGold();
+            return false;
+        } else {
+            goldCount -= cost;
+            UIManager.instance.UpdateGold(goldCount);
+            return true;
+        }
     }
 
     public void LoseLife(int damage) {
@@ -104,20 +115,18 @@ public class GameManager : MonoBehaviour
         UIManager.instance.EndGame();
     }
 
-    public void UpdateUpgrade(int index) {
-        steps[index] += 1;
-        Debug.Log(steps[index]);
-        UIManager.instance.UpdateUpgrade(index, steps[index]);
+    public void UpdateUpgrade(Enums.SpendType type) {
+        UIManager.instance.UpdateUpgrade((int) type, spendCosts[type]);
     }
 
     public void ShuffleCard() {
         backgroundMusic.PlayOneShot(shuffleCardSound);
-        UseGold(SpendType.Shuffle);
+        UseGold(Enums.SpendType.SHUFFLE);
     }  
 
     public void DrawCard() {
         backgroundMusic.PlayOneShot(drawCardSound);
-        UseGold(SpendType.Draw);
+        UseGold(Enums.SpendType.DRAW);
     }
 
 }

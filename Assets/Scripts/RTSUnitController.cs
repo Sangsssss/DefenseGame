@@ -18,6 +18,7 @@ public class RTSUnitController : MonoBehaviour
 
 
     private List<UnitMovement> selectedUnitList;
+
     void Awake()
     {
         selectedUnitList = new List<UnitMovement>();
@@ -33,26 +34,26 @@ public class RTSUnitController : MonoBehaviour
     }
 
     // linked each type buttons by index
-    public void UpgradeUnits(int index, float upgradeDamage) {  
-        // Upgrade Fire Units 
-        if(index == 0) {
-            for(int i = 0; i<FireUnits.Count; i++) {
-                FireUnits[i].GetComponent<UnitStats>().Damage = upgradeDamage;
+    public void UpgradeUnits(Enums.EUnitAttribute eUnitAttribute) {  
+        List<UnitStats> targetUnits = null;
+        switch(eUnitAttribute) {
+            case Enums.EUnitAttribute.FIRE :
+                targetUnits = FireUnits;
+                break;
+            case Enums.EUnitAttribute.ICE :
+                targetUnits = IceUnits;
+                break;
+            case Enums.EUnitAttribute.LIGHT :
+                targetUnits = LightUnits;
+                break;
+            case Enums.EUnitAttribute.DARKNESS :
+                targetUnits = DarknessUnits;
+                break;
+        }
+        if(targetUnits != null) {
+            for(int i = 0; i<targetUnits.Count; i++) {
+                targetUnits[i].UpgradeDamage();
             }
-        }
-        // Upgrade Ice Units 
-        else if (index == 1) {
-             for(int i = 0; i<IceUnits.Count; i++) {
-                IceUnits[i].GetComponent<UnitStats>().Damage = upgradeDamage;
-            }
-        }
-        // Upgrade Light Units
-        else if (index == 2) {
-
-        }
-        // Upgrade Darkness Units 
-        else {
-
         }
     }
 
@@ -62,26 +63,27 @@ public class RTSUnitController : MonoBehaviour
     {   
         UnitMovement unitMovement = newUnit.GetComponent<UnitMovement>();
         UnitStats unitStats = newUnit.GetComponent<UnitStats>();
+        Enums.EUnitAttribute eUnitAttribute = unitStats.EUnitAttribute;
 
         AllUnits.Add(unitMovement);
         
-        switch(unitStats.Type)
+        switch(eUnitAttribute)
         {
-            case UnitStats.UnitType.Fire:
+            case Enums.EUnitAttribute.FIRE:
                 FireUnits.Add(unitStats);
-                UIManager.instance.UpdateUnitStatus(unitStats.Type, FireUnits.Count);
+                UIManager.instance.UpdateUnitStatus(eUnitAttribute, FireUnits.Count);
                 break;
-            case UnitStats.UnitType.Ice:
+            case Enums.EUnitAttribute.ICE:
                 IceUnits.Add(unitStats);
-                UIManager.instance.UpdateUnitStatus(unitStats.Type, IceUnits.Count);
+                UIManager.instance.UpdateUnitStatus(eUnitAttribute, IceUnits.Count);
                 break;
-            case UnitStats.UnitType.Light:
+            case Enums.EUnitAttribute.LIGHT:
                 LightUnits.Add(unitStats);
-                UIManager.instance.UpdateUnitStatus(unitStats.Type, LightUnits.Count);
+                UIManager.instance.UpdateUnitStatus(eUnitAttribute, LightUnits.Count);
                 break;
-            case UnitStats.UnitType.Darkness:
+            case Enums.EUnitAttribute.DARKNESS:
                 DarknessUnits.Add(unitStats);
-                UIManager.instance.UpdateUnitStatus(unitStats.Type, DarknessUnits.Count);
+                UIManager.instance.UpdateUnitStatus(eUnitAttribute, DarknessUnits.Count);
                 break;
         }
     }

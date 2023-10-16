@@ -6,7 +6,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 50f;
-    public float damage;
+    public double damage;
     private RaycastHit hit;
 
     private Monster targetMonster;
@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
             {
                 if (targetMonster != null)
                 {
-                    targetMonster.onDamage(damage, hit);
+                    targetMonster.OnDamage(damage, hit);
                     Destroy(gameObject);
                 }
             }    
@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public void SetUp(Monster targetMonster, float damage) {
+    public void SetUp(Monster targetMonster, double damage) {
         this.targetMonster = targetMonster;
         this.damage = damage;
         targetPosition = targetMonster.transform.position;

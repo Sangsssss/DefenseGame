@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,13 @@ using UnityEngine;
 public class DarknessUnitStats : UnitStats
 {
     // Start is called before the first frame update
-    void Awake()
-    {   
-        Grade = 1;
-        Damage = 1f;
-        AttackRange = 5f;
-        AttackSpeed = 1.2f;
-        Type = UnitType.Darkness;
-    }
-
+    //   private void Awake() {
+    //      Grade =  unitStatSO.UnitStatData[3].grade;
+    //      Damage =  unitStatSO.UnitStatData[3].Damage;
+    //      AttackRange =  unitStatSO.UnitStatData[3].AttackRange;
+    //      AttackSpeed =  unitStatSO.UnitStatData[3].AttackSpeed;
+    //      EUnitAttribute =  unitStatSO.UnitStatData[3].eUnitAttribute;
+    // }
     // Update is called once per frame
 
        public override void UpgradeDamage()

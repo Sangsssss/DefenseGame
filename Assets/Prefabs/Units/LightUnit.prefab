@@ -47,8 +47,8 @@ GameObject:
   - component: {fileID: -6103388352456861913}
   - component: {fileID: 4051462067846731678}
   - component: {fileID: 1457735182872762180}
-  - component: {fileID: 2025236413937356836}
   - component: {fileID: 9138676620269212072}
+  - component: {fileID: 4356959729721188927}
   m_Layer: 6
   m_Name: LightUnit
   m_TagString: Player
@@ -177,18 +177,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &2025236413937356836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8280893241393091054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94900325e9e6fad4987ab455c41f3a61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9138676620269212072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +187,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1262cc67ce5176f4bba93b94b1d3b46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitMovement: {fileID: 0}
+--- !u!114 &4356959729721188927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280893241393091054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482810811aa722a49b61e140025a7a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8280893239651316983

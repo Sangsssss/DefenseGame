@@ -8,12 +8,10 @@ public class Monster : MonoBehaviour, IDamageable
     private string monsterName;
     private int wave;
     public int Wave {get {return wave;}}
-    private float health;
+    private double health;
     private int damage;
     private int gold;
     private Transform[] wayPoints;
-    public MonsterData monsterData;
-
 
     //private Rigidbody rigidbody;
     private Animator anim;
@@ -86,7 +84,7 @@ public class Monster : MonoBehaviour, IDamageable
         currentWayPoint++;
     }
 
-        public void onDamage(float damage, RaycastHit hit)
+        public void OnDamage(double damage, RaycastHit hit)
         {
             this.health -= damage;
             if(this.health <= 0 && !isDied) {

@@ -13,33 +13,63 @@ MonoBehaviour:
   m_Name: Monster Data
   m_EditorClassIdentifier: 
   monsterDatas:
-  - monsterName: Slime_01
+  - monsterName: 1-1
     wave: 1
     health: 10
     damage: 1
     gold: 1
     monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
-  - monsterName: Slime_02
+  - monsterName: 1-2
     wave: 2
     health: 11
     damage: 1
     gold: 2
     monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
-  - monsterName: Slime_03
+  - monsterName: 1-3
     wave: 3
     health: 12
     damage: 1
     gold: 3
     monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
-  - monsterName: Slime_04
+  - monsterName: 1-4
     wave: 4
     health: 13
     damage: 1
     gold: 4
     monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
-  - monsterName: Slime_King
+  - monsterName: 1-King
     wave: 5
     health: 20
     damage: 3
     gold: 6
+    monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
+  - monsterName: 2-1
+    wave: 6
+    health: 14
+    damage: 2
+    gold: 5
+    monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
+  - monsterName: 2-2
+    wave: 7
+    health: 15
+    damage: 2
+    gold: 5
+    monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
+  - monsterName: 2-3
+    wave: 8
+    health: 16
+    damage: 2
+    gold: 5
+    monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
+  - monsterName: 2-4
+    wave: 9
+    health: 17
+    damage: 2
+    gold: 5
+    monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}
+  - monsterName: 2-King
+    wave: 10
+    health: 24
+    damage: 4
+    gold: 8
     monsterCommonData: {fileID: 11400000, guid: c719292d0f48f4e43be7269b83651234, type: 2}

@@ -95,7 +95,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    // 카드 리셋
+    // 스폰 카드 리셋
     public void DrawSpawnCards() {
         // 1. 카드를 섞는다
         RandomSpawnCards();
@@ -110,6 +110,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    // 리워드 카드 리셋
         public void DrawRewardCards() {
         // 1. 카드를 섞는다
         RandomRewardCards();

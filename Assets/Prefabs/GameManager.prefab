@@ -9,12 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2808377582126981205}
-  - component: {fileID: 2808377582126981204}
   - component: {fileID: 2808377582126981162}
-  - component: {fileID: 2808377582126981163}
-  - component: {fileID: 2808377582126981161}
-  - component: {fileID: 2808377582126981160}
-  - component: {fileID: 155730628}
+  - component: {fileID: 6890487538456895598}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -37,24 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2808377582126981204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2808377582126981207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d76cb65a7f5cd540981e51aa9c47388, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStart: 0
-  isGameover: 0
-  startTime: 5
-  goldCount: 0
-  life: 0
-  drawGold: 2
 --- !u!82 &2808377582126981162
 AudioSource:
   m_ObjectHideFlags: 0
@@ -151,7 +129,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2808377582126981163
+--- !u!114 &6890487538456895598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,42 +138,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2808377582126981207}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1453e92c1e75ab468bc80c639abcdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d76cb65a7f5cd540981e51aa9c47388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2808377582126981161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2808377582126981207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94900325e9e6fad4987ab455c41f3a61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2808377582126981160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2808377582126981207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7658d37574892b44388202c2bef0cf61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &155730628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2808377582126981207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 450acde3041861a459ddacf9057e87fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  shuffleCardSound: {fileID: 8300000, guid: d35446d5e19bcaa47bd8c99540cc8b05, type: 3}
+  drawCardSound: {fileID: 8300000, guid: f87de3b03e264e94db423910b8d75cc4, type: 3}
+  gameStatus: 0
+  isStart: 0
+  isGameover: 0
+  startTime: 5
+  goldCount: 0
+  life: 0
