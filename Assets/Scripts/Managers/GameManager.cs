@@ -119,9 +119,11 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateUpgrade((int) type, spendCosts[type]);
     }
 
-    public void ShuffleCard() {
-        backgroundMusic.PlayOneShot(shuffleCardSound);
-        UseGold(Enums.SpendType.SHUFFLE);
+    public bool ShuffleCard() {
+        if(UseGold(Enums.SpendType.SHUFFLE)) {
+            backgroundMusic.PlayOneShot(shuffleCardSound);
+            return true;
+        } return false;
     }  
 
     public void DrawCard() {

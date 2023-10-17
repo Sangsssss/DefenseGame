@@ -61,6 +61,7 @@ public class CardManager : MonoBehaviour
         }
 
         DrawSpawnCards();
+        UIManager.instance.VisibleUI();
         isStart = false;
     }
     
@@ -97,10 +98,13 @@ public class CardManager : MonoBehaviour
 
     // 스폰 카드 리셋
     public void DrawSpawnCards() {
+        // 처음 시작 시는 돈 소모 X
+        if(!isStart) {
+            if(!GameManager.instance.ShuffleCard()) return;
+        }
         // 1. 카드를 섞는다
         RandomSpawnCards();
         // 카드 섞는 소리 재생 + 돈 소모
-        if(!isStart) GameManager.instance.ShuffleCard();
         // 2. 카드를 UI에 배치한다.
          for (int i = 0; i < spawnCards.Count; i++)
         {   

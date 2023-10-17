@@ -21,10 +21,10 @@ public class KeyboardInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        // if(Input.GetKeyDown(KeyCode.Alpha1)) { unitUpgrade.UpgradeUnitsStat(0);}
-        // if(Input.GetKeyDown(KeyCode.Alpha2)) { unitUpgrade.UpgradeUnitsStat(1);}
-        // if(Input.GetKeyDown(KeyCode.Alpha3)) { unitUpgrade.UpgradeUnitsStat(2);}
-        // if(Input.GetKeyDown(KeyCode.Alpha4)) { unitUpgrade.UpgradeUnitsStat(3);}
+        if(Input.GetKeyDown(KeyCode.Alpha1)) { unitUpgrade.UpgradeFire();}
+        if(Input.GetKeyDown(KeyCode.Alpha2)) { unitUpgrade.UpgradeIce();}
+        if(Input.GetKeyDown(KeyCode.Alpha3)) { unitUpgrade.UpgradeLight();}
+        if(Input.GetKeyDown(KeyCode.Alpha4)) { unitUpgrade.UpgradeDarkness();}
 
 
         if(Input.GetKey(KeyCode.H)) { rtsUnitController.FreezeSelected(); }

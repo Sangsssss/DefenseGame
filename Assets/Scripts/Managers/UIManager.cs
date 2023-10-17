@@ -7,6 +7,7 @@ using System.Transactions;
 using UnityEditor.UIElements;
 using System;
 using System.Linq;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -30,14 +31,16 @@ public class UIManager : MonoBehaviour
     [Header ("Player Status")]
     [SerializeField] private Text waveText;
     [SerializeField] private Text timeText;
-    [SerializeField] private Text enemyCntText;
+    [SerializeField] private TMP_Text enemyCntText;
+    [SerializeField] private TMP_Text gold;
+    [SerializeField] private TMP_Text life;
 
 
     [Header ("Unit Count")]
-    [SerializeField] private Text fireUnitCount;
-    [SerializeField] private Text IceUnitCount;
-    [SerializeField] private Text LightUnitCount;
-    [SerializeField] private Text DarknessUnitCount;
+    [SerializeField] private TMP_Text fireUnitCount;
+    [SerializeField] private TMP_Text IceUnitCount;
+    [SerializeField] private TMP_Text LightUnitCount;
+    [SerializeField] private TMP_Text DarknessUnitCount;
 
     [Header ("Wave Status")]
     [SerializeField] private Image[] waveStatus; 
@@ -50,14 +53,16 @@ public class UIManager : MonoBehaviour
 
     [Header ("Reward")]
     [SerializeField] private Image rewardPanel;
+    
+    [Header ("Spawn")]
+    [SerializeField] private Image[] spawnCards;
 
     [Header ("Upgrade")]
     [SerializeField] private Text[] upgradeStep;
 
     [Header ("Ohter")]
-    public Text informationText;
-    public Text gold;
-    public Text life;
+    public TMP_Text informationText;
+
     
    // [SerializeField] private CardManager cardPanel;
    
@@ -118,12 +123,13 @@ public class UIManager : MonoBehaviour
     
     //남아있는 몬스터 수 표시
     public void UpdateEnemyCount(int enemyCount) {
-        enemyCntText.text = "남은 몬스터 수 : " + enemyCount;
+        enemyCntText.text = "Count : " + enemyCount;
     }
 
     public void StartGame() {
-        informationText.text = "몬스터 스폰이 곧 시작됩니다!";
-        informationText.enabled = true;
+        informationText.gameObject.SetActive(true);
+        informationText.text = "Monster Spawn Soon!";
+        
     }
 
     public void StartSpawn() {
@@ -142,7 +148,7 @@ public class UIManager : MonoBehaviour
     }
 
     IEnumerator DisabledTextAfterDelay() {
-        informationText.text = "유닛 소환에 필요한 골드가 부족합니다.";
+        informationText.text = "Lack Of GOld!";
         informationText.enabled = true;
         yield return new WaitForSeconds(1.5f);
         informationText.enabled = false;
@@ -174,6 +180,12 @@ public class UIManager : MonoBehaviour
     public void RemoveRewardPanel()
     {   
         rewardPanel.gameObject.SetActive(false);
+    }
+
+    public void VisibleUI() {
+        foreach(Image spawnCard in spawnCards) {
+            spawnCard.gameObject.SetActive(true);
+        }
     }
 
 }
