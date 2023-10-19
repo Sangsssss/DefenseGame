@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SpawnCard : MonoBehaviour
@@ -21,7 +22,12 @@ public class SpawnCard : MonoBehaviour
     public int Grade {get {return grade;}}
 
     public SpawnCardData spawnCardData;
+    private Animator animator;
 
+    void Start() {
+        animator = GetComponent<Animator>();
+
+    }
     void Awake() {
         // attributeSprite = attributeSpriteImg.sprite;
         // unitSprite = unitSpriteImg.sprite;
@@ -39,5 +45,12 @@ public class SpawnCard : MonoBehaviour
         Debug.Log("Gold :" +gold.text); 
         grade = this.spawnCardData.grade;
         Debug.Log("Grade" +spawnCardData.grade);
+    }
+
+    // 카드가 클릭되면 뒤집는 애니메이션 재생
+    public void OnPointerDown()
+    {   
+        Debug.Log("Flip");
+        animator.SetTrigger("Flip");
     }
 }

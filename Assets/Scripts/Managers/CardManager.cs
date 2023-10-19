@@ -154,7 +154,7 @@ public class CardManager : MonoBehaviour
          if(unitSpawner.CreateUnit(spawnCards[index].AttributeType, spawnCards[index].Grade)) {
             Debug.Log(spawnCards[index].AttributeType);
             // 카드 뒤집기 
-            spawnCards[index].GetComponent<Image>().sprite = cardShirt;
+            // spawnCards[index].GetComponent<Image>().sprite = cardShirt;
          // 버튼 못 누르게 하기...
             spawnCards[index].GetComponent<Button>().interactable = false;
          }
