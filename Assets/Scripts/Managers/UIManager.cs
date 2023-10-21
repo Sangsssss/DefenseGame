@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image rewardPanel;
     
     [Header ("Spawn")]
-    [SerializeField] private GameObject[] spawnCards;
+    [SerializeField] private GameObject spawnCardPanel;
 
     [Header ("Upgrade")]
     [SerializeField] private Text[] upgradeStep;
@@ -183,9 +183,10 @@ public class UIManager : MonoBehaviour
     }
 
     public void VisibleUI() {
-        foreach(GameObject spawnCard in spawnCards) {
-            spawnCard.SetActive(true);
-        }
+        Debug.Log("UI ON");
+        spawnCardPanel.gameObject.SetActive(true);
     }
+
+    
 
 }

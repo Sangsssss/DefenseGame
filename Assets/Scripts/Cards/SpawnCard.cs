@@ -22,15 +22,20 @@ public class SpawnCard : MonoBehaviour
     public int Grade {get {return grade;}}
 
     public SpawnCardData spawnCardData;
+    
+    
+    private Quaternion initialRotation;
     private Animator animator;
 
-    void Start() {
-        animator = GetComponent<Animator>();
 
+    public GameObject front;
+    public GameObject back;
+
+    void Start() {
+        initialRotation = transform.rotation;
     }
     void Awake() {
-        // attributeSprite = attributeSpriteImg.sprite;
-        // unitSprite = unitSpriteImg.sprite;
+        animator = GetComponent<Animator>();
     }
 
     public void SetUpCard(SpawnCardData spawnCardData) {
@@ -50,7 +55,22 @@ public class SpawnCard : MonoBehaviour
     // 카드가 클릭되면 뒤집는 애니메이션 재생
     public void OnPointerDown()
     {   
-        Debug.Log("Flip");
         animator.SetTrigger("Flip");
     }
+
+    public void ShowBack()
+    {
+        back.SetActive(true);
+    }
+
+    public void ShowFront() {
+        back.SetActive(false);
+    }
+
+    public void ResetRotation() {
+        Debug.Log("Reset!");
+        animator.SetTrigger("BackFlip");
+
+    }
+
 }

@@ -61,7 +61,7 @@ public class CardManager : MonoBehaviour
         }
 
         DrawSpawnCards();
-        UIManager.instance.VisibleUI();
+        // UIManager.instance.VisibleUI();
         isStart = false;
     }
     
@@ -108,8 +108,11 @@ public class CardManager : MonoBehaviour
         // 2. 카드를 UI에 배치한다.
          for (int i = 0; i < spawnCards.Count; i++)
         {   
+            if(!isStart) {
+                spawnCards[i].ResetRotation();
+                spawnCards[i].ShowFront();
+            }
             spawnCards[i].SetUpCard(spawnCardBuffer[i]);
-            spawnCards[i].gameObject.SetActive(true); // ???
             spawnCards[i].GetComponent<Button>().interactable = true;
         }
     }
@@ -150,15 +153,10 @@ public class CardManager : MonoBehaviour
 
     // unitSpawner를 참조해서 유닛을 스폰하는게 옳은 방법일까??
     public void SpawnUnit(int index) {
-
+         spawnCards[index].OnPointerDown();
          if(unitSpawner.CreateUnit(spawnCards[index].AttributeType, spawnCards[index].Grade)) {
             Debug.Log(spawnCards[index].AttributeType);
-            // 카드 뒤집기 
-            // spawnCards[index].GetComponent<Image>().sprite = cardShirt;
-         // 버튼 못 누르게 하기...
             spawnCards[index].GetComponent<Button>().interactable = false;
-         }
-         
+         }  
     }
-
 }
