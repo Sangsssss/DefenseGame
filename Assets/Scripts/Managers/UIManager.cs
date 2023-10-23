@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject spawnCardPanel;
 
     [Header ("Upgrade")]
-    [SerializeField] private Text[] upgradeStep;
+    [SerializeField] private TMP_Text[] upgradeStep;
 
     [Header ("Ohter")]
     public TMP_Text informationText;
@@ -182,11 +182,11 @@ public class UIManager : MonoBehaviour
         rewardPanel.gameObject.SetActive(false);
     }
 
-    public void VisibleUI() {
-        Debug.Log("UI ON");
-        spawnCardPanel.gameObject.SetActive(true);
-    }
+    // public void VisibleUI() {
+    //     Debug.Log("UI ON");
+    //     spawnCardPanel.gameObject.SetActive(true);
+    // }
 
-    
+
 
 }

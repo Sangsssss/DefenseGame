@@ -142,7 +142,7 @@ public class MonsterSpawner : MonoBehaviour
             }
             // 마지막 몬스터에게 돈을 주라고??
             monster.IsLast();
-            UIManager.instance.CompleteWave(wave);
+            UIManager.instance.CompleteWave(wave+1);
         }
     }
 

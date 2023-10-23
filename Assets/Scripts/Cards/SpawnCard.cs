@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SpawnCard : MonoBehaviour
+public class SpawnCard : Card
 {   
     [SerializeField] private Enums.EUnitAttribute attributeType;
     public Enums.EUnitAttribute AttributeType {get {return attributeType;}}
@@ -22,21 +22,17 @@ public class SpawnCard : MonoBehaviour
     public int Grade {get {return grade;}}
 
     public SpawnCardData spawnCardData;
-    
-    
-    private Quaternion initialRotation;
-    private Animator animator;
 
 
-    public GameObject front;
-    public GameObject back;
+    // private Animator animator;
 
-    void Start() {
-        initialRotation = transform.rotation;
-    }
-    void Awake() {
-        animator = GetComponent<Animator>();
-    }
+
+    // public GameObject front;
+    // public GameObject back;
+
+    // void Awake() {
+    //     animator = GetComponent<Animator>();
+    // }
 
     public void SetUpCard(SpawnCardData spawnCardData) {
         this.spawnCardData = spawnCardData;
@@ -53,24 +49,23 @@ public class SpawnCard : MonoBehaviour
     }
 
     // 카드가 클릭되면 뒤집는 애니메이션 재생
-    public void OnPointerDown()
-    {   
-        animator.SetTrigger("Flip");
-    }
+    // public void OnPointerDown()
+    // {   
+    //     animator.SetTrigger("Flip");
+    // }
 
-    public void ShowBack()
-    {
-        back.SetActive(true);
-    }
+    // public void ShowBack()
+    // {
+    //     back.SetActive(true);
+    // }
 
-    public void ShowFront() {
-        back.SetActive(false);
-    }
+    // public void ShowFront() {
+    //     back.SetActive(false);
+    // }
 
-    public void ResetRotation() {
-        Debug.Log("Reset!");
-        animator.SetTrigger("BackFlip");
-
-    }
+    // public void ResetRotation() {
+    //     Debug.Log("Reset!");
+    //     animator.SetTrigger("BackFlip");
+    // }
 
 }

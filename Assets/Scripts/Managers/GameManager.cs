@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     private AudioSource backgroundMusic;
     [SerializeField] private AudioClip shuffleCardSound;
     [SerializeField] private AudioClip drawCardSound;
-
     public enum GameStatus {
         Start, Spawn, Ready, GameOver
     }
@@ -82,6 +81,10 @@ public class GameManager : MonoBehaviour
         // 웨이브마다 골드 획득
         goldCount += gold;
         UIManager.instance.UpdateGold(goldCount);
+    }
+
+    public void PlayMonsterDeathSound(AudioClip monsterDeathSound) {
+        backgroundMusic.PlayOneShot(monsterDeathSound);
     }
 
 

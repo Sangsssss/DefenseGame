@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewardCard : MonoBehaviour
+public class RewardCard : Card
 {
     [SerializeField] private Enums.ERewardType eRewardType;
     public Enums.ERewardType RewardType {get {return eRewardType;}}

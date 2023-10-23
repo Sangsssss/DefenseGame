@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Monster : MonoBehaviour, IDamageable
-{
+{   
     // Start is called before the first frame update
+    [SerializeField] private AudioClip monsterDeathSound;
     private string monsterName;
     private int wave;
     public int Wave {get {return wave;}}
@@ -32,6 +33,7 @@ public class Monster : MonoBehaviour, IDamageable
 
 
     private void Awake() {
+        monsterDeathSound = this.GetComponent<AudioClip>();
         //rigidbody = this.GetComponent<Rigidbody>();
         anim = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent>();
@@ -95,6 +97,7 @@ public class Monster : MonoBehaviour, IDamageable
         private void Die() {
             OnDeath?.Invoke();
             isDied = true;
+            GameManager.instance.PlayMonsterDeathSound(monsterDeathSound);
             if(last == true) {
                 GameManager.instance.GainGold(this.gold);
             }
