@@ -10,19 +10,19 @@ public class RTSUnitController : MonoBehaviour
     public GameObject spot;
 
     [SerializeField]
-    public List<UnitMovement> AllUnits { private set; get;}
+    public List<Unit> AllUnits { private set; get;}
     public List<UnitStats> FireUnits { private set; get;}
     public List<UnitStats> IceUnits { private set; get;}
     public List<UnitStats> LightUnits { private set; get;}
     public List<UnitStats> DarknessUnits { private set; get;}
 
 
-    private List<UnitMovement> selectedUnitList;
+    private List<Unit> selectedUnitList;
 
     void Awake()
     {
-        selectedUnitList = new List<UnitMovement>();
-        AllUnits = new List<UnitMovement>();
+        selectedUnitList = new List<Unit>();
+        AllUnits = new List<Unit>();
         FireUnits = new List<UnitStats>();
         IceUnits = new List<UnitStats>();
         LightUnits = new List<UnitStats>();
@@ -61,11 +61,11 @@ public class RTSUnitController : MonoBehaviour
 
     public void AddUnitToList(Unit newUnit)
     {   
-        UnitMovement unitMovement = newUnit.GetComponent<UnitMovement>();
+        //UnitMovement unitMovement = newUnit.GetComponent<UnitMovement>();
         UnitStats unitStats = newUnit.GetComponent<UnitStats>();
         Enums.EUnitAttribute eUnitAttribute = unitStats.EUnitAttribute;
 
-        AllUnits.Add(unitMovement);
+        AllUnits.Add(newUnit);
         
         switch(eUnitAttribute)
         {
@@ -97,7 +97,7 @@ public class RTSUnitController : MonoBehaviour
     private IEnumerator CheckStop(Vector3 Destination) {
         // 코루틴 시작 시
         for(int i = 0; i < selectedUnitList.Count; i++) {
-            selectedUnitList[i].Move(Destination);
+            selectedUnitList[i].UnitMovement.Move(Destination);
         }
         
         bool allUnitsMove = true;
@@ -105,7 +105,7 @@ public class RTSUnitController : MonoBehaviour
         while(allUnitsMove) {
             allUnitsMove = false;
             for(int i = 0; i < selectedUnitList.Count; i++) {
-                if(selectedUnitList[i].isMoving == true) {
+                if(selectedUnitList[i].UnitMovement.isMoving == true) {
                     allUnitsMove = true;
                     break;
                 }
@@ -117,7 +117,7 @@ public class RTSUnitController : MonoBehaviour
 
     public void FreezeSelected() {
         for(int i = 0; i < selectedUnitList.Count; i++) {
-            selectedUnitList[i].Freeze();
+            selectedUnitList[i].UnitMovement.Freeze();
         }
         
     }
@@ -125,16 +125,16 @@ public class RTSUnitController : MonoBehaviour
 
     public void DeselectAll() {
         for(int i =0; i < selectedUnitList.Count; i++) {
-            selectedUnitList[i].DeselectUnit();
+           selectedUnitList[i].DeselectUnit();
         }
         selectedUnitList.Clear();
     }
-    public void ClickSelectUnit(UnitMovement newUnit) {
+    public void ClickSelectUnit(Unit newUnit) {
         DeselectAll();
         SelectUnit(newUnit);
     }
 
-    public void ShiftClickSelectUnit(UnitMovement newUnit) {
+    public void ShiftClickSelectUnit(Unit newUnit) {
         if(selectedUnitList.Contains(newUnit)) {
             DeselectUnit(newUnit);
         } else {
@@ -142,22 +142,22 @@ public class RTSUnitController : MonoBehaviour
         }
     }
 
-    public void DragSelectUnit(UnitMovement newUnit) {
+    public void DragSelectUnit(Unit newUnit) {
         if(!selectedUnitList.Contains(newUnit)) { 
             SelectUnit(newUnit);
         }
     }
 
-    private void SelectUnit(UnitMovement newUnit) {
+    private void SelectUnit(Unit newUnit) {
         newUnit.SelectUnit();
         selectedUnitList.Add(newUnit);
     }
-    private void DeselectUnit(UnitMovement newUnit) {
+    private void DeselectUnit(Unit newUnit) {
         newUnit.DeselectUnit();
         selectedUnitList.Remove(newUnit);
     }
 
-    public void SellUnit(UnitMovement targetUnit) {
+    public void SellUnit(Unit targetUnit) {
         // 마우스 커서를 클릭했을 때, 커서에 위치한 유닛을 판매 
         // if(targetUnit != null) {
         //     targetUnit.Sell();

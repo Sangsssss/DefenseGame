@@ -11,8 +11,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class UnitMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject selectCircle;
+    // Start is called before the first frame updat
 
     private NavMeshAgent agent;
     private Animator anim;
@@ -93,13 +92,15 @@ public class UnitMovement : MonoBehaviour
 //     }
 // }
 
-    public void SelectUnit() {
-        selectCircle.SetActive(true);
-    }
+    // public void SelectUnit() {
+    //     Debug.Log("Select Unit");
+    //     selectCircle.SetActive(true);
+    //     UIManager.instance.ShowUnitStatus(transform.position.x, transform.position.z);
+    // }
 
-    public void DeselectUnit() {
-        selectCircle.SetActive(false);
-    }
+    // public void DeselectUnit() {
+    //     selectCircle.SetActive(false);
+    // }
 
     public void Move(UnityEngine.Vector3 Destination) {
         agent.SetDestination(Destination);

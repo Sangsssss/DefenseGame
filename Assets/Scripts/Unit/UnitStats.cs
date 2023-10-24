@@ -12,13 +12,13 @@ public class UnitStats : MonoBehaviour
     public Enums.EUnitAttribute EUnitAttribute {get {return eUnitAttribute;} set {eUnitAttribute = value;} }
     // 유닛이 가지고 있는 Stat
     // 등급(1,2,3,4,5) & 데미지 & 공격 범위 & 공격 속도 &  
-    private int grade;
+    [SerializeField]  private int grade;
     public int Grade {get {return grade;} set {grade = value;}}
     [SerializeField] private double damage;
     public double Damage {get {return damage;} set {damage = value;}}
-    private float attackRange;
+    [SerializeField] private float attackRange;
     public float AttackRange {get {return attackRange;} set {attackRange = value;}}
-    private float attackSpeed;
+    [SerializeField] private float attackSpeed;
     public float AttackSpeed {get {return attackSpeed;} set {attackSpeed = value;}}
 
     // 필드 위에 이미 생성된 유닛의 데미지를 업그레이드

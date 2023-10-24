@@ -8,20 +8,34 @@ public class Unit : MonoBehaviour
 {
     // Start is called before the first frame update
     private UnitMovement unitMovement;
+    public UnitMovement UnitMovement { get {return unitMovement;} set {unitMovement = value;} }
 
     private UnitAttack unitAttack;
+    public UnitAttack UnitAttack {  get {return unitAttack;} set {unitAttack = value;} }
   
     private UnitStats unitStats;
+    public UnitStats UnitStats {  get {return unitStats;} set {unitStats = value;} }
 
-    
+    public GameObject selectCircle;
 
     public Action OnSell;
     
-    void Start()
+    void Awake()
     {
         unitMovement = this.GetComponent<UnitMovement>();
         unitAttack = this.GetComponent<UnitAttack>();
         unitStats = this.GetComponent<UnitStats>();
+    }
+
+    public void SelectUnit() {
+        Debug.Log("Select Unit");
+        selectCircle.SetActive(true);
+        //Debug.Log("GRADE : " + unitStats.Grade);
+        UIManager.instance.ShowUnitStatus(unitStats, transform.position.x, transform.position.z);
+    }
+
+    public void DeselectUnit() {
+        selectCircle.SetActive(false);
     }
 
     public void Sell() {

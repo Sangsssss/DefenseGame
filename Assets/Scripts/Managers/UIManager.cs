@@ -8,6 +8,7 @@ using UnityEditor.UIElements;
 using System;
 using System.Linq;
 using TMPro;
+using System.IO.Compression;
 
 public class UIManager : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public class UIManager : MonoBehaviour
 
     [Header ("Ohter")]
     public TMP_Text informationText;
+    [SerializeField] private TMP_Text unitStatusText;
 
     
    // [SerializeField] private CardManager cardPanel;
@@ -182,6 +184,12 @@ public class UIManager : MonoBehaviour
         rewardPanel.gameObject.SetActive(false);
     }
 
+    public void ShowUnitStatus(UnitStats unitStats, float x, float z)
+    {   
+        unitStatusText.text = "N : " + "NAME" + "\nG : " + unitStats.Grade.ToString() + "\nD : " + unitStats.Damage.ToString();
+        Debug.Log("Show Unit Status");
+    }
+    
     // public void VisibleUI() {
     //     Debug.Log("UI ON");
     //     spawnCardPanel.gameObject.SetActive(true);

@@ -47,7 +47,7 @@ public class MouseDrag : MonoBehaviour
     private void SelectUnits()
     {   
         // 모든 유닛을 검사
-        foreach(UnitMovement unit in rtsUnitController.AllUnits) {
+        foreach(Unit unit in rtsUnitController.AllUnits) {
             // 유닛의 월드 좌표를 화면 좌표로 변환 => 드래그 범위 내 있는지 검사
             if(dragRect.Contains(mainCamera.WorldToScreenPoint(unit.transform.position))) {
                 rtsUnitController.DragSelectUnit(unit);

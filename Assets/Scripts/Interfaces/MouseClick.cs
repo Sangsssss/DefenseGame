@@ -33,7 +33,7 @@ public class MouseClick : MonoBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerUnit)) {
                 // 마우스 커서에 위치하는 오브젝트가 null일 때,
-                UnitMovement targetUnit = hit.transform.GetComponent<UnitMovement>();
+                Unit targetUnit = hit.transform.GetComponent<Unit>();
                 if(targetUnit == null) return;
                 // Shift를 눌렀을 때와 아닐 때로 구분
                 if(keyboardInput.IsSellMode() == true) {
@@ -46,6 +46,7 @@ public class MouseClick : MonoBehaviour
                     rtsUnitController.ClickSelectUnit(targetUnit);
                 }
             } else {
+                //UIManager.instance.ShowUnitStatus();
                 if(keyboardInput.IsMultiSelectMode() == false) {  
                     rtsUnitController.DeselectAll();
             }
@@ -57,6 +58,7 @@ public class MouseClick : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerGrond)) {
+                Debug.Log(hit.point);
                 rtsUnitController.MoveSelected(hit.point);
             }
         }
