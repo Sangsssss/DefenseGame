@@ -129,9 +129,13 @@ public class GameManager : MonoBehaviour
         } return false;
     }  
 
-    public void DrawCard() {
+    public void FlipSpawnCard() {
         backgroundMusic.PlayOneShot(drawCardSound);
         UseGold(Enums.SpendType.DRAW);
+    }
+
+    public void FlipRewardCard() {
+        backgroundMusic.PlayOneShot(drawCardSound);
     }
 
 }

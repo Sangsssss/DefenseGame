@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KeyboardInput : MonoBehaviour
 {   
@@ -8,6 +9,12 @@ public class KeyboardInput : MonoBehaviour
     private RTSUnitController rtsUnitController;
     private UnitUpgrade unitUpgrade;
     [SerializeField] private CardManager cardManager;
+
+    [Header ("Button Matching")]
+    [SerializeField] private Button upgradeFire;
+    [SerializeField] private Button upgradeIce;
+    [SerializeField] private Button upgradeLight;
+    [SerializeField] private Button upgradeDarkness;
 
     private bool sellMode;
     private bool multiSelectMode;
@@ -21,10 +28,10 @@ public class KeyboardInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if(Input.GetKeyDown(KeyCode.Alpha1)) { unitUpgrade.UpgradeFire();}
-        if(Input.GetKeyDown(KeyCode.Alpha2)) { unitUpgrade.UpgradeIce();}
-        if(Input.GetKeyDown(KeyCode.Alpha3)) { unitUpgrade.UpgradeLight();}
-        if(Input.GetKeyDown(KeyCode.Alpha4)) { unitUpgrade.UpgradeDarkness();}
+        if(Input.GetKeyDown(KeyCode.Alpha1)) { upgradeFire.onClick.Invoke(); }
+        if(Input.GetKeyDown(KeyCode.Alpha2)) { upgradeIce.onClick.Invoke();}
+        if(Input.GetKeyDown(KeyCode.Alpha3)) { upgradeLight.onClick.Invoke();}
+        if(Input.GetKeyDown(KeyCode.Alpha4)) { upgradeDarkness.onClick.Invoke();}
 
 
         if(Input.GetKey(KeyCode.H)) { rtsUnitController.FreezeSelected(); }

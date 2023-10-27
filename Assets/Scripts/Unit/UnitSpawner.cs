@@ -28,17 +28,6 @@ public class UnitSpawner : MonoBehaviour
     }
 
     // Gold 2 소비하며, 유닛 생성
-    public bool CreateUnit(Enums.EUnitAttribute attributeType, int grade)
-    {
-        // 1. 골드가 없을 시
-        if (GameManager.instance.goldCount < 2)
-        {
-            UIManager.instance.LackOfGold();
-            return false;
-        }
-        // 2. 골드 충분 ==> 유닛 생성 후 골드 감소
-        return SpawnUnit(attributeType, grade);
-    }
 
 
     // 보상 시
@@ -57,7 +46,7 @@ public class UnitSpawner : MonoBehaviour
     }
 
     // 스폰 시
-    private bool SpawnUnit(Enums.EUnitAttribute attributeType, int grade)
+    public void SpawnUnit(Enums.EUnitAttribute attributeType, int grade)
     {
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
 
@@ -73,7 +62,7 @@ public class UnitSpawner : MonoBehaviour
             unitStats.SetUpUnitStat(unitUpgrade.GetUnitStats(attributeType, grade));
         }
 
-        GameManager.instance.DrawCard();
+       // GameManager.instance.FlipSpawnCard();
 
         newUnit.OnSell += () =>
         {
@@ -87,7 +76,6 @@ public class UnitSpawner : MonoBehaviour
         }
 
         Debug.Log("유닛생성!");
-        return true;
     }
 
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 

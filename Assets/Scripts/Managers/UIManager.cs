@@ -184,17 +184,13 @@ public class UIManager : MonoBehaviour
         rewardPanel.gameObject.SetActive(false);
     }
 
-    public void ShowUnitStatus(UnitStats unitStats, float x, float z)
+    public void ShowUnitStatus(UnitStats unitStats)
     {   
         unitStatusText.text = "N : " + "NAME" + "\nG : " + unitStats.Grade.ToString() + "\nD : " + unitStats.Damage.ToString();
-        Debug.Log("Show Unit Status");
     }
-    
-    // public void VisibleUI() {
-    //     Debug.Log("UI ON");
-    //     spawnCardPanel.gameObject.SetActive(true);
-    // }
 
-
+    public void RemoveUnitStatus() {
+        unitStatusText.text = "";
+    }
 
 }

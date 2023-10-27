@@ -31,10 +31,10 @@ public class Unit : MonoBehaviour
         Debug.Log("Select Unit");
         selectCircle.SetActive(true);
         //Debug.Log("GRADE : " + unitStats.Grade);
-        UIManager.instance.ShowUnitStatus(unitStats, transform.position.x, transform.position.z);
     }
 
     public void DeselectUnit() {
+        UIManager.instance.RemoveUnitStatus();
         selectCircle.SetActive(false);
     }
 

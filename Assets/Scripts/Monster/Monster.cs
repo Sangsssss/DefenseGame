@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Monster : MonoBehaviour, IDamageable
 {   
@@ -9,7 +10,10 @@ public class Monster : MonoBehaviour, IDamageable
     private string monsterName;
     private int wave;
     public int Wave {get {return wave;}}
-    private double health;
+    private double hp;
+    public double HP {get {return hp;}}
+    private double currentHP;
+    public double CurrentHP {get {return currentHP;}}
     private int damage;
     private int gold;
     private Transform[] wayPoints;
@@ -32,6 +36,12 @@ public class Monster : MonoBehaviour, IDamageable
     private bool last;
 
 
+    // // HP
+    // [SerializeField] Slider HPBar;
+    // [SerializeField] private Vector3 hpBarOffset; // HP 바의 위치 오프셋
+    // [SerializeField] private Quaternion hpBarRotation;
+
+
     private void Awake() {
         monsterDeathSound = this.GetComponent<AudioClip>();
         //rigidbody = this.GetComponent<Rigidbody>();
@@ -47,13 +57,19 @@ public class Monster : MonoBehaviour, IDamageable
             Debug.LogWarning("No waypoint");
          } else {
             MoveToNextWayPoint();
-            Debug.Log(anim.GetFloat("Speed"));
          }
 
     }
 
+    // void LateUpdate()
+    // {
+    //     HPBar.transform.rotation = hpBarRotation;
+    // }
+
     void Update()
     {   
+        // HPBar.transform.position = transform.position + hpBarOffset;
+        // UpdateHP();
         if(roopCount == limitedRoop) {
             // 몬스터 => Player Attack 시행
             Attack();  
@@ -63,11 +79,17 @@ public class Monster : MonoBehaviour, IDamageable
         }
     }
 
+    
+    // private void UpdateHP() {
+    //     HPBar.value = (float)(currentHP / hp);
+    // }
+
 
     public void SetUpMonster(MonsterData monsterData) {
         this.monsterName = monsterData.monsterName;
         this.wave = monsterData.wave;
-        this.health = monsterData.health;
+        this.hp = monsterData.health;
+        this.currentHP = hp;
         this.damage = monsterData.damage;
         this.gold = monsterData.gold;
         this.wayPoints = monsterData.monsterCommonData.WayPoints;
@@ -88,8 +110,8 @@ public class Monster : MonoBehaviour, IDamageable
 
         public void OnDamage(double damage, RaycastHit hit)
         {
-            this.health -= damage;
-            if(this.health <= 0 && !isDied) {
+            this.currentHP -= damage;
+            if(this.currentHP <= 0 && !isDied) {
                 Die();
             }
         }

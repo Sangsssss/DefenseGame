@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Card : MonoBehaviour
 
     public void OnPointerDown()
     {   
+        Debug.Log("OnPointerDown");
         animator.SetTrigger("Flip");
     }
 
@@ -29,7 +31,7 @@ public class Card : MonoBehaviour
     }
 
     public void ResetRotation() {
-        Debug.Log("Reset!");
         animator.SetTrigger("BackFlip");
+        ShowFront();
     }
 }

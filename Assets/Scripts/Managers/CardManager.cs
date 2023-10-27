@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {   
-
-    [SerializeField]
-    private UnitSpawner unitSpawner;
-    [SerializeField]
-    private UnitUpgrade unitUpgrade;
+    // [Header ["Component"] ]
+    public Button drawButton; // 카드를 뽑는 버튼   
+    
+    [SerializeField] private UnitSpawner unitSpawner;
+    [SerializeField] private UnitUpgrade unitUpgrade;
     // Start is called before the first frame update
 
     [SerializeField] private SpawnCardSO spawnCardSO;
@@ -18,13 +18,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private List<RewardCard> rewardCards;
     private List<SpawnCardData> spawnCardBuffer; 
     private List<RewardCardData> rewardCardBuffer;
-
-    public Sprite cardShirt;
-
-    public Button drawButton; // 카드를 뽑는 버튼   
-
     private bool isStart = true;
-
 
 
     public static CardManager Instance {
@@ -110,29 +104,29 @@ public class CardManager : MonoBehaviour
         {   
             if(!isStart) {
                 spawnCards[i].ResetRotation();
-                spawnCards[i].ShowFront();
             }
             spawnCards[i].SetUpCard(spawnCardBuffer[i]);
-            spawnCards[i].GetComponent<Button>().interactable = true;
         }
     }
 
     // 리워드 카드 리셋
-        public void DrawRewardCards() {
+    public void DrawRewardCards() {
         // 1. 카드를 섞는다
         RandomRewardCards();
         // 2. 카드를 UI에 배치한다.
          for (int i = 0; i < rewardCards.Count; i++)
         {   
+            rewardCards[i].ResetRotation();
+
             rewardCards[i].SetUpCard(rewardCardBuffer[i]);
             rewardCards[i].gameObject.SetActive(true); // ???
-            rewardCards[i].GetComponent<Button>().interactable = true;
         }
          UIManager.instance.DrawRewardPanel();
     }
 
     public void SelectRewards(int rewardIndex) {
         RewardCard selectedRewardCard = rewardCards[rewardIndex];
+        selectedRewardCard.OnPointerDown();
         switch(selectedRewardCard.RewardType) {
             case Enums.ERewardType.GOLD :
                 // 카드에 해당하는 만큼으 골드 제공
@@ -153,10 +147,13 @@ public class CardManager : MonoBehaviour
 
     // unitSpawner를 참조해서 유닛을 스폰하는게 옳은 방법일까??
     public void SpawnUnit(int index) {
-         spawnCards[index].OnPointerDown();
-         if(unitSpawner.CreateUnit(spawnCards[index].AttributeType, spawnCards[index].Grade)) {
-            Debug.Log(spawnCards[index].AttributeType);
-            spawnCards[index].GetComponent<Button>().interactable = false;
-         }  
+               // 1. 골드가 없을 시
+        if (GameManager.instance.goldCount < 2)
+        {
+            UIManager.instance.LackOfGold();            
+        } else {
+            spawnCards[index].OnPointerDown();
+            unitSpawner.SpawnUnit(spawnCards[index].AttributeType, spawnCards[index].Grade);
+        }
     }
 }

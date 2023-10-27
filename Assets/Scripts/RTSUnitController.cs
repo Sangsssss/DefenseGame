@@ -151,6 +151,9 @@ public class RTSUnitController : MonoBehaviour
     private void SelectUnit(Unit newUnit) {
         newUnit.SelectUnit();
         selectedUnitList.Add(newUnit);
+        // UnitStauts
+        if(selectedUnitList.Count <= 1) UIManager.instance.ShowUnitStatus(newUnit.UnitStats);
+        else UIManager.instance.RemoveUnitStatus(); 
     }
     private void DeselectUnit(Unit newUnit) {
         newUnit.DeselectUnit();
