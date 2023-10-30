@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ButtonClick : MonoBehaviour
@@ -16,14 +17,25 @@ public class ButtonClick : MonoBehaviour
 	}
 
 	void Start() {
-		button.onClick.AddListener(() => Onclick());
+		 button.onClick.AddListener(() => Onclick());
 		originalColor = button.image.color;
         // 원래 색상의 80%로 새로운 색상
-        clickedColor = new Color(originalColor.r, originalColor.g * 0.6f, originalColor.b * 0.6f);
+        clickedColor = new Color(100, 100, 100);
 	}
-    public void Onclick()
+    // public void OnPointerDown(PointerEventData eventData)
+	// {
+	// 	animator.SetBool("Click", true);
+	// 	button.image.color = clickedColor;
+	// }
+	public void Onclick()
 	{
-		animator.SetTrigger("Click");
+		animator.SetBool("Click", true);
 		button.image.color = clickedColor;
 	}
+
+	public void OnPointerUp(PointerEventData eventData)
+    {	
+		animator.SetBool("Click", false);
+        button.image.color = originalColor;
+    }
 }
