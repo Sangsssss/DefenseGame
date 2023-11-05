@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 [System.Serializable]
 public class SpawnCardData {
-    public Sprite attributeCardSprite;
-    public Sprite unitSprite;
+    public Sprite characterSprite;
+    public Sprite typeSprite;
     public Enums.EUnitAttribute eUnitAttribute;
+    public string unitName;
     public int gold;
     public int grade;
 }

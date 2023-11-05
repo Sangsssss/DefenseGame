@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
             {
                 if (targetMonster != null)
                 {
-                    targetMonster.OnDamage(damage, hit);
+                    targetMonster.OnDamage(damage);
                     Destroy(gameObject);
                 }
             }    

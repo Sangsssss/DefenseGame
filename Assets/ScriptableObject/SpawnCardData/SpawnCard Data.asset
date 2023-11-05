@@ -13,13 +13,9 @@ MonoBehaviour:
   m_Name: SpawnCard Data
   m_EditorClassIdentifier: 
   spawnCardDatas:
-  - attributeCardSprite: {fileID: 21300000, guid: 02f748a7828a96d48bd4a833219e1175, type: 3}
-    unitSprite: {fileID: 21300000, guid: d4d175ccc7fd12043ac351df668101ca, type: 3}
+  - characterSprite: {fileID: 21300000, guid: 5d10c7ae0e6f94a4898417e1ea75a663, type: 3}
+    typeSprite: {fileID: 21300000, guid: 7c38202bc1125471cb46578c474ed80e, type: 3}
     eUnitAttribute: 1
+    unitName: ICE_01
     gold: 1
     grade: 1
-  attributeCardSprite: {fileID: 21300000, guid: 02f748a7828a96d48bd4a833219e1175, type: 3}
-  unitSprite: {fileID: 0}
-  eUnitAttribute: 1
-  gold: 1
-  grade: 1

@@ -7,8 +7,8 @@ public class UnitAttack : MonoBehaviour
 
     [SerializeField]
     private LayerMask monsterLayerMask;
-    public Transform projectilePrefab;
-    public Transform handPosition;
+    public GameObject projectilePrefab;
+    public Transform muzzlePoint;
     
     private UnitMovement unitMovement;
     private UnitStats unitStats;
@@ -98,12 +98,12 @@ public class UnitAttack : MonoBehaviour
     {   
         if(targetMonster != null) {
 
-        Vector3 targetDirection = (targetMonster.transform.position - transform.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);  
+        // Vector3 targetDirection = (targetMonster.transform.position - transform.position).normalized;
+        // Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);  
 
-        Transform projectileInstance = Instantiate(projectilePrefab, handPosition.position, targetRotation);
+        GameObject projectileInstacne = Instantiate(projectilePrefab, muzzlePoint.position, transform.rotation);
 
-        Projectile projectile = projectileInstance.GetComponent<Projectile>();
+        HS_ProjectileMover projectile = projectileInstacne.GetComponent<HS_ProjectileMover>();
         projectile.SetUp(targetMonster, unitStats.Damage);
 
         isAttacking = false;

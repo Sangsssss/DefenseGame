@@ -28,6 +28,15 @@ public class KeyboardInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+
+        // if (Input.GetKeyDown(KeyCode.Mouse0))
+        // {
+        //     button.image.color = clickedColor;
+        // }
+        // else if (Input.GetKeyUp(KeyCode.Mouse0))
+        // {
+        //     button.image.color = originalColor;
+        // }
         if(Input.GetKeyDown(KeyCode.Alpha1)) { upgradeFire.onClick.Invoke(); }
         if(Input.GetKeyDown(KeyCode.Alpha2)) { upgradeIce.onClick.Invoke();}
         if(Input.GetKeyDown(KeyCode.Alpha3)) { upgradeLight.onClick.Invoke();}

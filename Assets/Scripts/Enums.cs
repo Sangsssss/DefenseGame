@@ -6,6 +6,13 @@ using UnityEngine;
 public class Enums : MonoBehaviour
 {
     // Start is called before the first frame update
+    public enum BTNType {
+        UPGRADE,
+        NEW,
+        CONTINUE
+    }
+
+
     public enum EUnitAttribute {
      FIRE = SpendType.FIREUPGRADE, 
      ICE = SpendType.ICEUPGRADE, 

@@ -12,7 +12,6 @@ using UnityEngine.Experimental.GlobalIllumination;
 public class UnitMovement : MonoBehaviour
 {
     // Start is called before the first frame updat
-
     private NavMeshAgent agent;
     private Animator anim;
     private Rigidbody rigidbody;
@@ -70,7 +69,8 @@ public class UnitMovement : MonoBehaviour
         //     rigidbody.constraints = originalContraints;
         // }
         agent.isStopped = true;
-        anim.SetFloat("Move", 0.0f);
+        anim.SetFloat("Horizontal", 0);
+        anim.SetFloat("Vertical", 0);
         //line.enabled = false;
         // if(draw != null) StopCoroutine(draw);
         isMoving = false;
@@ -103,11 +103,16 @@ public class UnitMovement : MonoBehaviour
     // }
 
     public void Move(UnityEngine.Vector3 Destination) {
+         UnityEngine.Vector3 direction = (Destination - transform.position).normalized;
+            // x와 z축의 방향에 따라 애니메이션을 결정합니다.
+        anim.SetFloat("Horizontal", direction.x);
+        anim.SetFloat("Vertical", direction.z);
+
+        // transform.LookAt(Destination);
         agent.SetDestination(Destination);
-        anim.SetFloat("Move", 1.0f);
+        // anim.SetFloat("Move", 1.0f);
         isMoving = true;
         agent.isStopped = !isMoving;
-        
         // if(draw != null) StopCoroutine(draw);
         //         draw = StartCoroutine(DrawPath());
         

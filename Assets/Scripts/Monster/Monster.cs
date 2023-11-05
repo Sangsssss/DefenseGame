@@ -108,7 +108,7 @@ public class Monster : MonoBehaviour, IDamageable
         currentWayPoint++;
     }
 
-        public void OnDamage(double damage, RaycastHit hit)
+        public void OnDamage(double damage)
         {
             this.currentHP -= damage;
             if(this.currentHP <= 0 && !isDied) {
