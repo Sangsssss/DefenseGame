@@ -31,5 +31,5 @@ MonoBehaviour:
   - grade: 1
     damage: 1
     attackRange: 5
-    attackSpeed: 2
+    attackSpeed: 0.5
     eUnitAttribute: 1

@@ -18,6 +18,7 @@ public class KeyboardInput : MonoBehaviour
 
     private bool sellMode;
     private bool multiSelectMode;
+    private bool attackMode;
    
     // Start is called before the first frame update
     private void Awake() {
@@ -45,11 +46,14 @@ public class KeyboardInput : MonoBehaviour
 
         if(Input.GetKey(KeyCode.H)) { rtsUnitController.FreezeSelected(); }
 
-        // if(Input.GetKey(KeyCode.A)) { rtsUnitController.AttackMonster();}
-
         // R키를 누르면 카드 드로우
         if(Input.GetKeyDown(KeyCode.R)) { cardManager.DrawSpawnCards(); }
 
+         if(Input.GetKey(KeyCode.A)) {
+            attackMode = true;
+        } else {
+            attackMode = false;
+        }
         // S키를 누르고 있을 때 Sell 모드로 변화
         if(Input.GetKey(KeyCode.S)) {
             sellMode = true;
@@ -70,5 +74,9 @@ public class KeyboardInput : MonoBehaviour
 
     public bool IsMultiSelectMode() {
         return multiSelectMode;
+    }
+
+     public bool IsAttackMode() {
+        return attackMode;
     }
 }

@@ -6,8 +6,9 @@ using UnityEngine;
 public class MouseClick : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField]
-    private LayerMask layerUnit;
+    [SerializeField] private LayerMask layerUnit;
+    [SerializeField] private LayerMask layerMonster;
+    
     [SerializeField]
     private LayerMask layerGrond;
 
@@ -31,6 +32,13 @@ public class MouseClick : MonoBehaviour
         if(Input.GetMouseButtonDown(0)) {
             RaycastHit hit;
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMonster)) {
+                if(keyboardInput.IsAttackMode() == true) {
+                    Debug.Log("Attack mode");
+                }
+            }
+
             if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerUnit)) {
                 // 마우스 커서에 위치하는 오브젝트가 null일 때,
                 Unit targetUnit = hit.transform.GetComponent<Unit>();

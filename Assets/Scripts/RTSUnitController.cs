@@ -170,4 +170,12 @@ public class RTSUnitController : MonoBehaviour
         selectedUnitList.Remove(targetUnit);
         targetUnit.GetComponent<Unit>().Sell();
     }
+
+    public void Attack()
+    {   
+        foreach (Unit unit in selectedUnitList) {
+            // unit.GetComponent<UnitAttack>().Attack();
+        }   
+
+    }
 }

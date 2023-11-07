@@ -15,7 +15,7 @@ public class MonsterSpawner : MonoBehaviour
     public Transform spawnPoint;
 
     private List<Monster> Monsters = new List<Monster>();
-    private int wave = 1;
+    private int wave = 0;
     private int endWave = 20;
     private float spawnTime = 0;
     private int spawnCount = 0;
@@ -83,9 +83,7 @@ public class MonsterSpawner : MonoBehaviour
         // 현재 웨이브와 남은 적의 수 표시
         int count = (Monsters != null) ? Monsters.Count : 0;
         UIManager.instance.UpdateEnemyCount(count);
-        // 웨이븜다 
     }
-
 
      private void SpawnWave() {
         StartCoroutine(CreateEnemy());          
@@ -99,8 +97,8 @@ public class MonsterSpawner : MonoBehaviour
         // BOSS-R 종료 후, 플레이어에게 Card 선택권 부여
         for(int i = 0; i < spawnCount; i++) {
             // 데이터 입력
-            Monster monster = Instantiate(monsterPrefabs[wave-1], spawnPoint.position, spawnPoint.rotation).GetComponent<Monster>();
-            monster.SetUpMonster(monsterSO.MonsterData[wave-1]);
+            Monster monster = Instantiate(monsterPrefabs[wave], spawnPoint.position, spawnPoint.rotation).GetComponent<Monster>();
+            monster.SetUpMonster(monsterSO.MonsterData[wave]);
 
             Monsters.Add(monster);
 
@@ -110,15 +108,12 @@ public class MonsterSpawner : MonoBehaviour
             };
             monster.OnDeath += () =>
             {   
-                OnMonsterDeath(monster.Wave-1, monster);
+                OnMonsterDeath(monster.Wave, monster);
             };
             yield return new WaitForSeconds(nextSpawn);
         }
         wave++;
     }
-
-
-    // extract Method 
 
     // 몬스터가 플레이거 공격 시
     private void OnMonsterAttack(Monster monster)
@@ -126,13 +121,14 @@ public class MonsterSpawner : MonoBehaviour
         Monsters.Remove(monster);
         Destroy(monster.gameObject);
     }
+
     // 몬스터가 플레이어에게 사망 시
     private void OnMonsterDeath(int wave, Monster monster)
     {
         Monsters.Remove(monster);
         Destroy(monster.gameObject);
         aliveCount[wave]--;
-        Debug.Log(wave + "의 남은 마릿 수 : " + aliveCount[wave]);
+        Debug.Log(wave+1 + "의 남은 마릿 수 : " + aliveCount[wave]);
         if (aliveCount[wave] == 0)
         {   
             if ((wave+1) % 5 == 0)
@@ -142,17 +138,17 @@ public class MonsterSpawner : MonoBehaviour
             }
             // 마지막 몬스터에게 돈을 주라고??
             monster.IsLast();
-            UIManager.instance.CompleteWave(wave+1);
+            // UIManager.instance.CompleteWave(wave+1);
         }
     }
 
     private void CheckRoundType()
     {    
-        if(wave % 5== 0) {
+        if(wave != 0 && wave % 4 == 0) {
              spawnCount = (int)RoundType.Boss;
         } else {
              spawnCount = (int)RoundType.Normal;
         }
-        aliveCount[wave-1] = spawnCount;
+        aliveCount[wave] = spawnCount;
     }
 }

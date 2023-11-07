@@ -41,16 +41,20 @@ public class HS_ProjectileMover : MonoBehaviour
 	}
 
     void Update() {
-        targetPosition = targetMonster.transform.position;
+        // targetPosition = targetMonster.transform.position;
     }
 
     void FixedUpdate ()
     {
 		if (speed != 0)
         {   
+            if(targetMonster != null) {
             //Vector3 direction = (targetPosition - transform.position).normalized;
             rb.velocity = transform.forward * speed;
+            Vector3 targetPos = targetMonster.transform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(targetPos);
             //transform.position += transform.forward * (speed * Time.deltaTime);         
+            }
         }
 	}
 

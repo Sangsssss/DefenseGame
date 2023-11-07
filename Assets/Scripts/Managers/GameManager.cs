@@ -20,12 +20,12 @@ public class GameManager : MonoBehaviour
     public float startTime = 5f;
     
     public int goldCount;
+    public int currentLife;
     public int life;
 
     public Enums.SpendType spendType;
     
-    Dictionary<Enums.SpendType, int> spendCosts;
-
+    private Dictionary<Enums.SpendType, int> spendCosts;
 
     // 싱글톤 구성
     public static GameManager instance {
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         gameStatus = GameStatus.Start;
         goldCount = 100;
         life = 20;
+        currentLife = life;
         spendCosts = new Dictionary<Enums.SpendType, int>()
         {
         { Enums.SpendType.DRAW, 2 },
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
     {   
         UIManager.instance.StartGame(); 
         UIManager.instance.UpdateGold(goldCount);  
-        UIManager.instance.UpdateLife(life);  
+        UIManager.instance.UpdateLife((currentLife + "/" + life).ToString());  
         backgroundMusic.Play();    
     }
 
@@ -107,8 +108,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoseLife(int damage) {
-        life -= damage;
-        UIManager.instance.UpdateLife(life);
+        currentLife -= damage;
+        UIManager.instance.UpdateLife((currentLife + "/" + life).ToString());
     }
 
 

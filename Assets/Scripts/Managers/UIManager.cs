@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using TMPro;
 using System.IO.Compression;
+using System.Net;
 
 public class UIManager : MonoBehaviour
 {
@@ -29,9 +30,10 @@ public class UIManager : MonoBehaviour
     private static UIManager m_instance; // 싱글톤이 할당될 변수
 
 
+    [Header ("Wave Status")]
+    [SerializeField] private TMP_Text timeText;
+
     [Header ("Player Status")]
-    [SerializeField] private Text waveText;
-    [SerializeField] private Text timeText;
     [SerializeField] private TMP_Text enemyCntText;
     [SerializeField] private TMP_Text gold;
     [SerializeField] private TMP_Text life;
@@ -44,13 +46,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text DarknessUnitCount;
 
     [Header ("Wave Status")]
-    [SerializeField] private Image[] waveStatus; 
-    [SerializeField] private Sprite unCheckWave;
-    [SerializeField] private Sprite checkWave;
-    [SerializeField] private Sprite unCheckKing;
-    [SerializeField] private Sprite checkKing;
-    [SerializeField] private Sprite progressWave;
-    [SerializeField] private Sprite progressKing;
+    [SerializeField] private GameObject[] checkWave;
+ 
 
     [Header ("Reward")]
     [SerializeField] private Image rewardPanel;
@@ -62,6 +59,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text[] upgradeStep;
 
     [Header ("Ohter")]
+    [SerializeField] GameObject information;
     public TMP_Text informationText;
     [SerializeField] private TMP_Text unitStatusText;
 
@@ -87,8 +85,8 @@ public class UIManager : MonoBehaviour
         gold.text = goldCount.ToString();
     }
 
-    public void UpdateLife(int lifeCount) {
-        life.text = lifeCount.ToString();
+    public void UpdateLife(string lifeStatus) {
+        life.text = lifeStatus;
     }
 
     public void UnitSpawn() {
@@ -96,46 +94,43 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateWave(int wave) {
-        // Wave Status 초기화
-        if(wave%5 == 0) {
-            for(int i = 0; i < waveStatus.Length-1; i++) {
-                waveStatus[i].sprite = unCheckWave;
+        if(wave == 0) checkWave[wave].SetActive(true);
+        else
+            if(wave%5 == 0) {
+                for(int i=0; i<checkWave.Length; i++) {
+                    checkWave[i].SetActive(false);
+                }
             }
-            waveStatus[waveStatus.Length-1].sprite = progressWave;
-        } else {
-            if(wave%6-1 == 4) {
-                waveStatus[wave%6-1].sprite = progressKing;
-            } else {
-                waveStatus[(wave%6)-1].sprite = progressWave;
-            }
-        }
-        waveText.text = "WAVE : " + wave;
+            // Wave Status 초기화
+            checkWave[wave%5].SetActive(true);
     }
 
-    public void CompleteWave(int wave) {
-        // 보스 웨이브
-        if((wave%6)-1 == 4) {
-            waveStatus[wave%6-1].sprite = checkKing;
-        }
-        // 노말 웨이브  
-        else {
-             waveStatus[(wave%6)-1].sprite = checkWave;
-        }
-    }
+    // public void CompleteWave(int wave) {
+    //     // 보스 웨이브
+    //     if((wave%6)-1 == 4) {
+    //         waveStatus[wave%6-1].sprite = checkKing;
+    //     }
+    //     // 노말 웨이브  
+    //     else {
+    //          waveStatus[(wave%6)-1].sprite = checkWave;
+    //     }
+    // }
     
     //남아있는 몬스터 수 표시
     public void UpdateEnemyCount(int enemyCount) {
-        enemyCntText.text = "Count : " + enemyCount;
+        enemyCntText.text = enemyCount.ToString();
     }
 
     public void StartGame() {
-        informationText.gameObject.SetActive(true);
+        information.SetActive(true);
+        // informationText.gameObject.SetActive(true);
         informationText.text = "Monster Spawn Soon!";
         
     }
 
     public void StartSpawn() {
-        informationText.enabled = false;
+        information.SetActive(false);
+        //informationText.enabled = false;
     }
 
     public void EndGame() {

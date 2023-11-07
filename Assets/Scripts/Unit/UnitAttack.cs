@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class UnitAttack : MonoBehaviour
@@ -17,6 +18,9 @@ public class UnitAttack : MonoBehaviour
     private LineRenderer line;
 
    // private Transform targetTransform;
+    private Collider target;
+    private float shortDis;
+
     private Monster targetMonster;
     private float attackTimer;
     private bool isAttacking = false;
@@ -55,9 +59,20 @@ public class UnitAttack : MonoBehaviour
         }
 
         if(!unitMovement.isMoving && isAttacking && targetMonster == null) {
+            // 현재 유닛의 위치에서 스피어 반경 attackRange에 있는 몬스터를 감지해서 collider 배열에 저장
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, unitStats.AttackRange, monsterLayerMask);
+            // 사정거리 안에 타겟이 존재할 시
+            
             if(hitColliders.Length > 0) {
-                Collider target = hitColliders[0];
+                target = hitColliders[0];
+                shortDis = UnityEngine.Vector3.Distance(transform.position, target.transform.position);
+                foreach(Collider hitCollider in hitColliders) {
+                    float distance = UnityEngine.Vector3.Distance(transform.position, hitCollider.transform.position);
+                    if(distance < shortDis) {
+                        target = hitCollider;
+                        shortDis = distance;
+                    }
+                }
                 targetMonster = target.GetComponent<Monster>();
                 this.transform.LookAt(targetMonster.transform);
                 anim.SetTrigger("Attack");
