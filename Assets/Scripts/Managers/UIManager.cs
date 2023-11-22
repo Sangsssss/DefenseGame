@@ -57,16 +57,16 @@ public class UIManager : MonoBehaviour
 
     [Header ("Upgrade")]
     [SerializeField] private TMP_Text[] upgradeStep;
+    
+    [Header ("Unit Stat")]
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text gradeText;
+    [SerializeField] private TMP_Text damageText;
 
     [Header ("Ohter")]
-    [SerializeField] GameObject information;
-    public TMP_Text informationText;
-    [SerializeField] private TMP_Text unitStatusText;
-
-    
-   // [SerializeField] private CardManager cardPanel;
-   
-
+    [SerializeField] private GameObject information;
+    [SerializeField] private TMP_Text informationText;
+    [SerializeField] private GameObject settingPanel;
     
     // Start is called before the first frame update
 
@@ -79,6 +79,14 @@ public class UIManager : MonoBehaviour
 
         // mm:ss 형태의 문자열로 포맷팅합니다.
         timeText.text  = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void ShowSetting() {
+        if(settingPanel.activeSelf) {
+            settingPanel.SetActive(false);
+        } else {
+            settingPanel.SetActive(true);
+        }
     }
 
     public void UpdateGold(int goldCount) {
@@ -105,17 +113,6 @@ public class UIManager : MonoBehaviour
             checkWave[wave%5].SetActive(true);
     }
 
-    // public void CompleteWave(int wave) {
-    //     // 보스 웨이브
-    //     if((wave%6)-1 == 4) {
-    //         waveStatus[wave%6-1].sprite = checkKing;
-    //     }
-    //     // 노말 웨이브  
-    //     else {
-    //          waveStatus[(wave%6)-1].sprite = checkWave;
-    //     }
-    // }
-    
     //남아있는 몬스터 수 표시
     public void UpdateEnemyCount(int enemyCount) {
         enemyCntText.text = enemyCount.ToString();
@@ -181,11 +178,15 @@ public class UIManager : MonoBehaviour
 
     public void ShowUnitStatus(UnitStats unitStats)
     {   
-        unitStatusText.text = "N : " + "NAME" + "\nG : " + unitStats.Grade.ToString() + "\nD : " + unitStats.Damage.ToString();
+        nameText.text = unitStats.Name.ToString();
+        gradeText.text = unitStats.Grade.ToString();
+        damageText.text = unitStats.Damage.ToString();
     }
 
     public void RemoveUnitStatus() {
-        unitStatusText.text = "";
+        nameText.text = "";
+        gradeText.text = "";
+        damageText.text = "";
     }
 
 }

@@ -66,15 +66,21 @@ public class CardManager : MonoBehaviour
         // 알고리즘 만들어야함.
         for(int i = 0; i < spawnCards.Count; i++) {
             float randomNum = Random.Range(0, 100);
-            if(randomNum >= 0) {
-            spawnCardBuffer.Add(spawnCardSO.SpawnCardData[0]);
-        }
+            if(randomNum <= 25) {
+                spawnCardBuffer.Add(spawnCardSO.SpawnCardData[0]);
+             } else if(randomNum <= 50) {
+                spawnCardBuffer.Add(spawnCardSO.SpawnCardData[1]);
+             } else if(randomNum <= 75) {
+                spawnCardBuffer.Add(spawnCardSO.SpawnCardData[2]);
+             } else {
+                spawnCardBuffer.Add(spawnCardSO.SpawnCardData[3]);
+             }
         }
     }
 
      private void RandomRewardCards() {
         // 카드 섞는 소리 재생
-        // GameManager.instance.ShuffleCard();
+        
         rewardCardBuffer = new List<RewardCardData>();
         // 0~100사이 랜덤 난수 생성
         // 알고리즘 만들어야함.

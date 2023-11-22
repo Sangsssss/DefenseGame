@@ -9,7 +9,8 @@ public class Enums : MonoBehaviour
     public enum BTNType {
         UPGRADE,
         NEW,
-        CONTINUE
+        CONTINUE,
+        SlIDE_CARD
     }
 
 

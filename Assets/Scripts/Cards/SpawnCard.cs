@@ -11,6 +11,10 @@ public class SpawnCard : Card
     [SerializeField] private Enums.EUnitAttribute attributeType;
     public Enums.EUnitAttribute AttributeType {get {return attributeType;}}
 
+    [SerializeField] private Image attributeFrameColor;
+    [SerializeField] private Image backGlowColor;
+    [SerializeField] private Image glowColor;
+ 
     [SerializeField] private Image characterImage;  
     public Sprite CharacterSprite {get {return characterImage.sprite;}}
 
@@ -35,7 +39,11 @@ public class SpawnCard : Card
     public void SetUpCard(SpawnCardData spawnCardData) {
         this.spawnCardData = spawnCardData;
         attributeType = this.spawnCardData.eUnitAttribute; 
- 
+
+        attributeFrameColor.color = this.spawnCardData.attributeFrameColor;
+        backGlowColor.color = this.spawnCardData.backGlowColor;
+        glowColor.color = this.spawnCardData.glowColor;
+
         characterImage.sprite = this.spawnCardData.characterSprite;
       
         typeImage.sprite = this.spawnCardData.typeSprite;

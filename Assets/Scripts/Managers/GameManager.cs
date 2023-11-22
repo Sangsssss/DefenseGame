@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private AudioSource backgroundMusic;
     [SerializeField] private AudioClip shuffleCardSound;
     [SerializeField] private AudioClip drawCardSound;
+    [SerializeField] private AudioClip upgradeSound;
     public enum GameStatus {
         Start, Spawn, Ready, GameOver
     }
@@ -88,6 +89,13 @@ public class GameManager : MonoBehaviour
         backgroundMusic.PlayOneShot(monsterDeathSound);
     }
 
+     public void PlayUnitAttackSound(AudioClip unitAttackSound) {
+        backgroundMusic.PlayOneShot(unitAttackSound);
+    }
+
+    public void PlayUpgradeSound() {
+        backgroundMusic.PlayOneShot(upgradeSound);
+    }
 
     //
     public bool UseGold(Enums.SpendType type) {
@@ -111,7 +119,7 @@ public class GameManager : MonoBehaviour
         currentLife -= damage;
         UIManager.instance.UpdateLife((currentLife + "/" + life).ToString());
     }
-
+    
 
     public void EndGame()
     {   

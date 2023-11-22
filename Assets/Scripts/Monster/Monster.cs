@@ -43,7 +43,6 @@ public class Monster : MonoBehaviour, IDamageable
 
 
     private void Awake() {
-        monsterDeathSound = this.GetComponent<AudioClip>();
         //rigidbody = this.GetComponent<Rigidbody>();
         anim = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent>();

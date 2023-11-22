@@ -29,7 +29,7 @@ public class KeyboardInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-
+        if(Input.GetKeyDown(KeyCode.Escape)) {UIManager.instance.ShowSetting();}
         // if (Input.GetKeyDown(KeyCode.Mouse0))
         // {
         //     button.image.color = clickedColor;

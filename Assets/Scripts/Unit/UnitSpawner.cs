@@ -74,8 +74,6 @@ public class UnitSpawner : MonoBehaviour
         {
             rtsUnitController.AddUnitToList(newUnit);
         }
-
-        Debug.Log("유닛생성!");
     }
 
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 

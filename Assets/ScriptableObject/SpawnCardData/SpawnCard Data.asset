@@ -14,8 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnCardDatas:
   - characterSprite: {fileID: 21300000, guid: 5d10c7ae0e6f94a4898417e1ea75a663, type: 3}
+    attributeFrameColor: {r: 0, g: 0.31764707, b: 1, a: 1}
+    backGlowColor: {r: 0.3647059, g: 0.7372549, b: 1, a: 1}
+    glowColor: {r: 0.24313726, g: 1, b: 0.8980392, a: 1}
     typeSprite: {fileID: 21300000, guid: 7c38202bc1125471cb46578c474ed80e, type: 3}
     eUnitAttribute: 1
     unitName: ICE_01
+    gold: 1
+    grade: 1
+  - characterSprite: {fileID: 21300000, guid: 813b7c7ef9aa146f9b4d2333c590c88c, type: 3}
+    attributeFrameColor: {r: 1, g: 0.006289184, b: 0.006289184, a: 1}
+    backGlowColor: {r: 0.9339623, g: 0.46821576, b: 0.11160547, a: 1}
+    glowColor: {r: 1, g: 0.87738067, b: 0.13836467, a: 1}
+    typeSprite: {fileID: 21300000, guid: 7c38202bc1125471cb46578c474ed80e, type: 3}
+    eUnitAttribute: 0
+    unitName: FIRE_01
+    gold: 1
+    grade: 1
+  - characterSprite: {fileID: 21300000, guid: 68a3cdecef36744d8a9f77eca93e595d, type: 3}
+    attributeFrameColor: {r: 0.6509804, g: 0.6039216, b: 0.13333334, a: 1}
+    backGlowColor: {r: 1, g: 0.9137255, b: 0, a: 1}
+    glowColor: {r: 1, g: 0.84313726, b: 0, a: 1}
+    typeSprite: {fileID: 21300000, guid: 7c38202bc1125471cb46578c474ed80e, type: 3}
+    eUnitAttribute: 2
+    unitName: LIGHT_01
+    gold: 1
+    grade: 1
+  - characterSprite: {fileID: 21300000, guid: 813b7c7ef9aa146f9b4d2333c590c88c, type: 3}
+    attributeFrameColor: {r: 0, g: 0, b: 0, a: 1}
+    backGlowColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+    glowColor: {r: 0.21568628, g: 0.21568628, b: 0.20784314, a: 1}
+    typeSprite: {fileID: 21300000, guid: 7c38202bc1125471cb46578c474ed80e, type: 3}
+    eUnitAttribute: 3
+    unitName: DARK_01
     gold: 1
     grade: 1

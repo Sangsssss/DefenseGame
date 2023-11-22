@@ -5,6 +5,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class UnitStatData {
+    [SerializeField] private string name;
+    public string Name {get {return name;} set {name = value;}}
+
     [SerializeField] private int grade;
     public int Grade {get {return grade;} set {grade = value;}}
 
@@ -20,9 +23,10 @@ public class UnitStatData {
     public Enums.EUnitAttribute EUnitAttribute {get {return eUnitAttribute;} set {eUnitAttribute = value;} }
 
     
-      // Copy constructor
+    // Copy constructor
     public UnitStatData(UnitStatData original)
-    {
+    {   
+        Name = original.Name;
         Grade = original.Grade;
         Damage = original.Damage;
         AttackRange = original.AttackRange;

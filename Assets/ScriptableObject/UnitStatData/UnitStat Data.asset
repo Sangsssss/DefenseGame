@@ -13,23 +13,27 @@ MonoBehaviour:
   m_Name: UnitStat Data
   m_EditorClassIdentifier: 
   unitStatDatas:
-  - grade: 1
+  - name: FUnit_01
+    grade: 1
     damage: 1
-    attackRange: 1
-    attackSpeed: 1
-    eUnitAttribute: 0
-  - grade: 2
-    damage: 2
     attackRange: 5
-    attackSpeed: 2
+    attackSpeed: 0.5
     eUnitAttribute: 0
-  - grade: 3
-    damage: 3
-    attackRange: 5
-    attackSpeed: 2
-    eUnitAttribute: 0
-  - grade: 1
+  - name: IUnit_01
+    grade: 1
     damage: 1
     attackRange: 5
     attackSpeed: 0.5
     eUnitAttribute: 1
+  - name: LUnit_01
+    grade: 1
+    damage: 1
+    attackRange: 5
+    attackSpeed: 0.5
+    eUnitAttribute: 2
+  - name: DUnit_01
+    grade: 1
+    damage: 1
+    attackRange: 5
+    attackSpeed: 0.5
+    eUnitAttribute: 3

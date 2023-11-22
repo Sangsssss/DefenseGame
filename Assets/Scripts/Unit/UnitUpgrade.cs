@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
+using TMPro;
 
 public class UnitUpgrade : MonoBehaviour
 {   
@@ -62,7 +64,6 @@ public class UnitUpgrade : MonoBehaviour
                 newStats = darknessUnitStats.ElementAtOrDefault(grade-1);
                 break;
         }
-        Debug.Log("Damage :"  + newStats.Damage);
         return newStats;
     }   
 

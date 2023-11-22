@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 1469284157}
   m_Layer: 8
   m_Name: OneEyeSlime
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -753,6 +753,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3832470335802002326, guid: 78213826b74111e46b486508acfab5c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832470336541397544, guid: 78213826b74111e46b486508acfab5c2, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3832470336541397545, guid: 78213826b74111e46b486508acfab5c2, type: 3}

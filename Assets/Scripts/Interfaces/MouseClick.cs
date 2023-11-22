@@ -36,6 +36,7 @@ public class MouseClick : MonoBehaviour
             if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMonster)) {
                 if(keyboardInput.IsAttackMode() == true) {
                     Debug.Log("Attack mode");
+                    rtsUnitController.Attack();
                 }
             }
 
@@ -66,7 +67,6 @@ public class MouseClick : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerGrond)) {
-                Debug.Log(hit.point);
                 rtsUnitController.MoveSelected(hit.point);
             }
         }

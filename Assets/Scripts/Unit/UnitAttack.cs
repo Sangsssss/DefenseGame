@@ -24,6 +24,7 @@ public class UnitAttack : MonoBehaviour
     private Monster targetMonster;
     private float attackTimer;
     private bool isAttacking = false;
+    [SerializeField] private AudioClip attackSound;
 
     // Start is called before the first frame update
     private void Awake()
@@ -76,31 +77,11 @@ public class UnitAttack : MonoBehaviour
                 targetMonster = target.GetComponent<Monster>();
                 this.transform.LookAt(targetMonster.transform);
                 anim.SetTrigger("Attack");
+                
                 // anim.SetFloat("attackSpeed", unitStats.AttackSpeed);
             } 
         }
     
-
-    
-            
-    
-        
-        // // 타겟 몬스터가 존재
-        // if (targetMonster != null)
-        // {   
-        //     // 타겟 몬스터와의 거리가 공격 사정거리보다 클 때
-        //     if (Vector3.Distance(transform.position, targetMonster.transform.position) > attackRange)
-        //     {
-        //         targetMonster = null;
-        //         line.enabled = false;
-        //     }
-        //     // 공격 사정거리 범위 내 몬스터가 존재할 때
-        //     else
-        //     {   
-        //         this.transform.LookAt(targetMonster.transform);
-        //         anim.SetTrigger("Attack");
-        //     }
-        // }
     }
 
     // public void SetUp(float newDamage, float newAttackSpeed, float newAttackRange) {
@@ -112,6 +93,7 @@ public class UnitAttack : MonoBehaviour
     public void StartAttack()
     {   
         if(targetMonster != null) {
+        GameManager.instance.PlayUnitAttackSound(attackSound);
 
         // Vector3 targetDirection = (targetMonster.transform.position - transform.position).normalized;
         // Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);  

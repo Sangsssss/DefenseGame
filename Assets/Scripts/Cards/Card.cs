@@ -17,7 +17,6 @@ public class Card : MonoBehaviour
 
     public void OnPointerDown()
     {   
-        Debug.Log("OnPointerDown");
         animator.SetTrigger("Flip");
     }
 
@@ -25,7 +24,6 @@ public class Card : MonoBehaviour
     {
         back.SetActive(true);
         front.SetActive(false);
-        Debug.Log("ShowBack");
     }
 
     public void ShowFront() {

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ public class HS_ProjectileMover : MonoBehaviour
     public GameObject[] Detached;
     public double damage;
     private Monster targetMonster;
-    private Vector3 targetPosition;
+    [SerializeField] private LayerMask collisionLayer;  
 
     void Start()
     {   
@@ -40,10 +40,7 @@ public class HS_ProjectileMover : MonoBehaviour
         Destroy(gameObject,5);
 	}
 
-    void Update() {
-        // targetPosition = targetMonster.transform.position;
-    }
-
+    // real-Time Update를 위함
     void FixedUpdate ()
     {
 		if (speed != 0)
@@ -61,6 +58,10 @@ public class HS_ProjectileMover : MonoBehaviour
     //https ://docs.unity3d.com/ScriptReference/Rigidbody.OnCollisionEnter.html
     void OnCollisionEnter(Collision collision)
     {
+         if (collision.gameObject.CompareTag("Unit"))
+        {
+            return;
+        }
         //Lock all axes movement and rotation
         rb.constraints = RigidbodyConstraints.FreezeAll;
         speed = 0;

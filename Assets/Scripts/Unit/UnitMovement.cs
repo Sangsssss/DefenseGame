@@ -103,7 +103,7 @@ public class UnitMovement : MonoBehaviour
     // }
 
     public void Move(UnityEngine.Vector3 Destination) {
-         UnityEngine.Vector3 direction = (Destination - transform.position).normalized;
+        UnityEngine.Vector3 direction = (Destination - transform.position).normalized;
             // x와 z축의 방향에 따라 애니메이션을 결정합니다.
         anim.SetFloat("Horizontal", direction.x);
         anim.SetFloat("Vertical", direction.z);

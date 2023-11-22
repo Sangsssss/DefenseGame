@@ -8,6 +8,11 @@ using UnityEngine.UI;
 [System.Serializable]
 public class SpawnCardData {
     public Sprite characterSprite;
+
+    public Color attributeFrameColor;
+    public Color backGlowColor;
+    public Color glowColor;
+    
     public Sprite typeSprite;
     public Enums.EUnitAttribute eUnitAttribute;
     public string unitName;
