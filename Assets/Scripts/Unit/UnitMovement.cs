@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.IO;
 using System.Numerics;
 using Unity.Android.Gradle;
 using UnityEditor;
@@ -13,6 +14,7 @@ public class UnitMovement : MonoBehaviour
 {
     // Start is called before the first frame updat
     private NavMeshAgent agent;
+    [SerializeField] private LayerMask obstacleLayer;
     private Animator anim;
     private Rigidbody rigidbody;
     private LineRenderer line;
@@ -22,7 +24,16 @@ public class UnitMovement : MonoBehaviour
     private RigidbodyConstraints originalContraints;
     public bool isMoving;
     public Action OnSell;
+
+
+    public float sphereRadius = 0.3f;
+    public Color gizmosColor = Color.red;
     
+      private void OnDrawGizmos()
+    {
+        Gizmos.color = gizmosColor;
+        Gizmos.DrawWireSphere(transform.position, sphereRadius);
+    }
 
     void Awake() {
         rigidbody = this.GetComponent<Rigidbody>();
@@ -43,24 +54,28 @@ public class UnitMovement : MonoBehaviour
     }
 
     void Update() {
-        // agent가 도착하고자 하는 위치에 무언가 있다면 멈춰라
-         if(!agent.isStopped && agent.remainingDistance <= 0.2f) {
-            // Collider[] colliders = Physics.OverlapSphere(transform.position, 0.1f);
-            // if(colliders.Length == 0) {
+       // agent가 도착하고자 하는 위치에 무언가 있다면 멈춰라
+        if (!agent.isStopped && agent.remainingDistance <= 0.0f) {
+            Freeze();
+            return;
+        }
+
+        // agent가 거의 멈춰있고 남은 거리가 일정 이내라면 멈춰라
+        if (!agent.isStopped && agent.velocity.magnitude <= 0.1f && agent.remainingDistance <= 3.0f) {
+            Freeze();
+            return;
+        }
+
+        // agent가 거의 멈춰있고 남은 거리가 매우 가까우며 장애물이 있다면 멈춰라
+        if (!agent.isStopped && agent.remainingDistance <= 0.5f) {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 0.5f, obstacleLayer);
+            if (colliders.Length > 0) {
+                Debug.Log(colliders.Length + " , No more Move");
                 Freeze();
-            // } else {
-            //     foreach(Collider collider in colliders) {
-            //         if(collider.gameObject != gameObject && collider == collider.CompareTag("Player")) {
-            //             anim.SetFloat("Move", 0.0f);
-            //             break;
-            //         }
-            // }
-            
-            // }
-         
-            
+            }
         }
-        }
+    }
+        
 
     public void Freeze() {
         // if(rigidbody.constraints == originalContraints) {
@@ -74,6 +89,7 @@ public class UnitMovement : MonoBehaviour
         //line.enabled = false;
         // if(draw != null) StopCoroutine(draw);
         isMoving = false;
+        agent.avoidancePriority = 50;
     }
 
     
@@ -112,14 +128,33 @@ public class UnitMovement : MonoBehaviour
         agent.SetDestination(Destination);
         // anim.SetFloat("Move", 1.0f);
         isMoving = true;
+        agent.avoidancePriority = 51;
+        
         agent.isStopped = !isMoving;
+
+      
         // if(draw != null) StopCoroutine(draw);
         //         draw = StartCoroutine(DrawPath());
         
     }
 
-    public void Stop(bool stop) {
+    public void NotReachDestination(NavMeshPath path) {
+        Debug.Log("PARTIAL PATH!");
+             // 최종 목적지까지의 경로가 부분적으로 생성되었을 때의 처리
+        UnityEngine.Vector3 lastCorner = path.corners[path.corners.Length - 1];
 
+            // 이동 중인지 확인
+        bool isMoving = agent.velocity.magnitude > 0.1f;
+
+            // lastCorner와의 거리 체크
+        float distanceToLastCorner = UnityEngine.Vector3.Distance(transform.position, lastCorner);
+
+            // 일정 거리 이내에 있으면 이동을 멈춤
+            if (isMoving && distanceToLastCorner < 0.1f)
+            {
+                Freeze();
+            }
+                
     }
 
     public void Sell() {
