@@ -10,6 +10,7 @@ public class PanelController : MonoBehaviour
     public void Start() {
         isFolding = false;
     }
+    
     public void Slide() {
         if(!isFolding) {
             cardPanelAnim.SetBool("Fold", true);

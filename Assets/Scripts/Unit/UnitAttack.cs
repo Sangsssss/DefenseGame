@@ -9,7 +9,7 @@ public class UnitAttack : MonoBehaviour
     [SerializeField]
     private LayerMask monsterLayerMask;
     public GameObject projectilePrefab;
-    public Transform muzzlePoint;
+    [SerializeField] private Weapon weapon;
     
     private UnitMovement unitMovement;
     private UnitStats unitStats;
@@ -36,12 +36,8 @@ public class UnitAttack : MonoBehaviour
     }
 
     void Start() {
-        // line.startColor = Color.red;
-        // line.endColor = Color.red;
+        weapon.SetUp(projectilePrefab);
 
-        // line.startWidth = 0.1f;
-        // line.endWidth = 0.1f;
-        
         attackTimer = unitStats.AttackSpeed;
     }
 
@@ -93,15 +89,16 @@ public class UnitAttack : MonoBehaviour
     public void StartAttack()
     {   
         if(targetMonster != null) {
-        GameManager.instance.PlayUnitAttackSound(attackSound);
+            weapon.Shooting(targetMonster, unitStats.Damage);
+        // GameManager.instance.PlayUnitAttackSound(attackSound);
 
-        // Vector3 targetDirection = (targetMonster.transform.position - transform.position).normalized;
-        // Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);  
+        // // Vector3 targetDirection = (targetMonster.transform.position - transform.position).normalized;
+        // // Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);  
 
-        GameObject projectileInstacne = Instantiate(projectilePrefab, muzzlePoint.position, transform.rotation);
+        // GameObject projectileInstacne = Instantiate(projectilePrefab, muzzlePoint.position, transform.rotation);
 
-        HS_ProjectileMover projectile = projectileInstacne.GetComponent<HS_ProjectileMover>();
-        projectile.SetUp(targetMonster, unitStats.Damage);
+        // HS_ProjectileMover projectile = projectileInstacne.GetComponent<HS_ProjectileMover>();
+        // projectile.SetUp(targetMonster, unitStats.Damage);
 
         isAttacking = false;
         attackTimer = 0.0f;

@@ -35,7 +35,7 @@ public class Unit : MonoBehaviour
     private IEnumerator ShowSpawnParticle()
     {
         spawnParticle.Play(); // 파티클 시스템 실행
-        yield return new WaitForSeconds(1f); // 0.3초 동안 대기
+        yield return new WaitForSeconds(2f); // 0.3초 동안 대기
         Destroy(spawnParticle.gameObject);
     }
 
