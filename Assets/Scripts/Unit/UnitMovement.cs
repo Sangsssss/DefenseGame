@@ -60,11 +60,11 @@ public class UnitMovement : MonoBehaviour
             return;
         }
 
-        // agent가 거의 멈춰있고 남은 거리가 일정 이내라면 멈춰라
-        if (!agent.isStopped && agent.velocity.magnitude <= 0.1f && agent.remainingDistance <= 3.0f) {
-            Freeze();
-            return;
-        }
+        // // agent가 거의 멈춰있고 남은 거리가 일정 이내라면 멈춰라
+        // if (!agent.isStopped && agent.velocity.magnitude <= 0.1f && agent.remainingDistance <= 3.0f) {
+        //     Freeze();
+        //     return;
+        // }
 
         // agent가 거의 멈춰있고 남은 거리가 매우 가까우며 장애물이 있다면 멈춰라
         if (!agent.isStopped && agent.remainingDistance <= 0.5f) {

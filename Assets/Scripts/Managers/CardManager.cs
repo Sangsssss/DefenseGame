@@ -13,11 +13,11 @@ public class CardManager : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] private SpawnCardSO spawnCardSO;
-    [SerializeField] private RewardCardSO rewardCardSO;
+    [SerializeField] private RewardRuneSO rewardRuneSO;
     [SerializeField] private List<SpawnCard> spawnCards;
-    [SerializeField] private List<RewardCard> rewardCards;
+    [SerializeField] private List<RewardRune> rewardRunes;
     private List<SpawnCardData> spawnCardBuffer; 
-    private List<RewardCardData> rewardCardBuffer;
+    private List<RewardRuneData> rewardRuneBuffer;
     private bool isStart = true;
 
 
@@ -49,9 +49,9 @@ public class CardManager : MonoBehaviour
             spawnCards[i].GetComponent<Button>().onClick.AddListener(() => SpawnUnit(cardIndex));
         }
         //카드를 누르면 보상을 획득할 수 있게 버튼 연동
-        for(int i = 0; i < rewardCards.Count; i++) {
+        for(int i = 0; i < rewardRunes.Count; i++) {
             int rewardIndex = i; // Closer 이슈 ==> i 값을 고정
-            rewardCards[i].GetComponent<Button>().onClick.AddListener(() => SelectRewards(rewardIndex));
+            rewardRunes[i].GetComponent<Button>().onClick.AddListener(() => SelectRewards(rewardIndex));
         }
 
         DrawSpawnCards();
@@ -78,20 +78,21 @@ public class CardManager : MonoBehaviour
         }
     }
 
-     private void RandomRewardCards() {
+     private void RandomRewardRunes() {
         // 카드 섞는 소리 재생
-        
-        rewardCardBuffer = new List<RewardCardData>();
+        Debug.Log("RandomRewardRunes");
+        rewardRuneBuffer = new List<RewardRuneData>();
         // 0~100사이 랜덤 난수 생성
         // 알고리즘 만들어야함.
-        for(int i = 0; i < rewardCards.Count; i++) {
+        for(int i = 0; i < rewardRunes.Count; i++) {
             float randomNum = Random.Range(0, 100);
+            Debug.Log(rewardRuneSO.RewardRuneData[0].runeName);
             if(randomNum <= 33) {
-                rewardCardBuffer.Add(rewardCardSO.RewardCardData[0]);
+                rewardRuneBuffer.Add(rewardRuneSO.RewardRuneData[0]);
             } else if(randomNum <= 66) {
-                rewardCardBuffer.Add(rewardCardSO.RewardCardData[1]);
+                rewardRuneBuffer.Add(rewardRuneSO.RewardRuneData[1]);
             } else {
-                rewardCardBuffer.Add(rewardCardSO.RewardCardData[2]);
+                rewardRuneBuffer.Add(rewardRuneSO.RewardRuneData[2]);
             }
         }
     }
@@ -117,22 +118,20 @@ public class CardManager : MonoBehaviour
 
     // 리워드 카드 리셋
     public void DrawRewardCards() {
+        Debug.Log("DrawRewardCards");
         // 1. 카드를 섞는다
-        RandomRewardCards();
+        RandomRewardRunes();
         // 2. 카드를 UI에 배치한다.
-         for (int i = 0; i < rewardCards.Count; i++)
+         for (int i = 0; i < rewardRunes.Count; i++)
         {   
-            rewardCards[i].ResetRotation();
-
-            rewardCards[i].SetUpCard(rewardCardBuffer[i]);
-            rewardCards[i].gameObject.SetActive(true); // ???
+            rewardRunes[i].SetUpCard(rewardRuneBuffer[i]);
+            rewardRunes[i].gameObject.SetActive(true); // ???
         }
          UIManager.instance.DrawRewardPanel();
     }
 
     public void SelectRewards(int rewardIndex) {
-        RewardCard selectedRewardCard = rewardCards[rewardIndex];
-        selectedRewardCard.OnPointerDown();
+        RewardRune selectedRewardCard = rewardRunes[rewardIndex];
         switch(selectedRewardCard.RewardType) {
             case Enums.ERewardType.GOLD :
                 // 카드에 해당하는 만큼으 골드 제공

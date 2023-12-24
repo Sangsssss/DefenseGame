@@ -5,11 +5,12 @@ using System.Diagnostics;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Enums;
 
 public class UnitStats : MonoBehaviour
 {   
-    [SerializeField] private Enums.EUnitAttribute eUnitAttribute;
-    public Enums.EUnitAttribute EUnitAttribute {get {return eUnitAttribute;} set {eUnitAttribute = value;} }
+    [SerializeField] private EUnitAttribute eUnitAttribute;
+    public EUnitAttribute EUnitAttribute {get {return eUnitAttribute;} set {eUnitAttribute = value;} }
     // 유닛이 가지고 있는 Stat
     // 등급(1,2,3,4,5) & 데미지 & 공격 범위 & 공격 속도 &  
     [SerializeField]  private string unitName;

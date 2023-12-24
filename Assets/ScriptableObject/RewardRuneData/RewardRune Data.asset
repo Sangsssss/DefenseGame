@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2623aed66a5624c45a298521e86008a1, type: 3}
+  m_Name: RewardRune Data
+  m_EditorClassIdentifier: 
+  rewardRuneDatas:
+  - runeSprite: {fileID: 21300000, guid: 70e63d6df8af94231a569c566d7d3a7c, type: 3}
+    runeName: Rune_Buff
+    runeDescription: buff is worring
+    eRewardType: 0
+    grade: 1
+  - runeSprite: {fileID: 21300000, guid: 6c27fb31dc04d448b8b2501c97d29b2e, type: 3}
+    runeName: Rune_Coin
+    runeDescription: coin is worring
+    eRewardType: 0
+    grade: 1
+  - runeSprite: {fileID: 21300000, guid: 80209df0ec0954d60800045c608af858, type: 3}
+    runeName: Rune_Health
+    runeDescription: Health is worring
+    eRewardType: 0
+    grade: 1

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Enums;
 
 public class RTSUnitController : MonoBehaviour
 {
@@ -34,19 +35,19 @@ public class RTSUnitController : MonoBehaviour
     }
 
     // linked each type buttons by index
-    public void UpgradeUnits(Enums.EUnitAttribute eUnitAttribute) {  
+    public void UpgradeUnits(EUnitAttribute eUnitAttribute) {  
         List<UnitStats> targetUnits = null;
         switch(eUnitAttribute) {
-            case Enums.EUnitAttribute.FIRE :
+            case EUnitAttribute.FIRE :
                 targetUnits = FireUnits;
                 break;
-            case Enums.EUnitAttribute.ICE :
+            case EUnitAttribute.ICE :
                 targetUnits = IceUnits;
                 break;
-            case Enums.EUnitAttribute.LIGHT :
+            case EUnitAttribute.LIGHT :
                 targetUnits = LightUnits;
                 break;
-            case Enums.EUnitAttribute.DARKNESS :
+            case EUnitAttribute.DARKNESS :
                 targetUnits = DarknessUnits;
                 break;
         }
@@ -63,25 +64,25 @@ public class RTSUnitController : MonoBehaviour
     {   
         //UnitMovement unitMovement = newUnit.GetComponent<UnitMovement>();
         UnitStats unitStats = newUnit.GetComponent<UnitStats>();
-        Enums.EUnitAttribute eUnitAttribute = unitStats.EUnitAttribute;
+        EUnitAttribute eUnitAttribute = unitStats.EUnitAttribute;
 
         AllUnits.Add(newUnit);
         
         switch(eUnitAttribute)
         {
-            case Enums.EUnitAttribute.FIRE:
+            case EUnitAttribute.FIRE:
                 FireUnits.Add(unitStats);
                 UIManager.instance.UpdateUnitStatus(eUnitAttribute, FireUnits.Count);
                 break;
-            case Enums.EUnitAttribute.ICE:
+            case EUnitAttribute.ICE:
                 IceUnits.Add(unitStats);
                 UIManager.instance.UpdateUnitStatus(eUnitAttribute, IceUnits.Count);
                 break;
-            case Enums.EUnitAttribute.LIGHT:
+            case EUnitAttribute.LIGHT:
                 LightUnits.Add(unitStats);
                 UIManager.instance.UpdateUnitStatus(eUnitAttribute, LightUnits.Count);
                 break;
-            case Enums.EUnitAttribute.DARKNESS:
+            case EUnitAttribute.DARKNESS:
                 DarknessUnits.Add(unitStats);
                 UIManager.instance.UpdateUnitStatus(eUnitAttribute, DarknessUnits.Count);
                 break;

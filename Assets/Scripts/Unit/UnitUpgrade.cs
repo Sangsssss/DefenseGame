@@ -5,10 +5,11 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using TMPro;
+using static Enums;
 
 public class UnitUpgrade : MonoBehaviour
 {   
-    private Enums.SpendType spendType;
+    private SpendType spendType;
     private RTSUnitController rtsUnitController;
     [SerializeField] private UnitStatSO unitStatSO;
     private List<UnitStatData> fireUnitStats;
@@ -38,29 +39,29 @@ public class UnitUpgrade : MonoBehaviour
         }
  
         fireUnitStats.AddRange(copied.Where(unit => unit.EUnitAttribute 
-            == Enums.EUnitAttribute.FIRE).OrderBy(unit => unit.Grade));;
+            == EUnitAttribute.FIRE).OrderBy(unit => unit.Grade));;
         iceUnitStats.AddRange(copied.Where(unit => unit.EUnitAttribute 
-            == Enums.EUnitAttribute.ICE).OrderBy(unit => unit.Grade));
+            == EUnitAttribute.ICE).OrderBy(unit => unit.Grade));
         lightUnitStats.AddRange(copied.Where(unit => unit.EUnitAttribute 
-            == Enums.EUnitAttribute.LIGHT).OrderBy(unit => unit.Grade));
+            == EUnitAttribute.LIGHT).OrderBy(unit => unit.Grade));
         darknessUnitStats.AddRange(copied.Where(unit => unit.EUnitAttribute 
-            == Enums.EUnitAttribute.DARKNESS).OrderBy(unit => unit.Grade));
+            == EUnitAttribute.DARKNESS).OrderBy(unit => unit.Grade));
     }
     
  
-    public UnitStatData GetUnitStats(Enums.EUnitAttribute eUnitAttribute, int grade) {
+    public UnitStatData GetUnitStats(EUnitAttribute eUnitAttribute, int grade) {
         UnitStatData newStats = null;
         switch(eUnitAttribute) {
-            case Enums.EUnitAttribute.FIRE :
+            case EUnitAttribute.FIRE :
                 newStats = fireUnitStats.ElementAtOrDefault(grade-1);
                 break;
-            case Enums.EUnitAttribute.ICE :
+            case EUnitAttribute.ICE :
                 newStats = iceUnitStats.ElementAtOrDefault(grade-1);
                 break;
-            case Enums.EUnitAttribute.LIGHT :
+            case EUnitAttribute.LIGHT :
                 newStats = lightUnitStats.ElementAtOrDefault(grade-1);
                 break;
-            case Enums.EUnitAttribute.DARKNESS :
+            case EUnitAttribute.DARKNESS :
                 newStats = darknessUnitStats.ElementAtOrDefault(grade-1);
                 break;
         }
@@ -68,39 +69,39 @@ public class UnitUpgrade : MonoBehaviour
     }   
 
     public void UpgradeFire() {
-        if(GameManager.instance.UseGold(Enums.SpendType.FIREUPGRADE)) {
-            UpgradeUnit(Enums.EUnitAttribute.FIRE);
+        if(GameManager.instance.UseGold(SpendType.FIREUPGRADE)) {
+            UpgradeUnit(EUnitAttribute.FIRE);
         }  
     }
     public void UpgradeIce() {
-        if(GameManager.instance.UseGold(Enums.SpendType.ICEUPGRADE)) {
-            UpgradeUnit(Enums.EUnitAttribute.ICE);
+        if(GameManager.instance.UseGold(SpendType.ICEUPGRADE)) {
+            UpgradeUnit(EUnitAttribute.ICE);
         }    
     }
     public void UpgradeLight() {
-         if(GameManager.instance.UseGold(Enums.SpendType.LIGHTUPGRADE)) {
-            UpgradeUnit(Enums.EUnitAttribute.LIGHT);
+         if(GameManager.instance.UseGold(SpendType.LIGHTUPGRADE)) {
+            UpgradeUnit(EUnitAttribute.LIGHT);
         }    
     }
     public void UpgradeDarkness() {
-        if(GameManager.instance.UseGold(Enums.SpendType.DARKNESSUPGRADE)) {
-            UpgradeUnit(Enums.EUnitAttribute.DARKNESS);
+        if(GameManager.instance.UseGold(SpendType.DARKNESSUPGRADE)) {
+            UpgradeUnit(EUnitAttribute.DARKNESS);
         }    
     }
 
     // 버튼 입력에 따라, Game Manager의 유닛 자체 스탯 향상 & Unit Controller에 의해 제어 중인 유닛 강화    
 
     public void RewardUnitsStat(int grade) {
-        Enums.EUnitAttribute eUnitAttribute;
+        EUnitAttribute eUnitAttribute;
         float randNum = Random.Range(0, 100);
         if(randNum >= 75) {
-            eUnitAttribute = Enums.EUnitAttribute.FIRE;
+            eUnitAttribute = EUnitAttribute.FIRE;
         } else if(randNum >= 50) {
-            eUnitAttribute = Enums.EUnitAttribute.ICE;
+            eUnitAttribute = EUnitAttribute.ICE;
         } else if(randNum >= 25) {
-            eUnitAttribute = Enums.EUnitAttribute.LIGHT;
+            eUnitAttribute = EUnitAttribute.LIGHT;
         } else {
-            eUnitAttribute = Enums.EUnitAttribute.DARKNESS;
+            eUnitAttribute = EUnitAttribute.DARKNESS;
         }
         for(int i =0; i<grade; i++){
             UpgradeUnit(eUnitAttribute);
@@ -109,15 +110,15 @@ public class UnitUpgrade : MonoBehaviour
 
 
     // 해당 타입의 데이터에 접근 => 데미지를 업그레이드
-    public void UpgradeUnit(Enums.EUnitAttribute eUnitAttribute) {
+    public void UpgradeUnit(EUnitAttribute eUnitAttribute) {
         List<UnitStatData> targetUnitStats = null;
         
-        GameManager.instance.UpdateUpgrade((Enums.SpendType) eUnitAttribute);
+        GameManager.instance.UpdateUpgrade((SpendType) eUnitAttribute);
 
-        if (eUnitAttribute == Enums.EUnitAttribute.FIRE) {targetUnitStats = fireUnitStats;}
-        else if (eUnitAttribute == Enums.EUnitAttribute.ICE) {targetUnitStats = iceUnitStats;}
-        else if (eUnitAttribute == Enums.EUnitAttribute.LIGHT) {targetUnitStats = lightUnitStats;}
-        else if (eUnitAttribute == Enums.EUnitAttribute.DARKNESS) {targetUnitStats = darknessUnitStats;}
+        if (eUnitAttribute == EUnitAttribute.FIRE) {targetUnitStats = fireUnitStats;}
+        else if (eUnitAttribute == EUnitAttribute.ICE) {targetUnitStats = iceUnitStats;}
+        else if (eUnitAttribute == EUnitAttribute.LIGHT) {targetUnitStats = lightUnitStats;}
+        else if (eUnitAttribute == EUnitAttribute.DARKNESS) {targetUnitStats = darknessUnitStats;}
 
         if (targetUnitStats != null)
         {

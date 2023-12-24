@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Enums;
 
 [System.Serializable]
 public class UnitStatData {
@@ -19,8 +19,8 @@ public class UnitStatData {
 
     [SerializeField] private float attackSpeed;
     public  float AttackSpeed {get {return attackSpeed;} set {attackSpeed = value;} }
-    [SerializeField] private Enums.EUnitAttribute eUnitAttribute;
-    public Enums.EUnitAttribute EUnitAttribute {get {return eUnitAttribute;} set {eUnitAttribute = value;} }
+    [SerializeField] private EUnitAttribute eUnitAttribute;
+    public EUnitAttribute EUnitAttribute {get {return eUnitAttribute;} set {eUnitAttribute = value;} }
 
     
     // Copy constructor
@@ -45,6 +45,5 @@ public class UnitStatSO : ScriptableObject
 {
     [SerializeField] private UnitStatData[] unitStatDatas;
     public UnitStatData[] UnitStatData {get {return unitStatDatas;}}
-
 
 }

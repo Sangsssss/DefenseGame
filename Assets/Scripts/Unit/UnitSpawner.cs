@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Enums;
 
 public class UnitSpawner : MonoBehaviour
 {   
@@ -17,7 +18,8 @@ public class UnitSpawner : MonoBehaviour
 
     private RTSUnitController rtsUnitController;
     private UnitUpgrade unitUpgrade;
-    private Enums.EUnitAttribute atttributeType;
+    private EUnitAttribute atttributeType;
+    [SerializeField] private GameObject[] magicCircle;
 
 
     // Start is called before the first frame update
@@ -34,19 +36,19 @@ public class UnitSpawner : MonoBehaviour
     public void RewardUnit(int grade) {
         float randNum = Random.Range(0, 100);
         if(randNum >= 75) {
-            atttributeType = Enums.EUnitAttribute.FIRE;
+            atttributeType = EUnitAttribute.FIRE;
         } else if(randNum >= 50) {
-            atttributeType = Enums.EUnitAttribute.ICE;
+            atttributeType = EUnitAttribute.ICE;
         } else if(randNum >= 25) {
-            atttributeType = Enums.EUnitAttribute.LIGHT;
+            atttributeType = EUnitAttribute.LIGHT;
         } else {
-            atttributeType = Enums.EUnitAttribute.DARKNESS;
+            atttributeType = EUnitAttribute.DARKNESS;
         }
         SpawnUnit(atttributeType, grade);
     }
 
     // 스폰 시
-    public void SpawnUnit(Enums.EUnitAttribute attributeType, int grade)
+    public void SpawnUnit(EUnitAttribute attributeType, int grade)
     {
         Vector3 position = new Vector3(Random.Range(spawnPostionMin.x, spawnPostionMax.x), 0f, Random.Range(spawnPostionMin.y, spawnPostionMax.y));
 
@@ -58,11 +60,8 @@ public class UnitSpawner : MonoBehaviour
 
         if (unitStats != null)
         {   
-            Debug.Log("Type : " + attributeType + ", Grade" + grade);
             unitStats.SetUpUnitStat(unitUpgrade.GetUnitStats(attributeType, grade));
         }
-
-       // GameManager.instance.FlipSpawnCard();
 
         newUnit.OnSell += () =>
         {
@@ -78,17 +77,17 @@ public class UnitSpawner : MonoBehaviour
 
     // 만약 유닛마다 unitStats 스크립트를 가지고 있다면?? 
     // => Prefab마다 stat을 가짐 = SetUp 불필요, 
-    private Unit LinkedUnit(Enums.EUnitAttribute attributeType, int grade) {
-        if(attributeType == Enums.EUnitAttribute.FIRE) {
+    private Unit LinkedUnit(EUnitAttribute attributeType, int grade) {
+        if(attributeType == EUnitAttribute.FIRE) {
             return FireUnitPrefab[grade-1];
         }
-        else if(attributeType == Enums.EUnitAttribute.ICE) {
+        else if(attributeType == EUnitAttribute.ICE) {
             return IceUnitPrefab[grade-1];
         }
-        else if(attributeType == Enums.EUnitAttribute.LIGHT) {
+        else if(attributeType == EUnitAttribute.LIGHT) {
             return LightUnitPrefab[grade-1];
         } 
-        else if(attributeType == Enums.EUnitAttribute.DARKNESS){
+        else if(attributeType == EUnitAttribute.DARKNESS){
             return DarknessUnitPrefab[grade-1];
         } else {
             return null;
