@@ -8890,7 +8890,7 @@ MonoBehaviour:
   monsterLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  projectilePrefab: {fileID: 1213529451062198, guid: 1405f7a46ad73504d8cbe4b7ddd1d552, type: 3}
+  projectilePrefab: {fileID: 1254724754748870, guid: ead2eb1ec6d8ee54fa5d36c7f5e30eef, type: 3}
   weapon: {fileID: 6063545270642851376}
   attackSound: {fileID: 8300000, guid: 43a3c13d04242164384e708b1cada648, type: 3}
 --- !u!114 &2109790849579444473

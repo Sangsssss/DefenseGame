@@ -28,7 +28,6 @@ public class Weapon : MonoBehaviour
 
         GameManager.instance.PlayUnitAttackSound(shootingSound);
         if(anim != null) {
-            Debug.Log("Shooting");
             anim.SetTrigger("Shoot");
         }
         // Vector3 targetDirection = (targetMonster.transform.position - transform.position).normalized;
@@ -36,7 +35,7 @@ public class Weapon : MonoBehaviour
 
         GameObject projectileInstacne = Instantiate(projectilePrefab, muzzlePoint.position, transform.rotation);
 
-        HS_ProjectileMover projectile = projectileInstacne.GetComponent<HS_ProjectileMover>();
+        ProjectileMover projectile = projectileInstacne.GetComponent<ProjectileMover>();
         projectile.SetUp(targetMonster, damage);
     }
 }

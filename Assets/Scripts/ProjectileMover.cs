@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HS_ProjectileMover : MonoBehaviour
+public class ProjectileMover : MonoBehaviour
 {
     public float speed = 15f;
     public float hitOffset = 0f;
@@ -10,13 +10,13 @@ public class HS_ProjectileMover : MonoBehaviour
     public Vector3 rotationOffset = new Vector3(0, 0, 0);
     public GameObject hit;
     public GameObject flash;
-    private Rigidbody rb;
+    public Rigidbody rb;
     public GameObject[] Detached;
     public double damage;
-    private Monster targetMonster;
-    [SerializeField] private LayerMask collisionLayer;  
+    public Monster targetMonster;
+    [SerializeField] public LayerMask collisionLayer;  
 
-    void Start()
+    protected virtual void Start()
     {   
         rb = GetComponent<Rigidbody>();
         if (flash != null)
@@ -41,7 +41,7 @@ public class HS_ProjectileMover : MonoBehaviour
 	}
 
     // real-Time Update를 위함
-    void FixedUpdate ()
+    public void FixedUpdate ()
     {
 		if (speed != 0)
         {   
@@ -56,7 +56,7 @@ public class HS_ProjectileMover : MonoBehaviour
 	}
 
     //https ://docs.unity3d.com/ScriptReference/Rigidbody.OnCollisionEnter.html
-    void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
          if (collision.gameObject.CompareTag("Unit"))
         {
@@ -81,7 +81,10 @@ public class HS_ProjectileMover : MonoBehaviour
             else { hitInstance.transform.LookAt( contact.point + contact.normal); }
 
             //Destroy hit effects depending on particle Duration time
-            var hitPs = hitInstance.GetComponent<ParticleSystem>();
+            var hitPs = hitInstance.GetComponent<ParticleSystem>(); 
+
+           
+
             if (hitPs != null)
             {
                 Destroy(hitInstance, hitPs.main.duration);
@@ -91,8 +94,22 @@ public class HS_ProjectileMover : MonoBehaviour
                 var hitPsParts = hitInstance.transform.GetChild(0).GetComponent<ParticleSystem>();
                 Destroy(hitInstance, hitPsParts.main.duration);
             }
+            //  // Plus Code;
+            // float particleRadius = hitPs.main.startSize.constantMax / 2f;
+            // float particleVolume = 4f / 3f * Mathf.PI * Mathf.Pow(particleRadius, 3);
+            // // 부피에서 반지름을 계산
+            // float attackRange = Mathf.Pow(3f * particleVolume / (4f * Mathf.PI), 1f / 3f);
+            // // 계산된 반지름이 실제 공격 범위
+            // Collider[] colliders = Physics.OverlapSphere(pos, attackRange, collisionLayer);
+            // foreach(var collider in colliders) {
+            //     var monster = collider.GetComponent<Monster>();
+            //     if(monster != null) 
+            //         monster.OnDamage(damage);
+            // }
+              targetMonster.OnDamage(damage);
         }
-
+        //   //Destroy projectile on collision\
+      
         //Removing trail from the projectile on cillision enter or smooth removing. Detached elements must have "AutoDestroying script"
         foreach (var detachedPrefab in Detached)
         {
@@ -102,8 +119,6 @@ public class HS_ProjectileMover : MonoBehaviour
                 Destroy(detachedPrefab, 1);
             }
         }
-        //Destroy projectile on collision\
-        targetMonster.OnDamage(damage);
         Destroy(gameObject);
     }
 
@@ -111,5 +126,9 @@ public class HS_ProjectileMover : MonoBehaviour
     public void SetUp(Monster targetMonster, double damage) {
         this.targetMonster = targetMonster;
         this.damage = damage;
+        if(targetMonster == null) {
+            Debug.LogError("Target Monster is Null");
+        } else
+            Debug.Log("Target Monster : " + this.targetMonster.name);
     }
 }
