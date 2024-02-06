@@ -9759,10 +9759,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BearMan
       objectReference: {fileID: 0}
-    - target: {fileID: 7955402909805118768, guid: 2e1b5beb53280be4f8852bf5ce505a04, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e1b5beb53280be4f8852bf5ce505a04, type: 3}
 --- !u!1001 &4180904491961739161

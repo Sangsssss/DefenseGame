@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FireUnitPrefab:
-  - {fileID: 313497066561224697, guid: fdec36f0750c0ba48b4cdc0d621565d5, type: 3}
+  - {fileID: 2223953455618089124, guid: 2e1b5beb53280be4f8852bf5ce505a04, type: 3}
   IceUnitPrefab:
-  - {fileID: 313497066561224697, guid: fdec36f0750c0ba48b4cdc0d621565d5, type: 3}
+  - {fileID: 2223953455618089124, guid: 2e1b5beb53280be4f8852bf5ce505a04, type: 3}
   LightUnitPrefab:
   - {fileID: 313497066561224697, guid: fdec36f0750c0ba48b4cdc0d621565d5, type: 3}
   DarknessUnitPrefab:

@@ -6693,7 +6693,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5281380511543976845}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6702,8 +6702,8 @@ Transform:
   - {fileID: 7615390569388756414}
   - {fileID: 4674803937645849057}
   - {fileID: 5414556372049226454}
-  m_Father: {fileID: 1501309539019405396}
-  m_RootOrder: 1
+  m_Father: {fileID: 9060155910092049661}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &8191100700737388972
 ParticleSystem:
@@ -6788,7 +6788,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -6957,7 +6957,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -21966,6 +21966,38 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &7412523911151397303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9060155910092049661}
+  m_Layer: 6
+  m_Name: Effects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9060155910092049661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7412523911151397303}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5194693728353415736}
+  m_Father: {fileID: 1501309539019405396}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7852657659559814663
 GameObject:
   m_ObjectHideFlags: 0
@@ -22065,6 +22097,7 @@ GameObject:
   - component: {fileID: 7690161427201688912}
   - component: {fileID: 7690161427201688915}
   - component: {fileID: 7690161427201688913}
+  - component: {fileID: 450077264239563276}
   m_Layer: 6
   m_Name: BearMan
   m_TagString: Unit
@@ -22085,8 +22118,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1618617572311562648}
-  - {fileID: 5194693728353415736}
   - {fileID: 8788851454776224783}
+  - {fileID: 9060155910092049661}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22103,7 +22136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectCircle: {fileID: 1618617572311562663}
-  spawnParticle: {fileID: 8191100700737388972}
+  spawnParticles: []
 --- !u!114 &4600991375654629720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22120,7 +22153,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   projectilePrefab: {fileID: 1428542714614976, guid: fa6b2eb4089fc9d4ab0d795b14de9925, type: 3}
-  weapon: {fileID: 5738011028351357346, guid: f3aa0537edf19a840a5ee3762f7bb9ed, type: 3}
+  weapon: {fileID: 3423778529792961458}
   attackSound: {fileID: 8300000, guid: 43a3c13d04242164384e708b1cada648, type: 3}
 --- !u!114 &559477215571556260
 MonoBehaviour:
@@ -22215,6 +22248,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &450077264239563276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7955402909805118768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44383fad742cdb479691d2a71a7f605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnParticle: {fileID: 8191100700737388972}
+  upgradeParticle: {fileID: 0}
 --- !u!1 &7958943192546013153
 GameObject:
   m_ObjectHideFlags: 0
@@ -29614,7 +29661,7 @@ Transform:
   - {fileID: 8788851455758107199}
   - {fileID: 8788851455180875018}
   m_Father: {fileID: 1501309539019405396}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8788851454781872023
 GameObject:

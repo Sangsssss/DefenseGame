@@ -22,8 +22,11 @@ public class Unit : MonoBehaviour
 
     public Action OnSell;
 
+    private SideEffect sideEffect;
+
     void Start() {
-        StartCoroutine(ShowSpawnParticle());
+        // StartCoroutine(ShowSpawnParticle());
+        sideEffect.StartSpawnParticle();
     }
     
     void Awake()
@@ -31,38 +34,40 @@ public class Unit : MonoBehaviour
         unitMovement = this.GetComponent<UnitMovement>();
         unitAttack = this.GetComponent<UnitAttack>();
         unitStats = this.GetComponent<UnitStats>();
+
+        sideEffect = this.GetComponent<SideEffect>();
     }
 
-    private IEnumerator ShowSpawnParticle()
-    {   
-        GameObject magicCircle = GetParticle(unitStats.EUnitAttribute);
-        magicCircle.GetComponent<ParticleSystem>().Play();
-       // magicCircle.Play(); // 파티클 시스템 실행
-        yield return new WaitForSeconds(2f); // 0.3초 동안 대기
-        DestroyImmediate(magicCircle, true);
-    }
+    // private IEnumerator ShowSpawnParticle()
+    // {   
+    //     GameObject magicCircle = GetParticle(unitStats.EUnitAttribute);
+    //     magicCircle.GetComponent<ParticleSystem>().Play();
+    //    // magicCircle.Play(); // 파티클 시스템 실행
+    //     yield return new WaitForSeconds(2f); // 0.3초 동안 대기
+    //     DestroyImmediate(magicCircle, true);
+    // }
 
-    private GameObject GetParticle(EUnitAttribute eUnitAttribute)
-    {   
-        GameObject magicCircle = null;
-        switch(eUnitAttribute) {
-            case EUnitAttribute.FIRE :
-                 magicCircle = Instantiate(spawnParticles[0], transform.position, Quaternion.identity);
-                break;
-            case EUnitAttribute.ICE :
-                magicCircle = Instantiate(spawnParticles[1], transform.position, Quaternion.identity);
-                break;
-            case EUnitAttribute.LIGHT :
-                 magicCircle = Instantiate(spawnParticles[2], transform.position, Quaternion.identity);
-                break;
-            case EUnitAttribute.DARKNESS :
-                 magicCircle = Instantiate(spawnParticles[3], transform.position, Quaternion.identity);
-                break;
-            default :
-                break;
-        }
-        return magicCircle;
-    }
+    // private GameObject GetParticle(EUnitAttribute eUnitAttribute)
+    // {   
+    //     GameObject magicCircle = null;
+    //     switch(eUnitAttribute) {
+    //         case EUnitAttribute.FIRE :
+    //              magicCircle = Instantiate(spawnParticles[0], transform.position, Quaternion.identity);
+    //             break;
+    //         case EUnitAttribute.ICE :
+    //             magicCircle = Instantiate(spawnParticles[1], transform.position, Quaternion.identity);
+    //             break;
+    //         case EUnitAttribute.LIGHT :
+    //              magicCircle = Instantiate(spawnParticles[2], transform.position, Quaternion.identity);
+    //             break;
+    //         case EUnitAttribute.DARKNESS :
+    //              magicCircle = Instantiate(spawnParticles[3], transform.position, Quaternion.identity);
+    //             break;
+    //         default :
+    //             break;
+    //     }
+    //     return magicCircle;
+    // }
 
     public void SelectUnit() {
         Debug.Log("Select Unit");
@@ -79,8 +84,4 @@ public class Unit : MonoBehaviour
         OnSell?.Invoke();
     }
 
-    public void Spawn()
-    {
-    
-    }
 }

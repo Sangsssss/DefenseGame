@@ -6,16 +6,14 @@ using UnityEngine;
 public class UnitAttack : MonoBehaviour
 {   
 
-    [SerializeField]
-    private LayerMask monsterLayerMask;
-    public GameObject projectilePrefab;
+    [SerializeField]private LayerMask monsterLayerMask;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Weapon weapon;
     
     private UnitMovement unitMovement;
     private UnitStats unitStats;
 
     private Animator anim;
-    private LineRenderer line;
 
    // private Transform targetTransform;
     private Collider target;
@@ -25,6 +23,8 @@ public class UnitAttack : MonoBehaviour
     private float attackTimer;
     private bool isAttacking = false;
     [SerializeField] private AudioClip attackSound;
+
+    private static float ANIMATION_ATTACK_SPPED = 1.0f;
 
     // Start is called before the first frame update
     private void Awake()
@@ -37,7 +37,6 @@ public class UnitAttack : MonoBehaviour
 
     void Start() {
         weapon.SetUp(projectilePrefab);
-
         attackTimer = unitStats.AttackSpeed;
     }
 
@@ -72,12 +71,21 @@ public class UnitAttack : MonoBehaviour
                 }
                 targetMonster = target.GetComponent<Monster>();
                 this.transform.LookAt(targetMonster.transform);
-                anim.SetTrigger("Attack");
                 
+                // 여기서 유닛의 공격 애니메이션 속도를 조절해야할듯??
+                // float animAttackSpeed = AdjustAttackSpeed(unitStats.AttackSpeed);
+                float animAttackSpeed = 1.0f;
+                anim.SetFloat("Attack_Speed", animAttackSpeed);
+
+                anim.SetTrigger("Attack");
                 // anim.SetFloat("attackSpeed", unitStats.AttackSpeed);
             } 
         }
     
+    }
+
+    private float AdjustAttackSpeed(float attackSpeed) {
+        return ANIMATION_ATTACK_SPPED * (attackSpeed * 0.01f); 
     }
 
     // public void SetUp(float newDamage, float newAttackSpeed, float newAttackRange) {
@@ -89,20 +97,12 @@ public class UnitAttack : MonoBehaviour
     public void StartAttack()
     {   
         if(targetMonster != null) {
+            // weapon에서 공격 수행하도록
             weapon.Shooting(targetMonster, unitStats.Damage);
-        // GameManager.instance.PlayUnitAttackSound(attackSound);
 
-        // // Vector3 targetDirection = (targetMonster.transform.position - transform.position).normalized;
-        // // Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);  
-
-        // GameObject projectileInstacne = Instantiate(projectilePrefab, muzzlePoint.position, transform.rotation);
-
-        // HS_ProjectileMover projectile = projectileInstacne.GetComponent<HS_ProjectileMover>();
-        // projectile.SetUp(targetMonster, unitStats.Damage);
-
-        isAttacking = false;
-        attackTimer = 0.0f;
-        targetMonster = null;
+            isAttacking = false;
+            attackTimer = 0.0f;
+            targetMonster = null;
         
         //line.enabled = true;
 

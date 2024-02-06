@@ -17,12 +17,6 @@ public class ExtensionProjectileMover : ProjectileMover
         attackRange = Mathf.Pow(3f * particleVolume / (4f * Mathf.PI), 1f / 3f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     protected override void OnCollisionEnter(Collision collision)
     {   
          if (collision.gameObject.CompareTag("Unit"))
@@ -84,13 +78,8 @@ public class ExtensionProjectileMover : ProjectileMover
         Destroy(gameObject);
     }
 
-    public override void SetUp(Monster targetMonster, double damage)
-    {
+    public override void SetUp(Monster targetMonster, double damage) {
         base.SetUp(targetMonster, damage);
-        if(targetMonster == null) {
-            Debug.LogError("Target Monster is Null");
-            return;
-        }
     }
 
 }

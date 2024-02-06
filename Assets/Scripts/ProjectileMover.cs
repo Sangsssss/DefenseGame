@@ -123,7 +123,7 @@ public class ProjectileMover : MonoBehaviour
     }
 
     
-    public void SetUp(Monster targetMonster, double damage) {
+    public virtual void SetUp(Monster targetMonster, double damage) {
         this.targetMonster = targetMonster;
         this.damage = damage;
         if(targetMonster == null) {
