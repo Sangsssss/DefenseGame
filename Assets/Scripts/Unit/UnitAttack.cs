@@ -23,6 +23,7 @@ public class UnitAttack : MonoBehaviour
     private float attackTimer;
     private bool isAttacking = false;
     [SerializeField] private AudioClip attackSound;
+    [SerializeField] private float animAttackSpeed = 1.0f;
 
     private static float ANIMATION_ATTACK_SPPED = 1.0f;
 
@@ -37,17 +38,18 @@ public class UnitAttack : MonoBehaviour
 
     void Start() {
         weapon.SetUp(projectilePrefab);
-        attackTimer = unitStats.AttackSpeed;
+        attackTimer = 1/unitStats.AttackSpeed;
+        Debug.Log("AttackTimer :"  + attackTimer);
     }
 
     // Update is called once per frame
     private void Update()
-    {
+    {   
         // 타이머 업데이트
         // Debug.Log(attackTimer);
         // 공격 간격을 초과한 경우 공격시행
         if(!isAttacking) {
-            if(attackTimer < unitStats.AttackSpeed) {
+            if(attackTimer < 1/unitStats.AttackSpeed) {
                 attackTimer += Time.deltaTime;
             } else {
                 isAttacking = true;
@@ -73,10 +75,9 @@ public class UnitAttack : MonoBehaviour
                 this.transform.LookAt(targetMonster.transform);
                 
                 // 여기서 유닛의 공격 애니메이션 속도를 조절해야할듯??
-                // float animAttackSpeed = AdjustAttackSpeed(unitStats.AttackSpeed);
-                float animAttackSpeed = 1.0f;
+                // animAttackSpeed = AdjustAttackSpeed(unitStats.AttackSpeed);
+                // float animAttackSpeed = 1.0f;
                 anim.SetFloat("Attack_Speed", animAttackSpeed);
-
                 anim.SetTrigger("Attack");
                 // anim.SetFloat("attackSpeed", unitStats.AttackSpeed);
             } 
@@ -85,7 +86,7 @@ public class UnitAttack : MonoBehaviour
     }
 
     private float AdjustAttackSpeed(float attackSpeed) {
-        return ANIMATION_ATTACK_SPPED * (attackSpeed * 0.01f); 
+        return ANIMATION_ATTACK_SPPED + attackSpeed; 
     }
 
     // public void SetUp(float newDamage, float newAttackSpeed, float newAttackRange) {

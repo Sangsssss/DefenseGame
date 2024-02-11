@@ -24,17 +24,16 @@ public class Weapon : MonoBehaviour
     public void SetUp(GameObject projectilePrefab) {
         this.projectilePrefab = projectilePrefab;
     }
-    public void Shooting(Monster targetMonster, double damage) {
 
+    public void Shooting(Monster targetMonster, double damage) {
         GameManager.instance.PlayUnitAttackSound(shootingSound);
         if(anim != null) {
             anim.SetTrigger("Shoot");
         }
         // Vector3 targetDirection = (targetMonster.transform.position - transform.position).normalized;
         // Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);  
-
         GameObject projectileInstacne = Instantiate(projectilePrefab, muzzlePoint.position, transform.rotation);
-
+        
         ProjectileMover projectile = projectileInstacne.GetComponent<ProjectileMover>();
         projectile.SetUp(targetMonster, damage);
     }
