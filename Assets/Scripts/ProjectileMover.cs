@@ -54,7 +54,6 @@ public class ProjectileMover : MonoBehaviour
             }
         }
 	}
-
     //https ://docs.unity3d.com/ScriptReference/Rigidbody.OnCollisionEnter.html
     protected virtual void OnCollisionEnter(Collision collision)
     {   
@@ -62,8 +61,21 @@ public class ProjectileMover : MonoBehaviour
         // {
         //     return;
         // }
-        Debug.Log(collision.gameObject.name + " ," + targetMonster.name);
+        Debug.Log(collision.gameObject.GetComponent<Monster>().MonsterName + "," + targetMonster.MonsterName);
         if(collision.gameObject == targetMonster.gameObject) {
+            //   //Destroy projectile on collision\
+            //Removing trail from the projectile on cillision enter or smooth removing. Detached elements must have "AutoDestroying script"
+            foreach (var detachedPrefab in Detached)
+            {
+                if (detachedPrefab != null)
+                {
+                    detachedPrefab.transform.parent = null;
+                    Destroy(detachedPrefab, 1);
+                }
+            }
+            Destroy(gameObject);
+
+            Debug.Log(collision.gameObject.name + "와 " + targetMonster.name + "이 같습니다.");
             //Lock all axes movement and rotation
             rb.constraints = RigidbodyConstraints.FreezeAll;
             speed = 0;
@@ -78,7 +90,6 @@ public class ProjectileMover : MonoBehaviour
             if (hit != null)
             {   
                 var hitInstance = Instantiate(hit, pos, rot);
-                Debug.Log("projectile transform : " + pos);
                 if (UseFirePointRotation) { hitInstance.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
                 else if (rotationOffset != Vector3.zero) { hitInstance.transform.rotation = Quaternion.Euler(rotationOffset); }
                 else { hitInstance.transform.LookAt( contact.point + contact.normal); }
@@ -108,20 +119,10 @@ public class ProjectileMover : MonoBehaviour
                 //         monster.OnDamage(damage);
                 // }
                 targetMonster.OnDamage(damage);
+                Debug.Log("Monster is on Damage!");
             }
         }
-        //   //Destroy projectile on collision\
-      
-        //Removing trail from the projectile on cillision enter or smooth removing. Detached elements must have "AutoDestroying script"
-        foreach (var detachedPrefab in Detached)
-        {
-            if (detachedPrefab != null)
-            {
-                detachedPrefab.transform.parent = null;
-                Destroy(detachedPrefab, 1);
-            }
-        }
-        Destroy(gameObject);
+        else return;
     }
 
     
@@ -130,7 +131,6 @@ public class ProjectileMover : MonoBehaviour
         this.damage = damage;
         if(targetMonster == null) {
             Debug.LogError("Target Monster is Null");
-        } else
-            Debug.Log("Target Monster : " + this.targetMonster.name);
+        }
     }
 }

@@ -17,23 +17,23 @@ MonoBehaviour:
     grade: 1
     damage: 1
     attackRange: 5
-    attackSpeed: 1
+    attackSpeed: 2
     eUnitAttribute: 0
   - name: IUnit_01
     grade: 1
     damage: 1
     attackRange: 5
-    attackSpeed: 1
+    attackSpeed: 2
     eUnitAttribute: 1
   - name: LUnit_01
     grade: 1
     damage: 1
     attackRange: 5
-    attackSpeed: 1
+    attackSpeed: 2
     eUnitAttribute: 2
   - name: DUnit_01
     grade: 1
     damage: 1
     attackRange: 5
-    attackSpeed: 1
+    attackSpeed: 2
     eUnitAttribute: 3

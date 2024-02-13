@@ -20,11 +20,11 @@ public class UnitAttack : MonoBehaviour
     private float shortDis;
 
     private Monster targetMonster;
-    private float attackTimer;
-    private bool isAttacking = false;
+    [SerializeField] private float attackInterval; // 다음 공격 간격(초)
+    private float lastAttackTime; // 이전 공격 시간
+    private bool isAttacking; // 공격 중인지?
     [SerializeField] private AudioClip attackSound;
-    [SerializeField] private float animAttackSpeed = 1.0f;
-
+    private float animAttackSpeed;
     private static float ANIMATION_ATTACK_SPPED = 1.0f;
 
     // Start is called before the first frame update
@@ -38,23 +38,33 @@ public class UnitAttack : MonoBehaviour
 
     void Start() {
         weapon.SetUp(projectilePrefab);
-        attackTimer = 1/unitStats.AttackSpeed;
-        Debug.Log("AttackTimer :"  + attackTimer);
+        isAttacking = false;
+        // attackTimer = 1/unitStats.AttackSpeed;
+        lastAttackTime = Time.time; // 초기화
+        animAttackSpeed = AdjustAttackSpeed(unitStats.AttackSpeed);
+        anim.SetFloat("Attack_Speed", animAttackSpeed);
     }
 
     // Update is called once per frame
     private void Update()
     {   
+        float timeSinceLastAttack = Time.time - lastAttackTime;
+        if (timeSinceLastAttack >= 1/unitStats.AttackSpeed && !isAttacking) {
+            Debug.Log("OnAttack! " + timeSinceLastAttack);
+            isAttacking = true;
+            lastAttackTime = Time.time;
+        }
         // 타이머 업데이트
         // Debug.Log(attackTimer);
         // 공격 간격을 초과한 경우 공격시행
-        if(!isAttacking) {
-            if(attackTimer < 1/unitStats.AttackSpeed) {
-                attackTimer += Time.deltaTime;
-            } else {
-                isAttacking = true;
-            }
-        }
+        // if(!isAttacking) {
+        //     if(attackTimer < 1/unitStats.AttackSpeed) {
+        //         attackTimer += Time.deltaTime;
+        //     } else {
+        //         isAttacking = true;
+        //         Debug.Log(Time.time);
+        //     }
+        // }
 
         if(!unitMovement.isMoving && isAttacking && targetMonster == null) {
             // 현재 유닛의 위치에서 스피어 반경 attackRange에 있는 몬스터를 감지해서 collider 배열에 저장
@@ -72,21 +82,16 @@ public class UnitAttack : MonoBehaviour
                     }
                 }
                 targetMonster = target.GetComponent<Monster>();
-                this.transform.LookAt(targetMonster.transform);
-                
-                // 여기서 유닛의 공격 애니메이션 속도를 조절해야할듯??
-                // animAttackSpeed = AdjustAttackSpeed(unitStats.AttackSpeed);
-                // float animAttackSpeed = 1.0f;
-                anim.SetFloat("Attack_Speed", animAttackSpeed);
-                anim.SetTrigger("Attack");
-                // anim.SetFloat("attackSpeed", unitStats.AttackSpeed);
+                StartAttack(targetMonster);
+                isAttacking = false;  
+                targetMonster = null;
             } 
         }
     
     }
 
     private float AdjustAttackSpeed(float attackSpeed) {
-        return ANIMATION_ATTACK_SPPED + attackSpeed; 
+        return ANIMATION_ATTACK_SPPED * attackSpeed;
     }
 
     // public void SetUp(float newDamage, float newAttackSpeed, float newAttackRange) {
@@ -95,33 +100,17 @@ public class UnitAttack : MonoBehaviour
     //     this.attackRange = newAttackRange;
     // }
 
-    public void StartAttack()
+    // 투사체를 발사함
+    public void StartAttack(Monster targetMonster)
     {   
+        Debug.Log("타겟의 이름은 : " + targetMonster.MonsterName);
+        this.transform.LookAt(targetMonster.transform);        
+        anim.SetTrigger("Attack");
+
         if(targetMonster != null) {
             // weapon에서 공격 수행하도록
             weapon.Shooting(targetMonster, unitStats.Damage);
-
-            isAttacking = false;
-            attackTimer = 0.0f;
-            targetMonster = null;
-        
-        //line.enabled = true;
-
-        // Vector3 attackDirection = (targetMonster.transform.position - this.transform.position).normalized;
-        // Ray ray = new Ray(transform.position, attackDirection);
-        // RaycastHit hit;
-
-        // if (Physics.Raycast(ray, out hit, attackRange))
-        // {
-        //     Debug.Log("레이저 발사");
-        //     targetMonster?.onDamage(damage,hit);
-        //     // if (hit.collider.gameObject == targetMonster)
-        //     // {         
-        //     //     Monster target = hit.collider.GetComponent<Monster>();
-        //     //     target?.onDamage(damage, hit);
-        //     //     Debug.Log("공격 성공" + target.name);
-        //     // } 
-        // } 
         }
+        
     }
 }

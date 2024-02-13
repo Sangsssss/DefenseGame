@@ -7,7 +7,8 @@ public class Monster : MonoBehaviour, IDamageable
 {   
     // Start is called before the first frame update
     [SerializeField] private AudioClip monsterDeathSound;
-    private string monsterName;
+    [SerializeField] private string monsterName;
+    public string MonsterName {get {return monsterName;}}
     private int wave;
     public int Wave {get {return wave;}}
     private double hp;
@@ -85,7 +86,7 @@ public class Monster : MonoBehaviour, IDamageable
 
 
     public void SetUpMonster(MonsterData monsterData) {
-        this.monsterName = monsterData.monsterName;
+        this.monsterName = monsterData.monsterName + UnityEngine.Random.Range(0, 1000);
         this.wave = monsterData.wave;
         this.hp = monsterData.health;
         this.currentHP = hp;
