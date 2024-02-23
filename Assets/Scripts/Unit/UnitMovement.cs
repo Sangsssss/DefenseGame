@@ -19,15 +19,14 @@ public class UnitMovement : MonoBehaviour
     private Rigidbody rigidbody;
     private LineRenderer line;
     
-    Coroutine draw;
-
-    private RigidbodyConstraints originalContraints;
     public bool isMoving;
     public Action OnSell;
 
 
     public float sphereRadius = 0.3f;
     public Color gizmosColor = Color.red;
+
+    private static float ANIMATION_MOVE_SPEED = 1.0f;
     
       private void OnDrawGizmos()
     {
@@ -45,7 +44,6 @@ public class UnitMovement : MonoBehaviour
 
     void Start()
     {   
-
         // originalContraints = rigidbody.constraints;
         // line.startWidth = 0.3f;
         // line.endWidth = 0.3f;
@@ -65,7 +63,6 @@ public class UnitMovement : MonoBehaviour
         //     Freeze();
         //     return;
         // }
-
         // agent가 거의 멈춰있고 남은 거리가 매우 가까우며 장애물이 있다면 멈춰라
         if (!agent.isStopped && agent.remainingDistance <= 0.5f) {
             Collider[] colliders = Physics.OverlapSphere(transform.position, 0.5f, obstacleLayer);
@@ -90,6 +87,16 @@ public class UnitMovement : MonoBehaviour
         // if(draw != null) StopCoroutine(draw);
         isMoving = false;
         agent.avoidancePriority = 50;
+    }
+
+
+    // 1. agent 이동속도를 2배로 높임
+    public void UpMoveSpeed() {
+        agent.speed *= 2;
+    }
+
+    public void DownMoveSpeed() {
+        agent.speed /= 2;
     }
 
     
@@ -120,9 +127,14 @@ public class UnitMovement : MonoBehaviour
 
     public void Move(UnityEngine.Vector3 Destination) {
         UnityEngine.Vector3 direction = (Destination - transform.position).normalized;
-            // x와 z축의 방향에 따라 애니메이션을 결정합니다.
+         // x와 z축의 방향에 따라 애니메이션을 결정합니다.
         anim.SetFloat("Horizontal", direction.x);
         anim.SetFloat("Vertical", direction.z);
+            
+
+        // agent의 움직임이기 때문에, animation 조절하기는 애매 = 해결 방법이 있을까?    
+        // float animMoveSpeed = AdjustMoveSpeed(anim.velocity.magnitude * 0.01f);   
+        // anim.SetFloat("Move_Sepeed", animMoveSpeed);
 
         // transform.LookAt(Destination);
         agent.SetDestination(Destination);
@@ -136,6 +148,10 @@ public class UnitMovement : MonoBehaviour
         // if(draw != null) StopCoroutine(draw);
         //         draw = StartCoroutine(DrawPath());
         
+    }
+
+    private float AdjustMoveSpeed(float moveSpeed) {
+        return ANIMATION_MOVE_SPEED * (moveSpeed * 0.01f); 
     }
 
     public void NotReachDestination(NavMeshPath path) {

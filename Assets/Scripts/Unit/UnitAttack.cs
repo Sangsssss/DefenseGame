@@ -54,18 +54,12 @@ public class UnitAttack : MonoBehaviour
             isAttacking = true;
             lastAttackTime = Time.time;
         }
-        // 타이머 업데이트
-        // Debug.Log(attackTimer);
-        // 공격 간격을 초과한 경우 공격시행
-        // if(!isAttacking) {
-        //     if(attackTimer < 1/unitStats.AttackSpeed) {
-        //         attackTimer += Time.deltaTime;
-        //     } else {
-        //         isAttacking = true;
-        //         Debug.Log(Time.time);
-        //     }
-        // }
-
+    
+        // 움직임이 감지되면 현재 공격을 취소
+        if (unitMovement.isMoving && isAttacking) {
+            CancelAttack();
+        }
+    
         if(!unitMovement.isMoving && isAttacking && targetMonster == null) {
             // 현재 유닛의 위치에서 스피어 반경 attackRange에 있는 몬스터를 감지해서 collider 배열에 저장
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, unitStats.AttackRange, monsterLayerMask);
@@ -87,30 +81,24 @@ public class UnitAttack : MonoBehaviour
                 targetMonster = null;
             } 
         }
-    
     }
 
     private float AdjustAttackSpeed(float attackSpeed) {
         return ANIMATION_ATTACK_SPPED * attackSpeed;
     }
-
-    // public void SetUp(float newDamage, float newAttackSpeed, float newAttackRange) {
-    //     this.damage = newDamage;
-    //     this.attackSpeed = newAttackSpeed;
-    //     this.attackRange = newAttackRange;
-    // }
-
-    // 투사체를 발사함
     public void StartAttack(Monster targetMonster)
     {   
         Debug.Log("타겟의 이름은 : " + targetMonster.MonsterName);
         this.transform.LookAt(targetMonster.transform);        
         anim.SetTrigger("Attack");
 
-        if(targetMonster != null) {
-            // weapon에서 공격 수행하도록
-            weapon.Shooting(targetMonster, unitStats.Damage);
-        }
-        
+        if(targetMonster != null) weapon.Shooting(targetMonster, unitStats.Damage);
+    }
+
+    private void CancelAttack() {
+        // 공격을 취소하는 로직
+        Debug.Log("Attack Canceled!");
+        isAttacking = false;
+        targetMonster = null; // 대상 초기화 또는 필요한 경우 대상을 다른 것으로 설정
     }
 }

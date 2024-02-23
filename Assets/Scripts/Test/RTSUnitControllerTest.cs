@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Enums;
 
-public class RTSUnitController : MonoBehaviour
+public class RTSUnitControllerTest : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject spot;
@@ -17,6 +17,8 @@ public class RTSUnitController : MonoBehaviour
     public List<UnitStats> LightUnits { private set; get;}
     public List<UnitStats> DarknessUnits { private set; get;}
     private List<Unit> selectedUnitList;
+    public Unit unit;
+    
 
     void Awake()
     {
@@ -29,7 +31,13 @@ public class RTSUnitController : MonoBehaviour
     }
 
     void Start() {
-        
+        Vector3 position = new Vector3(0,0,0);
+        Unit newUnit = Instantiate(unit, position, Quaternion.identity);
+        if (newUnit != null)
+        {   
+            Debug.Log("유닛 생성");
+            AddUnitToList(newUnit);
+        }
     }
 
     // linked each type buttons by index
@@ -74,30 +82,11 @@ public class RTSUnitController : MonoBehaviour
     public void AddUnitToList(Unit newUnit)
     {   
         //UnitMovement unitMovement = newUnit.GetComponent<UnitMovement>();
-        UnitStats unitStats = newUnit.GetComponent<UnitStats>();
-        EUnitAttribute eUnitAttribute = unitStats.EUnitAttribute;
+        // UnitStats unitStats = newUnit.GetComponent<UnitStats>();
+        // EUnitAttribute eUnitAttribute = unitStats.EUnitAttribute;
 
         AllUnits.Add(newUnit);
         
-        switch(eUnitAttribute)
-        {
-            case EUnitAttribute.FIRE:
-                FireUnits.Add(unitStats);
-                UIManager.instance.UpdateUnitStatus(eUnitAttribute, FireUnits.Count);
-                break;
-            case EUnitAttribute.ICE:
-                IceUnits.Add(unitStats);
-                UIManager.instance.UpdateUnitStatus(eUnitAttribute, IceUnits.Count);
-                break;
-            case EUnitAttribute.LIGHT:
-                LightUnits.Add(unitStats);
-                UIManager.instance.UpdateUnitStatus(eUnitAttribute, LightUnits.Count);
-                break;
-            case EUnitAttribute.DARKNESS:
-                DarknessUnits.Add(unitStats);
-                UIManager.instance.UpdateUnitStatus(eUnitAttribute, DarknessUnits.Count);
-                break;
-        }
     }
 
     public void MoveSelected(Vector3 Destination) {
@@ -164,9 +153,10 @@ public class RTSUnitController : MonoBehaviour
         newUnit.SelectUnit();
         selectedUnitList.Add(newUnit);
         // UnitStauts
-        if(selectedUnitList.Count <= 1) UIManager.instance.ShowUnitStatus(newUnit.UnitStats);
-        else UIManager.instance.RemoveUnitStatus(); 
+        // if(selectedUnitList.Count <= 1) UIManager.instance.ShowUnitStatus(newUnit.UnitStats);
+        // else UIManager.instance.RemoveUnitStatus(); 
     }
+
     private void DeselectUnit(Unit newUnit) {
         newUnit.DeselectUnit();
         selectedUnitList.Remove(newUnit);

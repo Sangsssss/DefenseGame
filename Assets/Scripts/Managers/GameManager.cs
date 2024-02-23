@@ -4,13 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{
+{   
+    public RTSUnitController rTSUnitController;
+    public MonsterSpawner monsterSpawner;
     private AudioSource backgroundMusic;
     [SerializeField] private AudioClip shuffleCardSound;
     [SerializeField] private AudioClip drawCardSound;
     [SerializeField] private AudioClip upgradeSound;
     public enum GameStatus {
         Start, Spawn, Ready, GameOver
+    }
+    private enum GameSpeed {
+        Normal, X2
     }
     public GameStatus gameStatus;
 
@@ -25,6 +30,7 @@ public class GameManager : MonoBehaviour
     public int life;
 
     public Enums.SpendType spendType;
+    private GameSpeed gameSpeed;
     
     private Dictionary<Enums.SpendType, int> spendCosts;
 
@@ -50,6 +56,7 @@ public class GameManager : MonoBehaviour
         goldCount = 100;
         life = 20;
         currentLife = life;
+
         spendCosts = new Dictionary<Enums.SpendType, int>()
         {
         { Enums.SpendType.DRAW, 2 },
@@ -145,6 +152,25 @@ public class GameManager : MonoBehaviour
 
     public void FlipRewardCard() {
         backgroundMusic.PlayOneShot(drawCardSound);
+    }
+
+    // 일반 속도, 2배 속도
+    public void GameSpeedUp() {
+        if(gameSpeed != GameSpeed.X2) {
+            gameSpeed = GameSpeed.X2;
+            //1. Unit Controller에서 유닛의 이동속도 및 공격속도를 2배로
+            rTSUnitController.UpUnitSpeed();
+            //2. Monster Spawner에서 Monster의 이동속도를 2배로
+        }
+ 
+    }
+    public void GameSpeedDown() {
+        if(gameSpeed != GameSpeed.Normal) {
+            gameSpeed = GameSpeed.Normal;
+            //1. Unit Controller에서 유닛의 이동속도 및 공격속도를 2배로
+            rTSUnitController.DownUnitSpeed();
+            //2. Monster Spawner에서 Monster의 이동속도를 2배로
+        }
     }
 
 }

@@ -63,18 +63,6 @@ public class ProjectileMover : MonoBehaviour
         // }
         Debug.Log(collision.gameObject.GetComponent<Monster>().MonsterName + "," + targetMonster.MonsterName);
         if(collision.gameObject == targetMonster.gameObject) {
-            //   //Destroy projectile on collision\
-            //Removing trail from the projectile on cillision enter or smooth removing. Detached elements must have "AutoDestroying script"
-            foreach (var detachedPrefab in Detached)
-            {
-                if (detachedPrefab != null)
-                {
-                    detachedPrefab.transform.parent = null;
-                    Destroy(detachedPrefab, 1);
-                }
-            }
-            Destroy(gameObject);
-
             Debug.Log(collision.gameObject.name + "와 " + targetMonster.name + "이 같습니다.");
             //Lock all axes movement and rotation
             rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -120,6 +108,17 @@ public class ProjectileMover : MonoBehaviour
                 // }
                 targetMonster.OnDamage(damage);
                 Debug.Log("Monster is on Damage!");
+                //Destroy projectile on collision
+                //Removing trail from the projectile on cillision enter or smooth removing. Detached elements must have "AutoDestroying script"
+                foreach (var detachedPrefab in Detached)
+                {
+                    if (detachedPrefab != null)
+                    {
+                        detachedPrefab.transform.parent = null;
+                        Destroy(detachedPrefab, 1);
+                    }
+                }
+                Destroy(gameObject);
             }
         }
         else return;

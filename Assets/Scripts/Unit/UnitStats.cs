@@ -39,4 +39,13 @@ public class UnitStats : MonoBehaviour
         attackSpeed = newUnitStat.AttackSpeed;
     }
 
+      // 1. agent 이동속도를 2배로 높임
+    public void UpAttackSpeed() {
+        attackSpeed *= 2;
+    }
+
+    public void DownAttackSpeed() {
+        attackSpeed /= 2;
+    }
+
 }
